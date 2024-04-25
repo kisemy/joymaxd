@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>PDFs | Ruby on Rails</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= render "layouts/shared/header" %>
+    <div class="container mt-3">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+<div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+          <tr class="top">
+            <td colspan="4">
+              <table>
+                <tr>
+                  <td class="title">
+                    <%= image_tag wicked_pdf_asset_base64('company_logo.png') %>
+                  </td>
+
+                  <td>
+                    Invoice #: <b><%= @invoice.id %></b>
+                    <br>
+                    Created: <b><%= @invoice.created_at.strftime('%d/%m/%Y') %></b>
+                    <br>
+                    Due: <b><%= (@invoice.created_at + 1.month).strftime('%d/%m/%Y') %></b>
+                    <br>
+                   
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr class="information">
+            <td colspan="4">
+              <table>
+                <tr>
+                  <td>
+                    <b><%= @invoice.customer_name %></b><br>
+                    <%= @invoice.address %><br>
+                  
+                    <i class="fas fa-phone"></i> <%= @invoice.contact_name %>
+                  </td>
+
+                  <td>
+                    <b><%= @invoice.customer_name %></b><br>
+                    <%= @invoice.address %><br>
+                  
+                    <i class="fas fa-phone"></i> <%= @invoice.contact_name %>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <tr class="heading">
+            <td>Payment Method</td>
+            <td colspan="2"></td>
+            <td class="right">Cache</td>
+          </tr>
+
+          <tr class="details">
+            <td>Delivery Method</td>
+            <td colspan="2"></td>
+            <td class="right">1000</td>
+          </tr>
+
+          <tr class="heading">
+            <td>Item</td>
+            <td class="right">Price</td>
+            <td class="right">Qty</td>
+            <td>Total</td>
+          </tr>
+
+
+  
+
+
+
+
+          <% @invoice.invoice_lines.each do |invoice_line| %>
+            <tr class="item">
+                <td>
+                    <%= invoice_line.charge_type %><br>
+                    <small><%= invoice_line.description %></small>
+                </td>
+
+                <td class="right">
+                    <%= number_to_currency(invoice_line.unit_price) %>
+                </td>
+
+                <td class="right">
+                    x <%= invoice_line.quantity %>
+                </td>
+
+                <td>
+                    
+                </td>
+            </tr>
+          <% end %>
+
+          <tr>
+            <td colspan="4"></td>
+          </tr>
+
+          <tr>
+            <td colspan="2"></td>
+            <td><b>Subtotal</b></td>
+           
+          </tr>
+
+          <tr>
+            <td colspan="2"></td>
+         
+           
+          </tr>
+
+          <tr>
+            <td colspan="2"></td>
+           
+          
+          </tr>
+
+          <tr class="heading">
+            <td colspan="2"></td>
+            <td><b>TOTAL:</b></td>
+            <td>
+              
+            </td>
+          </tr>
+        </table>
+    </div>

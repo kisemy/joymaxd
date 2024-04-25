@@ -1,0 +1,35 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  payment_date: 2023-05-27
+  paying_account_code: MyText
+  paying_acc_description: MyText
+  prepared_by: MyText
+  mode_of_payment: MyText
+  payment_description: MyText
+  status: MyText
+  documentno: MyText
+  release_date: 2023-05-27
+  posted: MyText
+  amount: 9.99
+  payee_code: MyText
+  payee_name: MyText
+  account_type: MyText
+  category_type: MyText
+
+two:
+  payment_date: 2023-05-27
+  paying_account_code: MyText
+  paying_acc_description: MyText
+  prepared_by: MyText
+  mode_of_payment: MyText
+  payment_description: MyText
+  status: MyText
+  documentno: MyText
+  release_date: 2023-05-27
+  posted: MyText
+  amount: 9.99
+  payee_code: MyText
+  payee_name: MyText
+  account_type: MyText
+  category_type: MyText

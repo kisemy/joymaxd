@@ -1,0 +1,60 @@
+
+
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Bank Form</h5>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a>Forms</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <strong>Basic Form</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+
+
+<%= form_with(model: cash, local: true) do |form| %>
+  <% if cash.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(cash.errors.count, "error") %> prohibited this cash from being saved:</h2>
+
+      <ul>
+        <% cash.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+
+
+  <div class="field">
+    <%= form.label :cash_name %>
+    <%= form.text_area :cash_name, {class: 'form-control'}  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :posting_group %>
+    <%= form.text_area :posting_group, {class: 'form-control'}  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :balance %>
+    <%= form.text_field :balance, {class: 'form-control'}  %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+
+ </div>
+</div>
+<% end %>

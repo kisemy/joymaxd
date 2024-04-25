@@ -1,0 +1,31 @@
+
+
+<h1 class="text-center">Create new Invoice</h1>
+
+<% if Client.all.count < 1 %>
+
+  <div class="alert alert-danger">
+    You have no clients to select yet! <br>
+    Please <%= link_to "create a client", new_client_path %> before creating a invoice!
+  </div>
+
+<% elsif current_user.accounts.count < 1 %>
+  <div class="alert alert-danger">
+    You have no accounts to choose from! <br>
+    Please <%= link_to "create a account", new_account_path %> with a client before creating a invoice!
+  </div>
+
+<% elsif Product.all.count < 1 %>
+
+  <div class="alert alert-danger">
+    You have no products to add to a invoice yet!
+    Please <%= link_to "create a product", new_product_path %> before creating a invoice!
+  </div>
+
+<% end %>
+
+<div class="p-5 border-dark border mt-5">
+
+  <%= render partial: 'invoice_form', locals: {invoice: @invoice}  %>
+
+</div>

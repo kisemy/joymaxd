@@ -1,0 +1,16 @@
+
+  <tr id="row-0">
+    <th scope="row" id="product-num" colspan="1">0</th>
+   
+    <td><%= invoice_line_field.text_field :charge_type, class: 'col-md-3' %></td>
+    <td><%= invoice_line_field.text_field :item_no, class: 'col-md-3' %></td>
+    <td><%= invoice_line_field.text_field :description, class: 'col-md-3' %></td>
+    <td><%= invoice_line_field.text_field :quantity, class: 'col-md-3' %></td>
+    <td><%= invoice_line_field.text_field :unit_price, class: 'col-md-3' %></td>
+    <td><%= invoice_line_field.text_field :amount, class: 'col-md-3' %></td>
+
+    <td><%= link_to "Delete", "#", class: 'remove-field' %></td>
+    <%= invoice_line_field.hidden_field :_destroy, as: :hidden %>
+
+
+  </tr>

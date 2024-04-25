@@ -1,0 +1,255 @@
+<h4>FINANCE RECEIPT</h4>
+<%= form_for @receipt, url: {controller: 'receipts', action: 'update', id: @receipt  } do |f| %>
+    <% hidden_field_tag(:receipt, :id) %>
+
+
+<div class="container-fluid page__heading-container">
+  <div class="page__heading d-flex align-items-center d-print-none">
+    <div class="flex">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+   
+      
+     
+      </ol>
+    </nav>    
+   
+    </div>
+  
+  </div>
+</div>
+<div class="container-fluid page__container">
+  
+  <div class="row">
+    <div class="col-md-9 offset-md-2">
+      <div class="card">
+        <div class="card-body">
+            <div class="badge badge-danger">OVERDUE</div>
+          
+          <div class="px-3">
+            <div class="d-flex justify-content-center flex-column text-center my-5 navbar-light">
+              <class="navbar-brand d-flex flex-column m-0" style="min-width: 0">
+               
+               <%= image_tag "joymax.png", :size => "850x105" %>
+                
+              </a>
+              <div class="text-muted">RECEIPT #MPS1234AD</div>
+            </div>
+            <div class="row mb-5">
+              
+
+              <div class="col-lg text-left">
+                <div class="text-label">TO (CUSTOMER)</div>
+                <p class="mb-6">
+                  <strong class="text-body">
+                
+                  <br>
+                 
+
+                </strong><br>
+                  3700 George Avenue<br>
+                  Mobile, AL 36602<br>
+                </p>
+                <div class="text-label">Due date</div>
+                Nov 1st, 2018
+              </div>
+
+
+               <div class="col-lg-right">
+                <div class="text-label">RCPT NUMBER</div>
+                #MPS1234AD
+              </div>
+              
+           
+    </div>
+      </div>
+            
+
+
+            
+           
+<div class="table-responsive">
+  <div class="col">
+  <table class="table table-bordered">
+
+          <thead class="text-center">
+            <tr class="bg-light">
+              <th scope="col">#</th>
+              <th scope="col" >receipt_account</th>
+              <th scope="col">Account Type</th>
+              <th scope="col" >Account No </th>
+              <th scope="col" >Account Name</th>
+              <th scope="col" >Amount</th>
+            
+             
+
+              <th scope="col"></th>
+
+            </tr>
+          </thead>
+
+          <tbody id="table-body" class="fields" >
+
+ <% @receipt.receipt_lines.each do |receipt_line| %>
+  <tr>
+   <td></td>
+    <td><%=paymentline.receipt_account %></td>
+    <td><%=paymentline.account_type %></td>
+    <td><%=paymentline.account_no %></td>
+    <td><%=paymentline.account_name %></td>
+    <td><%=paymentline.amount %></td>
+ 
+    
+  </tr>
+ <% end %>
+
+ 
+           
+          </tbody>
+
+        </table>
+ </div>
+</div>
+ 
+
+
+<div class="row border border-dark p-2">
+  <%= link_to "Add Product", add_field_path(format: :js), {method: :post, remote: true, id: "addProductBtn", class: 'btn btn-primary'} %>
+
+      <div class="col">
+
+      </div>
+
+      <div class="col">
+        <div class="row">
+          <div class="col">
+            Sub Total:
+          </div>
+          <div class="col">
+            <!--  we need to fix the precision on the totals at some point 
+            $ <= @invoice.amount_due %> -->
+          </div>
+        </div>
+
+        <div class="row font-weight-bold">
+          <div class="col">
+            Grand Total Due:
+          </div>
+          <div class="col">
+            <!--  we need to fix the precision on the totals at some point 
+            $ <= @invoice.grand_total unless request.url.match('/invoices/new')%>  -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row action">
+      <div class="col-10">
+      </div>
+
+      <div class="float-right col-2">
+        <%= f.submit "Update Invoice", class: 'btn btn-primary' %>
+      </div>
+
+    </div>
+
+
+
+ 
+
+
+
+
+<% end %>
+
+
+
+<div class="text-label">Notes</div>
+            <p class="text-muted">We appreciate your business. Should you need us to add VAT or extra notes let us know!</p>
+          </div>
+        
+
+<script type="text/javascript">
+
+
+    function deleteRow(row){
+      row.parentNode.deleteRow(row.rowIndex-1);
+      return true;
+    }
+
+    var deleteBtns = document.getElementsByClassName("remove-field");
+
+    for (var i=0; i<deleteBtns.length; i++){
+      deleteBtns[i].addEventListener('click', function(e){
+        e.preventDefault()
+        var elem = e.target;
+        var row = elem.parentNode.parentNode;
+        deleteRow(row);
+      });
+    }
+    $(".remove-field").on('click', function(e){
+      e.preventDefault()
+      var elem = e.target;
+      var row = elem.parentNode.parentNode;
+      deleteRow(row);
+    });
+
+    document.addEventListener("DOMContentLoaded", function(){
+
+      let tBody = document.getElementById("table-body");
+      let addBtn = document.getElementById("addProductBtn");
+
+      function nameFields(){
+        let selects = tBody.getElementsByTagName('select');
+        for (var i=0;i < selects.length; i++){
+          selects[i].name = `invoice[invoice_lines_attributes][${i}][invoice_line_id]`;
+          selects[i].id = `invoice[invoice_lines_attributes][${i}][invoice_line_id]`;
+          selects[i].parentElement.previousSibling.previousSibling.innerHTML = (i+1);
+          selects[i].parentNode.nextSibling.nextElementSibling.firstElementChild.name = `invoice[invoice_lines_attributes][${i}][charge_type]`;
+          selects[i].parentNode.nextSibling.nextElementSibling.firstElementChild.name = `invoice[invoice_lines_attributes][${i}][item_no]`;
+          selects[i].parentNode.nextSibling.nextElementSibling.firstElementChild.name = `invoice[invoice_lines_attributes][${i}][description]`;
+           
+
+          selects[i].parentNode.nextSibling.nextElementSibling.firstElementChild.name = `invoice[invoice_lines_attributes][${i}][quantity]`;
+          selects[i].parentNode.nextSibling.nextElementSibling.firstElementChild.id = `invoice[invoice_lines_attributes][${i}][units]`;
+
+
+
+        }
+      }
+
+      function numberProducts(){
+        let selects = tBody.getElementsByTagName('select');
+        for (var i=0;i < selects.length; i++){
+          selects[i].parentElement.previousSibling.previousSibling.append(i+1);
+        }
+      }
+
+      addBtn.addEventListener('click', function(){
+        setTimeout(nameFields, 300);
+      })
+
+      numberProducts();
+    });
+
+
+
+
+
+
+
+
+  </script>
+
+
+</div>
+
+
+
+
+
+
+
+<%= link_to 'Show', @invoice %> |
+<%= link_to 'Back', invoices_path %>

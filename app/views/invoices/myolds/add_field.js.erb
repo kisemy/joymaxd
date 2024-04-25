@@ -1,0 +1,30 @@
+
+$("#table-body").append(`
+  <tr id="input-group">
+    <th scope="row" id="product-num"></th>
+    
+    <td><input size="1em" class="form-control text-center" type="text" value="1" name="invoice[invoice_lines_attributes][0][charge_type]" id="invoice_invoice_lines_attributes_0_charge_type"></td>
+    
+    
+   <td><input size="1em" class="form-control text-center" type="text" value="1" name="invoice[invoice_lines_attributes][0][item_no]" id="invoice_invoice_lines_attributes_0_quantity"></td>
+
+
+  <td><input size="1em" class="form-control text-center" type="text" value="1" description="invoice[invoice_lines_attributes][0][description]" id="invoice_invoice_lines_attributes_0_description"></td>
+
+<td><input size="1em" class="form-control text-center" type="text" value="1" quantity="invoice[invoice_lines_attributes][0][quantity]" id="invoice_invoice_lines_attributes_0_quantity"></td>
+
+<td><input size="1em" class="form-control text-center" type="text" value="1" unit_price="invoice[invoice_lines_attributes][0][unit_price]" id="invoice_invoice_lines_attributes_0_quantity"></td>
+
+<td><input size="1em" class="form-control text-center" type="text" value="1" amount="invoice[invoice_lines_attributes][0][amount]" id="invoice_invoice_lines_attributes_0_amount"></td>
+
+<br>
+
+
+    <td><a class="btn btn-danger float-right remove-field" id="delete-row">Delete</a></td>
+
+
+
+  </tr>
+`)
+
+

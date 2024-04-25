@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Acc name:</strong>
+  <%= @acchart.acc_name %>
+</p>
+
+<p>
+  <strong>Acctype:</strong>
+  <%= @acchart.acctype %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @acchart.category %>
+</p>
+
+<p>
+  <strong>Accclass:</strong>
+  <%= @acchart.accclass %>
+</p>
+
+<p>
+  <strong>Balance:</strong>
+  <%= @acchart.balance %>
+</p>
+
+<%= link_to 'Edit', edit_acchart_path(@acchart) %> |
+<%= link_to 'Back', accharts_path %>

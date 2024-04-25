@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Paying account:</strong>
+  <%= @paymentline.paying_account %>
+</p>
+
+<p>
+  <strong>Account type:</strong>
+  <%= @paymentline.account_type %>
+</p>
+
+<p>
+  <strong>Accountno:</strong>
+  <%= @paymentline.accountno %>
+</p>
+
+<p>
+  <strong>Accountname:</strong>
+  <%= @paymentline.accountname %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @paymentline.amount %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @paymentline.description %>
+</p>
+
+<p>
+  <strong>Payment:</strong>
+  <%= @paymentline.payment_id %>
+</p>
+
+<%= link_to 'Edit', edit_paymentline_path(@paymentline) %> |
+<%= link_to 'Back', paymentlines_path %>

@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Accharts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Acc name</th>
+      <th>Acctype</th>
+      <th>Category</th>
+      <th>Accclass</th>
+      <th>Balance</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @accharts.each do |acchart| %>
+      <tr>
+        <td><%= acchart.acc_name %></td>
+        <td><%= acchart.acctype %></td>
+        <td><%= acchart.category %></td>
+        <td><%= acchart.accclass %></td>
+        <td><%= acchart.balance %></td>
+        <td><%= link_to 'Show', acchart %></td>
+        <td><%= link_to 'Edit', edit_acchart_path(acchart) %></td>
+        <td><%= link_to 'Destroy', acchart, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Acchart', new_acchart_path %>

@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Charge type:</strong>
+  <%= @invoice_line.charge_type %>
+</p>
+
+<p>
+  <strong>Item no:</strong>
+  <%= @invoice_line.item_no %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @invoice_line.description %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @invoice_line.quantity %>
+</p>
+
+<p>
+  <strong>Unit of measure:</strong>
+  <%= @invoice_line.unit_of_measure %>
+</p>
+
+<p>
+  <strong>Unit price:</strong>
+  <%= @invoice_line.unit_price %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @invoice_line.amount %>
+</p>
+
+<p>
+  <strong>Invoice:</strong>
+  <%= @invoice_line.invoice_id %>
+</p>
+
+<%= link_to 'Edit', edit_invoice_line_path(@invoice_line) %> |
+<%= link_to 'Back', invoice_lines_path %>

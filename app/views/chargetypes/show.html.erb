@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @chargetype.code %>
+</p>
+
+<p>
+  <strong>Charge description:</strong>
+  <%= @chargetype.charge_description %>
+</p>
+
+<%= link_to 'Edit', edit_chargetype_path(@chargetype) %> |
+<%= link_to 'Back', chargetypes_path %>

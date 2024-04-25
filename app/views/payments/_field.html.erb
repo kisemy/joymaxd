@@ -1,0 +1,47 @@
+<tr id="row-0 input-group">
+  <th scope="row" id="product-num"></th>
+
+  <div class="field">
+  </div>
+
+<td><%= ff.collection_select :account_type, Product.all, :id, :name, include_blank: 'Select a product' %></td>
+
+  <!-- <td><%#<%= ff.select :product_id, options_from_collection_for_select(Product.all, :name), include_blank: 'Select a product' %></td> -->
+
+  <div class="field">
+  </div>
+
+
+
+  <td><%= text_field :accountno, size: '1em', class: 'form-control text-center'  %></td>
+
+  <div class="field">
+  </div>
+
+  <td><%= text_field :description, size: '301em', class: 'form-control text-center' %></td>
+  <div class="field">
+  </div>
+
+
+ <td><%= text_field :amount, size: '1em', class: 'form-control text-center' %></td>
+  <div class="field">
+  </div>
+
+ 
+ <td><%= link_to "Delete", "", class: 'btn btn-danger float-right remove-field' %></td>
+   <div class="field">
+  </div>
+</tr>
+
+
+
+
+
+ 
+
+  
+
+  
+
+
+

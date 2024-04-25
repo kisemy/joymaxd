@@ -1,0 +1,31 @@
+
+$("#table-body").append(`
+  <tr id="input-group">
+    <th scope="row" id="product-num"></th>
+
+<td><%= select :charge_type, options_for_select(["Goods", "Service" ]), { prompt: ["Goods", "Service" ]}, { class: "custom-select" } %></td>
+<td><%= select :charge_type, options_for_select(["Goods", "Service" ]), { prompt: ["Goods", "Service" ]}, { class: "custom-select" } %></td>
+
+   <td><input size="1em" class="form-control text-center" type="text" value="1" name="invoice[invoice_lines_attributes][0][item_no]" id="invoice_invoice_lines_attributes_0_item_no"></td>
+
+  <td><input size="1em" class="form-control text-center" type="text" value="1" name="invoice[invoice_lines_attributes][0][description]" id="invoice_invoice_lines_attributes_0_description"></td>
+
+ <td><input size="1em" class="form-control text-center" type="text" value="1" name="invoice[invoice_lines_attributes][0][unit_of_measure]" id="invoice_invoice_lines_attributes_0_unit_of_measure"></td>
+
+<td><input size="1em" class="form-control text-center" type="text" value="1" name="invoice[invoice_lines_attributes][0][quantity]" id="invoice_invoice_lines_attributes_0_quantity"></td>
+
+<td><input size="1em" class="form-control text-center" type="text" value="1" name="invoice[invoice_lines_attributes][0][unit_price]" id="invoice_invoice_lines_attributes_0_unit_price"></td>
+
+<td><input size="1em" class="form-control text-center" type="text" value="1" amount="invoice[invoice_lines_attributes][0][quantity]"*"invoice[invoice_lines_attributes][0][unit_price]" id="invoice[invoice_lines_attributes][0][quantity]"*"invoice[invoice_lines_attributes][0][unit_price]"></td>
+
+<br>
+
+
+    <td><a class="btn btn-danger float-right remove-field" id="delete-row">Delete</a></td>
+
+
+
+  </tr>
+`)
+
+

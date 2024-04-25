@@ -1,0 +1,2 @@
+class Gledger < ApplicationRecord
+end

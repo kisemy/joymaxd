@@ -1,0 +1,12 @@
+
+  <tr id="input-group">
+
+    <th scope="row" id="product-num" class='text-center'></th>
+
+    <td><%= select_tag :product_id, options_from_collection_for_select(Product.all, :id, :name), include_blank: 'Select a product'%></td>
+
+    <td><input size="1em" class="form-control text-center" type="text" value="1" name="kehead[kelines_attributes][0][quantity]" id="kehead_kelines_attributes_0_quantity"></td>
+
+    <td><a class="btn btn-danger float-right remove-field" id='delete-row' href="">Delete</a></td>
+
+  </tr>

@@ -1,0 +1,29 @@
+<table class="container">
+  <tbody class="table table-hover">
+    <tr>
+      <th colspan="1">ID</th>
+      <th colspan="4">Client</th>
+      <th colspan="3">Status</th>
+      <th colspan="3">Amount Due</th>
+      <th colspan="3">Due Date</th>
+      <th class="text-center" colspan="6">Controls</th>
+    </tr>
+
+    <% if @invoices &&  @invoices.count > 1 %>
+
+      <% @invoices.each do |invoice| %>
+
+        <%= render partial: 'invoice_listing', locals: {invoice: invoice} %>
+
+      <% end %>
+
+    <% elsif keheads.count == 1 %>
+
+      <%= render partial: 'invoice_listing', locals: {invoice: invoices.first} %>
+
+    <% else %>
+      <h2>No Clients to Display!</h2>
+    <% end %>
+
+  </tbody>
+</table>

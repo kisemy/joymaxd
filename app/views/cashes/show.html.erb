@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Cash name:</strong>
+  <%= @cash.cash_name %>
+</p>
+
+<p>
+  <strong>Posting group:</strong>
+  <%= @cash.posting_group %>
+</p>
+
+<p>
+  <strong>Balance:</strong>
+  <%= @cash.balance %>
+</p>
+
+<%= link_to 'Edit', edit_cash_path(@cash) %> |
+<%= link_to 'Back', cashes_path %>

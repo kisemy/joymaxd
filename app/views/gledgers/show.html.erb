@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Accountno:</strong>
+  <%= @gledger.accountno %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @gledger.date %>
+</p>
+
+<p>
+  <strong>Documentno:</strong>
+  <%= @gledger.documentno %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @gledger.description %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @gledger.amount %>
+</p>
+
+<p>
+  <strong>Sourcetype:</strong>
+  <%= @gledger.sourcetype %>
+</p>
+
+<p>
+  <strong>Sourceno:</strong>
+  <%= @gledger.sourceno %>
+</p>
+
+<%= link_to 'Edit', edit_gledger_path(@gledger) %> |
+<%= link_to 'Back', gledgers_path %>

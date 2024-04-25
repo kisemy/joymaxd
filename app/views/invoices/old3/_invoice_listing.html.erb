@@ -1,0 +1,11 @@
+<tr>
+  <td colspan="1"><%= invoice.id %></td>
+  <td colspan="4"><%= invoice.custoner_name %></td>
+  <td colspan="3"><%= invoice.contactno %></td>
+  <td colspan="3"><%= link_to "Edit", edit_invoice_path(invoice), class: 'btn btn-info' %></td>
+  <td> <%= button_to "Delete", invoice_path(invoice), method: :delete, class: 'btn btn-danger' %></td>
+  <td><%= link_to "View", invoice_path(invoice), class: 'btn btn-primary' %></td>
+  
+</tr>
+
+

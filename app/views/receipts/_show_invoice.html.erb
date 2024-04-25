@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>PDFs | Ruby on Rails</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= render "layouts/shared/header" %>
+    <div class="container mt-3">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-8">
+        <h2>Invoice</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                Other Pages
+            </li>
+            <li class="breadcrumb-item active">
+                <strong>Invoice</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-4">
+        <div class="title-action">
+            <a href="#" class="btn btn-white"><i class="fa fa-pencil"></i> Edit </a>
+            <a href="#" class="btn btn-white"><i class="fa fa-check "></i> Save </a>
+            <a href="<%= url_for :controller => 'pages', :action => 'invoice_print' %>" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> Print Invoice </a>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+<div class="row">
+    <div class="col-lg-10">
+
+        <div class="ibox-content p-xl">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h5>From:</h5>
+                    <address>
+                        <strong>Inspinia, Inc.</strong><br/>
+                        106 Jorg Avenu, 600/10<br/>
+                        Chicago, VT 32456<br/>
+                        <abbr title="Phone">P:</abbr> (123) 601-4590
+                    </address>
+                </div>
+
+                <div class="col-sm-6 text-right">
+                    <h4>Invoice No.</h4>
+                    <h4 class="text-navy">INV-000567F7-00</h4>
+                    <span>To:</span>
+                    <address>
+                        <strong>Corporate, Inc.</strong><br/>
+                        112 Street Avenu, 1080<br/>
+                        Miami, CT 445611<br/>
+                        <abbr title="Phone">P:</abbr> (120) 9000-4321
+                    </address>
+                    <p>
+                        <span><strong>Invoice Date:</strong> Marh 18, 2014</span><br/>
+                        <span><strong>Due Date:</strong> March 24, 2014</span>
+                    </p>
+                </div>
+            </div>
+
+            
+<div class="table-responsive">
+  <div class="col">
+  <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Charge Type</th>
+          <th scope="col">Item No</th>
+          <th scope="col">Description</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Unit of Measure</th>
+          <th scope="col">Unit Price</th>
+          <th scope="col">Amount</th>
+         
+        </tr>
+      </thead>
+      <tbody>
+
+        <% @invoice.invoice_lines.each do |invoice_line| %>
+  <tr>
+   <td></td>
+    <td><%=invoice_line.charge_type %></td>
+    <td><%=invoice_line.item_no %></td>
+    <td><%=invoice_line.description %></td>
+    <td><%=invoice_line.quantity %></td>
+    <td><%=invoice_line.unit_of_measure %></td>
+    <td><%=invoice_line.unit_price %></td>
+    <td><%=invoice_line.amount %></td>
+  </tr>
+ <% end %>
+
+        
+
+      </tbody>
+    </table>
+  </div>
+</div>
+            </div>
+            <!-- /table-responsive -->
+
+            <table class="table invoice-total">
+                <tbody>
+                <tr>
+                    <td><strong>Sub Total :</strong></td>
+                    <td>$1026.00</td>
+                </tr>
+                <tr>
+                    <td><strong>TAX :</strong></td>
+                    <td>$235.98</td>
+                </tr>
+                <tr>
+                    <td><strong>TOTAL :</strong></td>
+                    <td>$1261.98</td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="text-right">
+                <button class="btn btn-primary"><i class="fa fa-dollar"></i> Make A Payment</button>
+            </div>
+
+            <div class="well m-t"><strong>Comments</strong>
+                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+

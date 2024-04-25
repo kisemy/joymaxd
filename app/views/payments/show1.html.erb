@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Payment date:</strong>
+  <%= @payment.payment_date %>
+</p>
+
+<p>
+  <strong>Paying account code:</strong>
+  <%= @payment.paying_account_code %>
+</p>
+
+<p>
+  <strong>Paying acc description:</strong>
+  <%= @payment.paying_acc_description %>
+</p>
+
+<p>
+  <strong>Prepared by:</strong>
+  <%= @payment.prepared_by %>
+</p>
+
+<p>
+  <strong>Mode of payment:</strong>
+  <%= @payment.mode_of_payment %>
+</p>
+
+<p>
+  <strong>Payment description:</strong>
+  <%= @payment.payment_description %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @payment.status %>
+</p>
+
+<p>
+  <strong>Documentno:</strong>
+  <%= @payment.documentno %>
+</p>
+
+<p>
+  <strong>Release date:</strong>
+  <%= @payment.release_date %>
+</p>
+
+<p>
+  <strong>Posted:</strong>
+  <%= @payment.posted %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @payment.amount %>
+</p>
+
+<p>
+  <strong>Payee code:</strong>
+  <%= @payment.payee_code %>
+</p>
+
+<p>
+  <strong>Payee name:</strong>
+  <%= @payment.payee_name %>
+</p>
+
+<p>
+  <strong>Account type:</strong>
+  <%= @payment.account_type %>
+</p>
+
+<p>
+  <strong>Category type:</strong>
+  <%= @payment.category_type %>
+</p>
+
+<%= link_to 'Edit', edit_payment_path(@payment) %> |
+<%= link_to 'Back', payments_path %>

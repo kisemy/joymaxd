@@ -1,0 +1,69 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Receipt date:</strong>
+  <%= @receipt.receipt_date %>
+</p>
+
+<p>
+  <strong>Bank code:</strong>
+  <%= @receipt.bank_code %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @receipt.description %>
+</p>
+
+<p>
+  <strong>Received by:</strong>
+  <%= @receipt.received_by %>
+</p>
+
+<p>
+  <strong>Receipt by:</strong>
+  <%= @receipt.receipt_by %>
+</p>
+
+<p>
+  <strong>Receipt mode:</strong>
+  <%= @receipt.receipt_mode %>
+</p>
+
+<p>
+  <strong>Receipt description:</strong>
+  <%= @receipt.receipt_description %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @receipt.status %>
+</p>
+
+<p>
+  <strong>Document no:</strong>
+  <%= @receipt.document_no %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @receipt.amount %>
+</p>
+
+<p>
+  <strong>Received from:</strong>
+  <%= @receipt.received_from %>
+</p>
+
+<p>
+  <strong>Account type:</strong>
+  <%= @receipt.account_type %>
+</p>
+
+<p>
+  <strong>Accountno:</strong>
+  <%= @receipt.accountno %>
+</p>
+
+<%= link_to 'Edit', edit_receipt_path(@receipt) %> |
+<%= link_to 'Back', receipts_path %>

@@ -1,0 +1,64 @@
+<%= form_with(model: invoice) do |form| %>
+  <% if invoice.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
+
+      <ul>
+        <% invoice.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+  <div class="field">
+    <%= form.label :customer_no %>
+    <%= form.text_area :customer_no %>
+  </div>
+
+  <div class="field">
+    <%= form.label :custoner_name %>
+    <%= form.text_area :custoner_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contactno %>
+    <%= form.text_area :contactno %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contact_name %>
+    <%= form.text_area :contact_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_area :address %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %>
+    <%= form.text_area :city %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_select :date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sale_person_code %>
+    <%= form.text_area :sale_person_code %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sale_person_name %>
+    <%= form.text_area :sale_person_name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

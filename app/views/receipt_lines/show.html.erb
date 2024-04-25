@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Receipt date:</strong>
+  <%= @receipt_line.receipt_date %>
+</p>
+
+<p>
+  <strong>Receipt account:</strong>
+  <%= @receipt_line.receipt_account %>
+</p>
+
+<p>
+  <strong>Account type:</strong>
+  <%= @receipt_line.account_type %>
+</p>
+
+<p>
+  <strong>Account no:</strong>
+  <%= @receipt_line.account_no %>
+</p>
+
+<p>
+  <strong>Account name:</strong>
+  <%= @receipt_line.account_name %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @receipt_line.amount %>
+</p>
+
+<p>
+  <strong>Invoiceno:</strong>
+  <%= @receipt_line.invoiceno %>
+</p>
+
+<p>
+  <strong>Receipt:</strong>
+  <%= @receipt_line.receipt_id %>
+</p>
+
+<%= link_to 'Edit', edit_receipt_line_path(@receipt_line) %> |
+<%= link_to 'Back', receipt_lines_path %>

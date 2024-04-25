@@ -1,0 +1,27 @@
+<%= form_with(model: chargetype, local: true) do |form| %>
+  <% if chargetype.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(chargetype.errors.count, "error") %> prohibited this chargetype from being saved:</h2>
+
+      <ul>
+        <% chargetype.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :code %>
+    <%= form.text_area :code %>
+  </div>
+
+  <div class="field">
+    <%= form.label :charge_description %>
+    <%= form.text_area :charge_description %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

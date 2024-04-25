@@ -1,0 +1,123 @@
+<div class="row mb-5">
+
+  <div class="col">
+    <%= link_to "Send", send_invoice_url(id: @invoice, only_path: true), class: 'btn btn-primary' %>
+    <%= link_to "Edit", edit_invoice_path(@invoice), class: 'btn btn-warning' %>
+    <%= link_to "Delete", invoice_path(@invoice), method: :delete, class: 'btn btn-danger float-right' %>
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col">
+    <h3 class="bg-info pr-5 pl-5 text-white">Invoice for <%= @invoice.account.client.business_name %></h3>
+  </div>
+
+
+  <div class="col">
+    <%= image_tag "logo.png", class: 'float-right' %>
+  </div>
+</div>
+
+
+<div class="row p-2 border-right border-left border-top border-dark">
+
+  <div class="col">
+    <h4>Users Business Name</h4>
+    <address class="">
+      1 Address Here City, State 00000 (user address)
+    </address>
+  </div>
+
+  <div class="col">
+    <h2>Invoice #: <%= @invoice.id %></h2>
+  </div>
+</div>
+
+<div class="row border-left border-right border-dark">
+
+  <div class="col m-4">
+    <h4>Bill To</h4>
+    <p>
+      <%= @invoice.account.client.name %>
+      <br>
+      <%= @invoice.account.client.business_name %>
+      <address class="">
+        <%= @invoice.account.client.address %>
+      </address>
+      <%= @invoice.account.client.phone_number %>
+      <br>
+      <a href="<%= @invoice.account.client.email %>"><%= @invoice.account.client.email %></a>
+    </p>
+  </div>
+
+  <div class="col">
+    <h5>Date Created: <%= @invoice.created_at.strftime("%Y-%m-%d") %></h5>
+    <br>
+    <h5>Date Due:  <%= @invoice.due_time.strftime("%Y-%m-%d") %></h5>
+  </div>
+</div>
+
+<div class="row border border-dark bg-dark">
+  <div class="col">
+    <table class="table table-dark">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Product</th>
+          <th scope="col" colspan="2">Description</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Rate</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @invoice.invoice_products.each do |invoice_product| %>
+          <tr>
+            <th scope="row" colspan="1"><%= invoice_product.product.id %></th>
+            <td><%= invoice_product.product.name %></td>
+            <td colspan="2"><%= invoice_product.product.description %></td>
+            <td><%= invoice_product.quantity %></td>
+            <td>$<%= invoice_product.product.price %></td>
+            <td>$<%= invoice_product.total %><td>
+          </tr>
+
+        <% end %>
+
+      </tbody>
+    </table>
+
+
+  </div>
+</div>
+
+<br>
+
+<div class="row bg-info text-white pt-2 pb-">
+
+  <div class="col-7">
+
+  </div>
+
+  <div class="col-5">
+    <div class="row">
+      <div class="col">
+        Sub Total:
+      </div>
+      <div class="col">
+        <!--  we need to fix the precision on the totals at some point -->
+        $<%= invoice.grand_total.to_f.round(2) %>
+      </div>
+    </div>
+
+    <div class="row font-weight-bold">
+      <div class="col">
+        Grand Total Due:
+      </div>
+      <div class="col">
+        <!--  we need to fix the precision on the totals at some point -->
+        $<%= invoice.grand_total.to_f.round(2) %>
+      </div>
+    </div>
+  </div>
+</div>

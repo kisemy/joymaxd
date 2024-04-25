@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer_name: MyText
+  contactno: MyText
+  contact_name: MyText
+  address: MyText
+  city: MyText
+  date: 2023-05-24
+  sales_person_code: MyText
+  sales_person_name: MyText
+
+two:
+  customer_name: MyText
+  contactno: MyText
+  contact_name: MyText
+  address: MyText
+  city: MyText
+  date: 2023-05-24
+  sales_person_code: MyText
+  sales_person_name: MyText

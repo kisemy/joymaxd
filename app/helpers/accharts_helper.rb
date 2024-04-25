@@ -1,0 +1,2 @@
+module AcchartsHelper
+end

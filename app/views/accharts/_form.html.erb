@@ -1,0 +1,42 @@
+<%= form_with(model: acchart, local: true) do |form| %>
+  <% if acchart.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(acchart.errors.count, "error") %> prohibited this acchart from being saved:</h2>
+
+      <ul>
+        <% acchart.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :acc_name %>
+    <%= form.text_area :acc_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :acctype %>
+    <%= form.text_area :acctype %>
+  </div>
+
+  <div class="field">
+    <%= form.label :category %>
+    <%= form.text_area :category %>
+  </div>
+
+  <div class="field">
+    <%= form.label :accclass %>
+    <%= form.text_area :accclass %>
+  </div>
+
+  <div class="field">
+    <%= form.label :balance %>
+    <%= form.text_field :balance %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

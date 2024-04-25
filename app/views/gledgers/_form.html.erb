@@ -1,0 +1,72 @@
+
+
+  <div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Bank Form</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a>Forms</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <strong>Basic Form</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+
+
+<%= form_with(model: gledger, local: true) do |form| %>
+  <% if gledger.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(gledger.errors.count, "error") %> prohibited this gledger from being saved:</h2>
+
+      <ul>
+        <% gledger.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :accountno %>
+    <%= form.text_area :accountno %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_select :date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :documentno %>
+    <%= form.text_area :documentno %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.text_field :amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sourcetype %>
+    <%= form.text_area :sourcetype %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sourceno %>
+    <%= form.text_area :sourceno %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

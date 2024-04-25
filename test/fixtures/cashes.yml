@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cash_name: MyText
+  posting_group: MyText
+  balance: 9.99
+
+two:
+  cash_name: MyText
+  posting_group: MyText
+  balance: 9.99

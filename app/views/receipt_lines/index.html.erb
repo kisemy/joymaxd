@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Receipt Lines</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Receipt date</th>
+      <th>Receipt account</th>
+      <th>Account type</th>
+      <th>Account no</th>
+      <th>Account name</th>
+      <th>Amount</th>
+      <th>Invoiceno</th>
+      <th>Receipt</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @receipt_lines.each do |receipt_line| %>
+      <tr>
+        <td><%= receipt_line.receipt_date %></td>
+        <td><%= receipt_line.receipt_account %></td>
+        <td><%= receipt_line.account_type %></td>
+        <td><%= receipt_line.account_no %></td>
+        <td><%= receipt_line.account_name %></td>
+        <td><%= receipt_line.amount %></td>
+        <td><%= receipt_line.invoiceno %></td>
+        <td><%= receipt_line.receipt_id %></td>
+        <td><%= link_to 'Show', receipt_line %></td>
+        <td><%= link_to 'Edit', edit_receipt_line_path(receipt_line) %></td>
+        <td><%= link_to 'Destroy', receipt_line, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Receipt Line', new_receipt_line_path %>

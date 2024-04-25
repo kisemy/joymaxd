@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Invoices</h1>
+<div class="card">
+
+<div class="table-responsive border-bottom" data-toggle="lists" data-lists-values='["js-lists-values-customer-name"]'>
+
+  <%# <div class="search-form search-form--light m-3">
+    <input type="text" class="form-control search" placeholder="Search">
+    <button class="btn" type="button" role="button"><i class="material-icons">search</i></button>
+  </div>
+   %>
+  <table class="table mb-0 thead-border-top-0">
+  <thead>
+    <tr>
+      <th>Customer no</th>
+      <th>Custoner name</th>
+      <th>Contactno</th>
+      <th>Contact name</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>Date</th>
+      <th>Sale person code</th>
+      <th>Sale person name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @invoices.each do |invoice| %>
+      <tr>
+        <td><%= invoice.customer_no %></td>
+        <td><%= invoice.custoner_name %></td>
+        <td><%= invoice.contactno %></td>
+        <td><%= invoice.contact_name %></td>
+        <td><%= invoice.address %></td>
+        <td><%= invoice.city %></td>
+        <td><%= invoice.date %></td>
+        <td><%= invoice.sale_person_code %></td>
+        <td><%= invoice.sale_person_name %></td>
+        <td><%= link_to 'Show', invoice %></td>
+        <td><%= link_to 'Edit', edit_invoice_path(invoice) %></td>
+        <td><%= link_to 'Destroy', invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
+
+</div>
+
+<br>
+
+<%= link_to 'New Invoice', new_invoice_path %>

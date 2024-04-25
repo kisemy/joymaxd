@@ -1,0 +1,54 @@
+
+
+
+<p id="notice"><%= notice %></p>
+
+<h1>Receipts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Receipt date</th>
+      <th>Bank code</th>
+      <th>Description</th>
+      <th>Received by</th>
+      <th>Receipt by</th>
+      <th>Receipt mode</th>
+      <th>Receipt description</th>
+      <th>Status</th>
+      <th>Document no</th>
+      <th>Amount</th>
+      <th>Received from</th>
+      <th>Account type</th>
+      <th>Accountno</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @receipts.each do |receipt| %>
+      <tr>
+        <td><%= receipt.receipt_date %></td>
+        <td><%= receipt.bank_code %></td>
+        <td><%= receipt.description %></td>
+        <td><%= receipt.received_by %></td>
+        <td><%= receipt.receipt_by %></td>
+        <td><%= receipt.receipt_mode %></td>
+        <td><%= receipt.receipt_description %></td>
+        <td><%= receipt.status %></td>
+        <td><%= receipt.document_no %></td>
+        <td><%= receipt.amount %></td>
+        <td><%= receipt.received_from %></td>
+        <td><%= receipt.account_type %></td>
+        <td><%= receipt.accountno %></td>
+        <td><%= link_to 'Show', receipt %></td>
+        <td><%= link_to 'Edit', edit_receipt_path(receipt) %></td>
+        <td><%= link_to 'Destroy', receipt, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Receipt', new_receipt_path %>

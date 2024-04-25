@@ -1,0 +1,24 @@
+
+<!-- This partial is currently not being used -->
+<!-- If you see this in the page source then somethings not right -->
+<tr id="row-0 input-group">
+  <th scope="row" id="product-num"></th>
+
+  <div class="field">
+  </div>
+  <td><%= ff.collection_select :product_id, Product.all, :id, :name, include_blank: 'Select a product' %></td>
+  <!-- <td><%#<%= ff.select :product_id, options_from_collection_for_select(Product.all, :id, :name), include_blank: 'Select a product' %></td> -->
+
+
+  <div class="field">
+  </div>
+  <td><%= ff.text_field :quantity, size: '1em', class: 'form-control text-center', onchange: 'showTotal(this)' %></td>
+
+  <div class="field">
+  </div>
+  <td><%= ff.text_field :total, size: '2em', class: 'form-control text-center', readonly: true %></td>
+
+  <div class="field">
+  </div>
+  <td><%= link_to "Delete", "", class: 'btn btn-danger float-right remove-field' %></td>
+</tr>

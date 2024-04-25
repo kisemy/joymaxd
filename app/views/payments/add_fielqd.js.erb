@@ -1,0 +1,21 @@
+
+$("#table-body").append(`
+  <tr id="input-group">
+    <th scope="row" id="product-num"></th>
+           
+
+<td><%= text_field :account_type, size: '1em', class: 'form-control text-center'  %></td>
+
+  <td><%= text_field :accountno, size: '1em', class: 'form-control text-center'  %></td>
+
+  <td><%= text_field :description, size: '301em', class: 'form-control text-center' %></td>
+ 
+ <td><%= text_field :amount, size: '1em', class: 'form-control text-center' %></td>
+ 
+ <td><%= link_to "Delete", "", class: 'btn btn-danger float-right remove-field' %></td>
+ 
+ 
+  </tr>
+`)
+
+

@@ -1,0 +1,2 @@
+class Acchart < ApplicationRecord
+end

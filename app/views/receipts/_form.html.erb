@@ -1,0 +1,82 @@
+<%= form_with(model: receipt, local: true) do |form| %>
+  <% if receipt.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(receipt.errors.count, "error") %> prohibited this receipt from being saved:</h2>
+
+      <ul>
+        <% receipt.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :receipt_date %>
+    <%= form.date_select :receipt_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bank_code %>
+    <%= form.text_area :bank_code %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :received_by %>
+    <%= form.text_area :received_by %>
+  </div>
+
+  <div class="field">
+    <%= form.label :receipt_by %>
+    <%= form.text_area :receipt_by %>
+  </div>
+
+  <div class="field">
+    <%= form.label :receipt_mode %>
+    <%= form.text_area :receipt_mode %>
+  </div>
+
+  <div class="field">
+    <%= form.label :receipt_description %>
+    <%= form.text_area :receipt_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_area :status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :document_no %>
+    <%= form.text_area :document_no %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.text_field :amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :received_from %>
+    <%= form.text_area :received_from %>
+  </div>
+
+  <div class="field">
+    <%= form.label :account_type %>
+    <%= form.text_area :account_type %>
+  </div>
+
+  <div class="field">
+    <%= form.label :accountno %>
+    <%= form.text_area :accountno %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

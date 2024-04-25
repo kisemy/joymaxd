@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @item.description %>
+</p>
+
+<p>
+  <strong>Units of measure:</strong>
+  <%= @item.units_of_measure %>
+</p>
+
+<p>
+  <strong>Unit cost:</strong>
+  <%= @item.unit_cost %>
+</p>
+
+<p>
+  <strong>Unit price:</strong>
+  <%= @item.unit_price %>
+</p>
+
+<p>
+  <strong>Inventory:</strong>
+  <%= @item.inventory %>
+</p>
+
+<p>
+  <strong>Shelf no:</strong>
+  <%= @item.shelf_no %>
+</p>
+
+<p>
+  <strong>Item category:</strong>
+  <%= @item.item_category %>
+</p>
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>

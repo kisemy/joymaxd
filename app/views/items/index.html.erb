@@ -1,0 +1,65 @@
+
+
+
+
+
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+            <!--<%= yield %>-->
+
+
+<p id="notice"><%= notice %></p>
+
+<h1>Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Units of measure</th>
+      <th>Unit cost</th>
+      <th>Unit price</th>
+      <th>Inventory</th>
+      <th>Shelf no</th>
+      <th>Item category</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @items.each do |item| %>
+      <tr>
+        <td><%= item.description %></td>
+        <td><%= item.units_of_measure %></td>
+        <td><%= item.unit_cost %></td>
+        <td><%= item.unit_price %></td>
+        <td><%= item.inventory %></td>
+        <td><%= item.shelf_no %></td>
+        <td><%= item.item_category %></td>
+        <td><%= link_to 'Show', item %></td>
+        <td><%= link_to 'Edit', edit_item_path(item) %></td>
+        <td><%= link_to 'Destroy', item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Item', new_item_path %>
+</div>
+</div>

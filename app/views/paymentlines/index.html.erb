@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Paymentlines</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Paying account</th>
+      <th>Account type</th>
+      <th>Accountno</th>
+      <th>Accountname</th>
+      <th>Amount</th>
+      <th>Description</th>
+      <th>Payment</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @paymentlines.each do |paymentline| %>
+      <tr>
+        <td><%= paymentline.paying_account %></td>
+        <td><%= paymentline.account_type %></td>
+        <td><%= paymentline.accountno %></td>
+        <td><%= paymentline.accountname %></td>
+        <td><%= paymentline.amount %></td>
+        <td><%= paymentline.description %></td>
+        <td><%= paymentline.payment_id %></td>
+        <td><%= link_to 'Show', paymentline %></td>
+        <td><%= link_to 'Edit', edit_paymentline_path(paymentline) %></td>
+        <td><%= link_to 'Destroy', paymentline, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Paymentline', new_paymentline_path %>
