@@ -41,6 +41,7 @@
 
   <thead>
     <tr>
+      <th>Client Code</th>
       <th>Customer name</th>
       <th>Contactno</th>
       <th>Contact name</th>
@@ -56,6 +57,7 @@
   <tbody>
     <% @customers.each do |customer| %>
       <tr>
+        <td><%= customer.clientcode %></td>
         <td><%= customer.customer_name %></td>
         <td><%= customer.contactno %></td>
         <td><%= customer.contact_name %></td>

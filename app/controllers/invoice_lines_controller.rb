@@ -1,5 +1,5 @@
 class InvoiceLinesController < ApplicationController
-  before_action :set_invoice_line, only: %i[ show edit update destroy ]
+ # before_action :set_invoice_line, only: %i[ show edit update destroy ]
 
 
 
@@ -24,18 +24,43 @@ class InvoiceLinesController < ApplicationController
 
   # POST /invoice_lines or /invoice_lines.json
   def create
-    @invoice_line = InvoiceLine.new(invoice_line_params)
-    @invoice_line.amount =@invoice_line.unit_price * @invoice_line.quantity
-    respond_to do |format|
-      if @invoice_line.save
-        format.html { redirect_to invoice_line_url(@invoice_line), notice: "Invoice line was successfully created." }
-        format.json { render :show, status: :created, location: @invoice_line }
-      else
-        format.html { render :new, status: :unprocessable_entity }
+   @invoice_line = InvoiceLine.new(invoice_line_params)
+   @invoice_line.amount =@invoice_line.unit_price * @invoice_line.quantity
+   respond_to do |format|
+     if @invoice_line.save
+      format.html { redirect_to invoice_line_url(@invoice_line), notice: "Invoice line was successfully created." }
+       format.json { render :show, status: :created, location: @invoice_line }
+     else
+       format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @invoice_line.errors, status: :unprocessable_entity }
       end
-    end
+   end
   end
+  
+   
+   
+   #def create
+    # @item = Item.find_by(item_no: params[:item_no])
+   #  @invoice_line = InvoiceLine.new(invoice_line_params.merge(item: @item))
+
+    # if @invoice_line.save
+     #  redirect_to @invoice_line, notice: 'Invoice line was successfully created.'
+    # else
+    #   render :new
+   #  end
+  # end 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   # PATCH/PUT /invoice_lines/1 or /invoice_lines/1.json
   def update
@@ -59,6 +84,14 @@ class InvoiceLinesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+
+
+
+
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

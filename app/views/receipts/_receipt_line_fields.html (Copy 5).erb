@@ -1,0 +1,108 @@
+<!-- app/views/receipts/_receipt_line_fields.html.erb -->
+<tr class="receipt-line-fields">
+
+  <div class="form-group">
+
+  <td>
+   
+ 
+   <%= f.select :account_type, options_for_select([['Bank', 'bank'], ['Customer', 'customer'], ['G/L Account', 'g/l_account']], f.object.account_type), {}, { id: 'account_type' } %> 
+    
+   </td> 
+    
+<td>
+
+ <div id="account_no_select">
+  
+     <%= f.select :account_no, [], { prompt: "Select Account" }, { class: "form-control", id: "account_no" } %>
+</div>
+
+
+
+
+
+
+
+
+</td>
+
+
+
+
+
+
+
+
+ 
+
+
+ 
+
+  <td><%= f.text_field :account_name %></td>
+   </div>
+  <td><%= f.text_field :amount %></td>
+  <td><%= f.text_field :invoiceno %></td>
+  <td><%= link_to 'Remove', '#', class: 'remove-receipt-line btn btn-danger' %></td>
+  
+
+</tr>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const accountTypeField = document.getElementById("account_type");
+  const accountNoSelect = document.getElementById("account_no_select");
+
+  accountTypeField.addEventListener("change", (event) => {
+    const accountType = event.target.value;
+
+    let url;
+    if (accountType === "bank") {
+      url = "/banks";
+    } else if (accountType === "customer") {
+      url = "/customers";
+    } else if (accountType === "g/l_account") {
+      url = "/gl_accounts";
+    }
+
+    if (url) {
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+          let options = `<select name="receipt_line[account_no]" id="receipt_line_account_no" class="form-control">`;
+          data.forEach((item) => {
+            options += `<option value="${item.id}">${item.name}</option>`;
+          });
+          options += "</select>";
+          accountNoSelect.innerHTML = options;
+        })
+        .catch((error) => {
+          console.error("Error fetching account_no options:", error);
+        });
+    } else {
+      accountNoSelect.innerHTML = "<em>Please select an account type.</em>";
+    }
+  });
+});
+
+      
+
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const accountNoField = document.getElementById("account_no");
+  const tableTd = document.querySelector("#account_no_td"); // Assume your <td> has an ID
+
+  accountNoField.addEventListener("change", (event) => {
+    const selectedOption = event.target.options[event.target.selectedIndex].text;
+    tableTd.textContent = selectedOption;
+  });
+});
+
+</script>
+
+
+
+
+
+

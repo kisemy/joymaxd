@@ -1,0 +1,221 @@
+<%= form_with(model: receipt, local: true) do |form| %>
+ <%= form.hidden_field :receiveby, value: current_user.id %>
+  <% if receipt.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(receipt.errors.count, "error") %> prohibited this receipt from being saved:</h2>
+
+      <ul>
+        <% receipt.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  
+  
+<div class="row">
+    <div class="col-md-9 offset-md-2">
+      <div class="card">
+        <div class="card-body">
+
+
+
+           
+ <div class="card card-form">
+<div class="containerpv">
+
+  <div class="content">
+
+  
+
+  <div class="field">
+    <%= form.label :receipt_date %>
+    <%= form.date_select :receipt_date, class: 'styled-textarea' %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :bank_code %>
+   <br>
+    
+    <%= form.select :bank_code, options_from_collection_for_select(@banks, 'bank_name', 'bank_name') %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :received_by %><br>
+    <%= form.text_area :received_by, class: 'styled-textarea2' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :receipt_mode         %><br>
+   
+     <%= form.select :receipt_mode, options_for_select([['Cash', 'Cash'], ['Cheque', 'Cheque'], ['EFT', 'EFT']]) %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :receipt_description %>
+    <%= form.text_area :receipt_description, class: 'styled-textarea' %>
+  </div>
+  
+  </div>
+  
+   <div class="content">
+     <div class="col-lg text">
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_area :status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :document_no %>
+    <%= form.text_area :document_no, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.text_field :amount, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :received_from %>
+    <%= form.text_area :received_from, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :account_type %>
+    <%= form.text_area :account_type, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :accountno %>
+    <%= form.text_area :accountno, class: 'styled-textarea' %>
+  </div>
+  
+  
+  </div>
+  
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+  </div>
+ 
+  
+    
+   
+  
+  
+   
+    
+  <h3>Receipt Lines</h3>
+  
+  
+  
+  
+  <div class="table-responsive">
+  <div class="col">
+  <table class="table table-bordered">
+  
+  <table id="receipt_lines">
+    <thead>
+      <tr>
+      <th>Account Type</th>
+        <th>Account Name</th>
+        <th>Description</th>
+        <th>Amount</th>
+         <th>Invoice No</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Use fields_for :receiptlines to generate the correct nested form -->
+      <%= form.fields_for :receipt_lines do |item| %>
+      
+      <% end %>
+    </tbody>
+  </table>
+  </div>
+    </div>
+  </div> 
+  
+  <!-- Button to add new paymentline rows -->
+  <button type="button" id="add_receipt_line">Add Receipt Line</button>
+ 
+   
+     
+     <!-- Hidden template for new paymentline rows -->
+<script type="text/template" id="receipt_lines_template">
+<div class="receipt_line">  
+  <tr-bordered>
+  
+
+    <!-- New payment line row -->
+    
+    
+ 
+      <label for="account_type">Account Type</label>
+     <select class="account_type" name="receipt[receipt_lines_attributes][new_receipt_lines][account_type]">
+        <option value="">Select Account Type</option>
+        <option value="customer">customer</option>
+        <option value="vendor">vendor</option>
+        <option value="gl_account">GL Account</option>
+        <option value="bank">bank</option>
+        <option value="fixed_asset">Fixed Asset</option>
+      </select>
+     
+     
+     <label for="accountno">Account Number</label>
+      <select class="accountno" name="receipt[receipt_lines_attributes][new_receipt_lines][accountno]" >
+        <option value="">accountno</option>
+      </select>
+      
+    <td><input type="text" name="receipt[receipt_lines_attributes][new_receipt_lines][account_name]" placeholder="Description"></td>
+    <td><input type="number" name="receipt[receipt_lines_attributes][new_receipt_lines][amount]" placeholder="Amount"></td>
+    <td><a href="#" class="remove_fields">Remove</a></td>
+  </tr>
+  
+  
+   </div> 
+  
+ 
+
+</script> 
+  
+<% end %>
+
+
+<script>
+
+$(document).on('change', '.account_type', function() {
+  var accountType = $(this).val();
+  var accountnoSelect = $(this).closest('.receipt_line').find('.accountno'); // Find the associated accountno select
+
+  // Send AJAX request to fetch account numbers based on account type
+  $.ajax({
+    url: '/receipts/fetch_accountno',
+    method: 'GET',
+    data: { account_type: accountType},
+   
+    success: function(response) {
+      accountnoSelect.empty();
+      accountnoSelect.append(new Option('Select Account Number', ''));
+      $.each(response.accountno_options, function(index, accountno) {
+        accountnoSelect.append(new Option(accountno, accountno));
+       
+      
+    
+      });
+    }
+  });
+});
+
+
+
+</script>

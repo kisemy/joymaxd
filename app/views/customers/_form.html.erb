@@ -1,20 +1,22 @@
 
-  <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
-        <h2>Bank Form</h2>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
-            </li>
-            <li class="breadcrumb-item">
-                <a>Forms</a>
-            </li>
-            <li class="breadcrumb-item active">
-                <strong>Basic Form</strong>
-            </li>
-        </ol>
-    </div>
-</div>
+
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+
 
 <%= form_with(model: customer, local: true) do |form| %>
   <% if customer.errors.any? %>
@@ -28,86 +30,157 @@
       </ul>
     </div>
   <% end %>
+  
+  
+ <div class="form-container">
 
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
+<h3> Customer Card </h3>
 
+   <div class="main-form"> 
+    
 
+ <div class="field">
+    <%= form.label :clientcode %>
+    <%= form.text_area :clientcode, class: 'styled-textarea', readonly: true  %>
+  </div>
 
 
   <div class="field">
     <%= form.label :customer_name %>
-    <%= form.text_area :customer_name, {class: 'form-control'} %>
+    <%= form.text_area :customer_name, class: 'styled-textarea'  %>
   </div>
 
   <div class="field">
     <%= form.label :contactno %>
-    <%= form.text_area :contactno, {class: 'form-control'} %>
+    <%= form.text_area :contactno, class: 'styled-textarea'  %>
   </div>
 
   <div class="field">
     <%= form.label :contact_name %>
-    <%= form.text_area :contact_name, {class: 'form-control'} %>
+    <%= form.text_area :contact_name, class: 'styled-textarea'  %>
   </div>
 
   <div class="field">
     <%= form.label :Address %>
-    <%= form.text_area :address, {class: 'form-control'} %>
+    <%= form.text_area :address, class: 'styled-textarea'  %>
   </div>
 
   <div class="field">
     <%= form.label :City %>
-    <%= form.text_area :city, {class: 'form-control'} %>
+    <%= form.text_area :city, class: 'styled-textarea'  %>
   </div>
 
   <div class="field">
     <%= form.label :Date %>
-    <%= form.date_select :date, {class: 'form-control'} %>
+    <%= form.date_select :date, class: 'styled-textarea'  %>
+  </div>
+
+ 
+  
+   <div class="field">
+    <%= form.label :sale_person %><br>
+    <%= form.collection_select :sale_person_code, Salesperson.all, :id, :name, { prompt: "Select a Salesperson" }, { id: 'salesperson_select' }  %>
   </div>
 
   <div class="field">
-    <%= form.label :sales_person_code %>
-    <%= form.text_area :sales_person_code, {class: 'form-control'} %>
+   
+    <%= form.hidden_field :sales_person_name, id: 'salesperson_name'  %>
   </div>
 
-  <div class="field">
-    <%= form.label :sales_person_name %>
-    <%= form.text_area :sales_person_name, {class: 'form-control'} %>
-  </div>
+  <br>
+  <br>
 
   <div class="actions">
     <%= form.submit %>
   </div>
+  </div>
+  
+<div class="stats-container">
+    <h3>Customer Statistics</h3>
+    
+    <div class="customer-stats">
+  <div class="stat-card">
+    <h4>Total Customers</h4>
+    <p>1,250</p>
+  </div>
+  <div class="stat-card">
+    <h4>Average Order Value</h4>
+    <p>$45.60</p>
+  </div>
+  <div class="stat-card">
+    <h4>Repeat Purchase Rate</h4>
+    <p>35%</p>
+  </div>
+  <div class="stat-card">
+    <h4>Customer Satisfaction</h4>
+    <p>4.7/5</p>
+  </div>
+</div>
+    
+  </div>
+ 
+  </div>
+    
+    
+    
+  
 
- </div>
- </div>
-        </a>
-                </div>
-            </div>
-            
+ 
+ 
+<style>
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Adds space between the form and stats container */
+}
 
-<% content_for :javascript do %>
+.main-form {
+  width: 75%; /* Main form takes up 75% of the width */
+}
 
-<script type="text/javascript">
+.stats-container {
+  width: 50%; /* Stats container takes up 20% of the width */
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
+.stats-container h3 {
+  margin-top: 0;
+}
 
-$(function() {
+.stats-container p {
+  margin: 10px 0;
+}
+</style>  
+  
+ 
+ <script>
+ // app/javascript/packs/application.js
+document.addEventListener('DOMContentLoaded', function() {
+  const salespersonSelect = document.getElementById('salesperson_select');
+  const salespersonNameField = document.getElementById('salesperson_name');
 
-    $('.i-checks').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        radioClass: 'iradio_square-green',
+  if (salespersonSelect && salespersonNameField) {
+    salespersonSelect.addEventListener('change', function() {
+      const selectedOption = salespersonSelect.options[salespersonSelect.selectedIndex];
+      salespersonNameField.value = selectedOption.text;
     });
-
+  }
 });
-
-</script>
-
+ 
+ </script>
+  
+  
+  
 <% end %>
+</div>
+</div>
 
-<% end %>
 
 
-
+</div>
 
 
       

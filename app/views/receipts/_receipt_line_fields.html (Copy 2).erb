@@ -1,0 +1,44 @@
+<!-- app/views/receipts/_receipt_line_fields.html.erb -->
+<tr class="receipt-line">
+  <td><%= select_tag :account_type_id, options_from_collection_for_select(AccountType.all, :id, :name), include_blank: 'Select a account type'%></td>
+  
+  
+  <td>
+  <%= f.select :account_type, 
+        options_for_select([['Customer', 'customer'], ['Bank', 'bank'], ['G/L Account', 'gl_account']], :account_type), 
+        {}, 
+        { onchange: "updateAccountLookup(this.value)" } %>
+  
+  
+  </td>
+  <td>
+  <div id="lookup-field">
+      <% case :account_type %>
+      <% when 'customer' %>
+        
+        <%= form.select :account_no, options_from_collection_for_select(@customers, :id, :customer_name, @receipt_line.account_no) %>
+      <% when 'bank' %>
+      
+        <%= form.select :account_no, options_from_collection_for_select(@banks, :id, :bank_name, @receipt_line.account_no) %>
+      <% when 'gl_account' %>
+    
+        <%= form.select :account_no, options_from_collection_for_select(@chart_of_accounts, :id, :name, @receipt_line.account_no) %>
+      <% else %>
+        <p>Please select an account type to proceed.</p>
+      <% end %>
+    </div>
+  
+  
+  
+  </td>
+  
+  
+  
+   
+  <td><%= f.text_field :account_no %></td>
+  <td><%= f.text_field :account_name %></td>
+  <td><%= f.text_field :amount %></td>
+  <td><%= f.text_field :invoiceno %></td>
+  <td><%= link_to 'Remove', '#', class: 'remove-receipt-line btn btn-danger' %></td>
+</tr>
+

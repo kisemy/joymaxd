@@ -1,21 +1,10 @@
-
-  <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
-        <h2>Bank Form</h5>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
-            </li>
-            <li class="breadcrumb-item">
-                <a>Forms</a>
-            </li>
-            <li class="breadcrumb-item active">
-                <strong>Basic Form</strong>
-            </li>
-        </ol>
-    </div>
-</div>
- 
+<div class="container-fluid page__container">
+  <div class="row">
+    <div class="col-md-9 offset-md-2">
+      <div class="card">
+        <div class="card-body">
+        
+        
 
 <%= form_with(model: bank, local: true) do |form| %>
   <% if bank.errors.any? %>
@@ -29,37 +18,57 @@
       </ul>
     </div>
   <% end %>
-
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
-
-
-
-  <div class="field">
+  
+ 
+   <div class="field">
     <%= form.label :bank_name %>
-    <%= form.text_area :bank_name, {class: 'form-control'} %>
+    <%= form.text_area :bank_name %>
   </div>
+  
+  <div class="field">
+  <%= form.label :Description %>
+  <%= form.text_field :description %> <!-- This gets auto-filled
+  </div>
+  
 
   <div class="field">
     <%= form.label :bank_acc_no %>
-    <%= form.text_area :bank_acc_no, {class: 'form-control'} %>
+    <%= form.text_area :bank_acc_no %>
   </div>
-
   <div class="field">
-    <%= form.label :posting_group %>
-    <%= form.text_area :posting_group, {class: 'form-control'} %>
-  </div>
+   <%= form.label :posting_group %>
+  <%= form.collection_select :posting_group, Bankgroup.all, :code, :code %>
+</div>
 
+<div class="field">
+  <%= form.label :glaccount %>
+  <%= form.text_field :glaccount %> <!-- This gets auto-filled
+  </div>
+  
+  
+  
+  
+  
+  
   <div class="field">
     <%= form.label :balance %>
-    <%= form.text_field :balance, {class: 'form-control'} %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+    <%= form.text_field :balance %>
   </div>
 
 
-</div>
-</div>
+ <div class="actions">
+    <%= form.submit "Update Bank", class: "btn btn-primary" %> <!-- This is the 'Update' button -->
+  </div>
+
+
+<div class="actions">
+  <%= form.submit %>
+ </div>
+
 <% end %>
+
+</div>
+</div>
+</div>
+</div>
+</div>

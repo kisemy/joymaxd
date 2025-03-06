@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 #ruby '2.7.1'3.3.0
-ruby '3.2.2'
+ruby '3.1.2'
 
 #ruby '3.3.0'
 
@@ -15,8 +15,9 @@ gem "font-awesome-rails"
 #gem 'sqlite3', '~> 1.4'
 
 gem 'pg'
+#gem 'devise'
+gem 'devise'
 
-gem "devise"
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
 # Use SCSS for stylesheets
@@ -46,9 +47,21 @@ gem 'mini_racer', platforms: :ruby
 
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+# Gemfile
+#gem 'wicked_pdf'
+#gem 'wkhtmltopdf-binary'
+
+#gem 'wkhtmltopdf-binary', '0.12.6.5'
+
+#gem 'wkhtmltopdf-binary'
+
+gem 'grover'
 
 gem 'prawn'
 
+gem 'cocoon'
+
+# gem 'pristine'
 
 
 group :development, :test do

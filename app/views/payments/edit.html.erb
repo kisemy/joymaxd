@@ -1,84 +1,80 @@
-<h1>Editing Invoice</h1>
+
+<h4>Editing Payment Voucher</h4>
 <%= form_with(model: @payment) do |f| %>
 
 
-<div class="container-fluid page__heading-container">
-  <div class="page__heading d-flex align-items-center d-print-none">
-    <div class="flex">
-    <nav aria-label="breadcrumb">
-      <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item"><a href="#"><i class="material-icons icon-20pt">home</i></a></li>
-        <li class="breadcrumb-item">Pages</li>
-        <li class="breadcrumb-item active" aria-current="page">Payment</li>
-      </ol>
-    </nav>    
-    <h1 class="m-0">Payment</h1>
-    </div>
-    <a href="#" class="btn btn-primary"><i class="material-icons">file_download</i> Download</a>
-  </div>
-</div>
 <div class="container-fluid page__container">
   
   <div class="row">
     <div class="col-md-9 offset-md-2">
       <div class="card">
         <div class="card-body">
-            <div class="badge badge-danger">OVERDUE</div>
+
+
+
+     
        
           <div class="px-3">
+
             <div class="d-flex justify-content-center flex-column text-center my-5 navbar-light">
               <class="navbar-brand d-flex flex-column m-0" style="min-width: 0">
-                  <%= image_tag "joymax.png", :size => "850x100" %>
+                  <%= image_tag "safaricomlogo.png", :size => "300x100" %>
                 
               </a>
             <strong><h1>PAYMENT VOUCHER</h1></strong>
             </div>
+            
+            
+ <div class="card card-form">
+                  
+         
 
 
 <div class="containerpv">
+
   <div class="content">
- 
-
-  
-
-
-
-            <div class="row mb-5">
-              
-             
-              
-              
-
-
-             
-                  
 
                   <div class="container">
-		  <label for="textarea">Payment Date:</label><br>
+		  <label for="roundedSample01">Payment Date:</label><br>
 		 
-                  <%= f.text_area :payment_date, :rows => "1", :cols => "30"  %>
+                  <%= f.text_area :payment_date, class: 'styled-textarea' %>
             
 		</div>
 <br>
                  <div class="container">
 		  <label for="textarea">Paying Account Code:</label><br>
 		 
-                   <%= f.text_area :paying_account_code, :rows => "1", :cols => "10"  %><br>
-            
+                   <%= f.text_area :paying_account_code, class: 'styled-textarea'  %><br>
+                   
+                
 		</div>
+		
+		
+	
+
+ 
+
+	
+		
+		
+		
+		
+		
+		
+		
 <br>
                   <div class="container">
 		  <label for="textarea">Paying Description:</label><br>
 		 
-                   <%= f.text_area :paying_acc_description, :rows => "1", :cols => "40"  %><br>
-          
+                
+                  <%= f.text_area :paying_acc_description, id: "payment-paying_acc_description" %>
 		</div>
 <br>
 
                  <div class="container">
 		  <label for="textarea">Prepared by:</label><br>
 		 
-                   <%= f.text_area :prepared_by, :rows => "1", :cols => "40"  %><br>
+                   <%= f.text_area :prepared_by, class: 'styled-textarea' %><br>
           
 		</div>
 
@@ -86,84 +82,86 @@
                   <div class="container">
 		  <label for="textarea">Mode of Payment:</label><br>
 		 
-                   <%= f.text_area :mode_of_payment, :rows => "1", :cols => "40"  %><br>
+                   <%= f.text_area :mode_of_payment, class: 'styled-textarea' %><br>
           
 		</div>
 <br>
                <div class="container">
 		  <label for="textarea">Payment Description:</label><br>
 		 
-                   <%= f.text_area :payment_description, :rows => "1", :cols => "40"  %><br>
+                   <%= f.text_area :payment_description, class: 'styled-textarea' %><br>
           
 		</div>
 <br>
              <div class="container">
 		  <label for="textarea">Status:</label><br>
 		 
-                   <%= f.text_area :status, :rows => "1", :cols => "40"  %><br>
+                   <%= f.text_area :status, class: 'styled-textarea'%><br>
           
 		</div>
+		
+		</div>
+		
+		
+		
+		
+		
 
-
+ <div class="content"> 
+                 
+        <div class="col-lg text">
+ 
+ 
                   <div class="container">
 		  <label for="textarea">Document No:</label><br>
 		 
-                   <%= f.text_area :documentno, :rows => "1", :cols => "40"  %><br>
+                   <%= f.text_area :documentno, class: 'styled-textarea' %><br>
           
+		</div>
 		</div>
     
        
 <br>
 
-          
-
+           <div class="col-lg text">
                  <div class="container">
 		  <label for="textarea">Release Date:</label><br>
 		 
-                   <%= f.text_area :release_date, :rows => "1", :cols => "40"  %><br>
+                   <%= f.text_area :release_date, class: 'styled-textarea' %><br>
           
+          </div>
 		</div>
+		
+		
+		
     
           
 <br>
-         
 
+         
+         <div class="col-lg text">
                  <div class="container">
 		  <label for="textarea">Posted:</label><br>
 		 
-                   <%= f.text_area :posted, :rows => "1", :cols => "40"  %><br>
+                   <%= f.text_area :posted, class: 'styled-textarea'   %><br>
           
 		</div>
-    
-           1
-<br>
-
-
-
-
-
-
-
-
-               </div>
-<br>
-  </div>
-
-<div class="content">
-  
- 
-
-
-
-           
-
-                
-          <div class="col-lg text">
+		
+		 </div>
+		
+		
+		
+		
+   
+      
+       
+                 
+        <div class="col-lg text">
 
                  <div class="container">
 		  <label for="textarea">Amount:</label><br>
 		 
-                   <%= f.text_area :amount, :rows => "1", :cols => "40"  %><br>
+                   <%= f.text_area :amount, class: 'styled-textarea'   %><br>
           
 		</div>
     
@@ -174,7 +172,7 @@
                  <div class="container">
 		  <label for="textarea">Payee Code:</label><br>
 		 
-                   <%= f.text_area :payee_code, :rows => "1", :cols => "40"  %><br>
+                   <%= f.text_area :payee_code, class: 'styled-textarea'   %><br>
           
 		</div>
     
@@ -187,7 +185,7 @@
                  <div class="container">
 		  <label for="textarea">Payee Name:</label><br>
 		 
-                   <%= f.text_area :payee_name, :rows => "1", :cols => "40"  %><br>
+                   <%= f.text_area :payee_name, class: 'styled-textarea'   %><br>
           
 		</div>
     
@@ -199,7 +197,7 @@
                  <div class="container">
 		  <label for="textarea">Account Type:</label><br>
 		 
-                   <%= f.text_area :account_type, :rows => "1", :cols => "40"  %><br>
+                   <%= f.text_area :account_type, class: 'styled-textarea'  %><br>
           
 		</div>
     
@@ -211,57 +209,54 @@
                  <div class="container">
 		  <label for="textarea">Category Type</label><br>
 		 
-                   <%= f.text_area :category_type, :rows => "1", :cols => "40"  %><br>
+                   <%= f.text_area :category_type, class: 'styled-textarea'   %><br>
           
 		</div>
-    
-             </div>
-<br>		
-                
- </div>         
-              
-           
-    
-      </div>
+               </div>
+<br>
+ </div>
+ </div>
+
+  
+  
+   
+  
+  
+  
+      
+      
+      
             
 
 <p>Total Payment: <%= @total_payment %></p>
  
- </div>
-</div>
+  <h3>Payment Lines</h3>
+  <div class="table-responsive">
+    <table id="paymentlines" class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Account Type</th>
+          <th>Account Name</th>
+          <th>Description</th>
+          <th>Amount</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= f.fields_for :paymentlines do |item| %>
+          <%= render 'paymentline_fields', f: item %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Button to add new paymentline rows -->
+  <button type="button" id="add_paymentline">Add Payment Line</button>
+
+  <%= f.submit 'Save Payment' %>
 
             
-           
-<div class="table-responsive">
-  <div class="col">
-  <table class="table table-bordered">
-
-          <thead class="text-center">
-            <tr class="bg-light">
-              <th scope="col" >Account Type </th>
-              <th scope="col" >Account No</th>
-              <th scope="col" >Description</th>
-              <th scope="col" >Amount</th>
-              <th scope="col"></th>
-
-            </tr>
-          </thead>
-
-          <tBody id="table-body" class="fields" >
-
-		 <% @payment.paymentlines.each do |paymentline| %>
-		  <tr>
-                    <td><%=paymentline.account_type %></td>
-                    <td><%=paymentline.accountno %></td>
-		    <td><%=paymentline.description %></td>
-		    <td><%=paymentline.amount %></td>
-		  </tr>
-		 <% end %>        
-          </tBody>
-
-        </table>
- </div>
-</div>
+   
 
 
 
@@ -301,7 +296,8 @@
       </div>
     </div>
 
-
+<br>
+<br>
     <div class="row action">
       <div class="col-10">
       </div>
@@ -309,13 +305,30 @@
       <div class="float-right col-2">
         <%= f.submit "Update Payment", class: 'btn btn-primary' %>
 
-   <%= link_to 'post Payment', {:controller => "payments", :action => "postgl"}, :method=>:post %>
+   <%= link_to 'post Payment', {:controller => "payments", :action => "postgl2"}, :method=>:post %>
 
 
 
       </div>
 
     </div>
+    
+    <br>
+    <br>
+    
+    
+    <%= link_to 'post Payment', {:controller => "payments", :action => "postgl2"}, :method=>:post %>
+    <br>
+    <br>
+    class: 'btn btn-primary' %>
+   
+    <%= link_to 'Create Ledger', {:controller => "payments", :action => "insert_into_gledger", :id => @payment.id}, :method => :post %>
+
+
+   </div>
+    
+    
+    
 
 <% end %>
 
@@ -326,9 +339,8 @@
         
 
 
-<script>
 
-</script>
+
 
 
 
@@ -338,6 +350,72 @@
 
 
 </div>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Add new payment line
+  document.getElementById('add_paymentline').addEventListener('click', function() {
+    const template = document.querySelector('script[type="text/template"]').innerHTML;
+    const tbody = document.querySelector('#paymentlines tbody');
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = template.replace(/new_paymentlines/g, new Date().getTime()); // Ensure unique IDs
+    tbody.appendChild(newRow);
+  });
+
+  // Remove payment line
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('remove_fields')) {
+      event.preventDefault();
+      const row = event.target.closest('tr');
+      row.remove();
+    }
+  });
+
+  // Fetch account numbers based on account type
+  document.addEventListener('change', function(event) {
+    if (event.target.classList.contains('account_type')) {
+      const accountType = event.target.value;
+      const accountnoSelect = event.target.closest('tr').querySelector('.accountno');
+
+      fetch(`/payments/fetch_accountno?account_type=${accountType}`)
+        .then(response => response.json())
+        .then(data => {
+          accountnoSelect.innerHTML = '<option value="">Select Account Number</option>';
+          data.accountno_options.forEach(accountno => {
+            accountnoSelect.innerHTML += `<option value="${accountno}">${accountno}</option>`;
+          });
+        });
+    }
+  });
+});
+
+
+</script>
+
+<style>
+.styled-textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.table-bordered {
+  border: 1px solid #ddd;
+}
+
+.table-bordered th, .table-bordered td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.remove_fields {
+  color: red;
+  text-decoration: none;
+}
+</style>
 
 
 

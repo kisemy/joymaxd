@@ -1,0 +1,11 @@
+<!-- app/views/payments/_payment_line_fields.html.erb -->
+<div class="nested-fields">
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+
+  <%= f.label :amount %>
+  <%= f.number_field :amount %>
+
+  <%= link_to "Remove", "#", class: "remove-payment-line" %>
+</div>
+

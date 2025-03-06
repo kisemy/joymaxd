@@ -1,0 +1,266 @@
+<%= form_with(model: @payment) do |f| %>
+ 
+
+<div class="container-fluid page__container">
+
+
+
+
+
+
+  
+  <div class="row">
+    <div class="col-md-9 offset-md-2">
+      <div class="card">
+        <div class="card-body">
+
+
+
+     
+       
+          <div class="px-3">
+
+            <div class="d-flex justify-content-center flex-column text-center my-5 navbar-light">
+              <class="navbar-brand d-flex flex-column m-0" style="min-width: 0">
+                  <%= image_tag "bright.jpg", :size => "850x100" %>
+                
+              </a>
+            <strong><h1>PAYMENT VOUCHER</h1></strong>
+            </div>
+            
+            
+ <div class="card card-form">
+                  
+         
+
+
+<div class="containerpv">
+
+  <div class="content">
+
+                  <div class="container">
+		  <label for="roundedSample01">Payment Date:</label><br>
+		 
+                  <%= f.text_area :payment_date, class: 'styled-textarea' %>
+            
+		</div>
+<br>
+                 <div class="container">
+		  <label for="textarea">Paying Account Code:</label><br>
+		 
+                   <%= f.text_area :paying_account_code, class: 'styled-textarea'  %><br>
+                   
+                
+		</div>
+		
+		
+	
+
+ 
+
+	
+		
+		
+		
+		
+		
+		
+		
+<br>
+                  <div class="container">
+		  <label for="textarea">Paying Description:</label><br>
+		 
+                
+                  <%= f.text_area :paying_acc_description, id: "payment-paying_acc_description" %>
+		</div>
+<br>
+
+                 <div class="container">
+		  <label for="textarea">Prepared by:</label><br>
+		 
+                   <%= f.text_area :prepared_by, class: 'styled-textarea' %><br>
+          
+		</div>
+
+<br>
+                  <div class="container">
+		  <label for="textarea">Mode of Payment:</label><br>
+		 
+                   <%= f.text_area :mode_of_payment, class: 'styled-textarea' %><br>
+          
+		</div>
+<br>
+               <div class="container">
+		  <label for="textarea">Payment Description:</label><br>
+		 
+                   <%= f.text_area :payment_description, class: 'styled-textarea' %><br>
+          
+		</div>
+<br>
+             <div class="container">
+		  <label for="textarea">Status:</label><br>
+		 
+                   <%= f.text_area :status, class: 'styled-textarea'%><br>
+          
+		</div>
+		
+		</div>
+		
+		
+		
+		
+		
+
+ <div class="content"> 
+                 
+        <div class="col-lg text">
+ 
+ 
+                  <div class="container">
+		  <label for="textarea">Document No:</label><br>
+		 
+                   <%= f.text_area :documentno, class: 'styled-textarea' %><br>
+          
+		</div>
+		</div>
+    
+       
+<br>
+
+           <div class="col-lg text">
+                 <div class="container">
+		  <label for="textarea">Release Date:</label><br>
+		 
+                   <%= f.text_area :release_date, class: 'styled-textarea' %><br>
+          
+          </div>
+		</div>
+		
+		
+		
+    
+          
+<br>
+
+         
+         <div class="col-lg text">
+                 <div class="container">
+		  <label for="textarea">Posted:</label><br>
+		 
+                   <%= f.text_area :posted, class: 'styled-textarea'   %><br>
+          
+		</div>
+		
+		 </div>
+		
+		
+		
+		
+   
+      
+       
+                 
+        <div class="col-lg text">
+
+                 <div class="container">
+		  <label for="textarea">Amount:</label><br>
+		 
+                   <%= f.text_area :amount, class: 'styled-textarea'   %><br>
+          
+		</div>
+    
+             </div>
+
+ <div class="col-lg text">
+
+                 <div class="container">
+		  <label for="textarea">Payee Code:</label><br>
+		 
+                   <%= f.text_area :payee_code, class: 'styled-textarea'   %><br>
+          
+		</div>
+    
+             </div>
+<br>
+
+				 
+ <div class="col-lg text">
+
+                 <div class="container">
+		  <label for="textarea">Payee Name:</label><br>
+		 
+                   <%= f.text_area :payee_name, class: 'styled-textarea'   %><br>
+          
+		</div>
+    
+             </div>
+<br>		
+
+<div class="col-lg text">
+
+                 <div class="container">
+		  <label for="textarea">Account Type:</label><br>
+		 
+                   <%= f.text_area :account_type, class: 'styled-textarea'  %><br>
+          
+		</div>
+    
+             </div>
+<br>		
+	
+<div class="col-lg text">
+
+                 <div class="container">
+		  <label for="textarea">Category Type</label><br>
+		 
+                   <%= f.text_area :category_type, class: 'styled-textarea'   %><br>
+          
+		</div>
+               </div>
+<br>
+ </div>
+ </div>
+ 
+ 
+  <div id="payment-lines">
+    <%= f.fields_for :paymentlines_attributes do |pl| %>
+      <div class="payment-line">
+        <%= pl.label :account_type %>
+        <%= pl.select :account_type, options_for_select([['Customer', 'customer'], ['Vendor', 'vendor'], ['GL Account', 'gl_account'], ['Bank', 'bank'], ['Fixed Asset', 'fixed_asset']]) %>
+
+        <%= pl.label :accountno %>
+        <%= pl.select :accountno, options_for_select([]) %> <!-- This will be dynamically populated -->
+<br>
+<br>
+        <!-- Other fields related to paymentline -->
+      </div>
+    <% end %>
+  </div>
+
+  <%= f.submit %>
+ 
+<% end %>
+
+
+
+<script>
+$.ajax({
+  url: '/payments/fetch_accountno', // Correct route
+  method: 'GET',
+  data: { account_type: accountType },
+  success: function(response) {
+    console.log('Response from server:', response);
+    accountnoSelect.empty();
+    accountnoSelect.append(new Option('Select Account Number', ''));
+    $.each(response.accountno_options, function(index, accountno) {
+      accountnoSelect.append(new Option(accountno, accountno));
+    });
+  },
+  error: function(xhr, status, error) {
+    console.error('Error fetching account numbers:', error);
+  }
+});
+
+</script>
+
+

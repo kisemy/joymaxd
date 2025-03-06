@@ -1,0 +1,11 @@
+<% case account_type %>
+<% when 'customer' %>
+  <%= select_tag :account_no, options_from_collection_for_select(@customers, :id, :customer_name) %>
+<% when 'bank' %>
+  <%= select_tag :account_no, options_from_collection_for_select(@banks, :id, :bank_name) %>
+<% when 'gl_account' %>
+  <%= select_tag :account_no, options_from_collection_for_select(@chart_of_accounts, :id, :name) %>
+<% else %>
+  <p>Please select an account type to proceed.</p>
+<% end %>
+

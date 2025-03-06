@@ -1,50 +1,100 @@
-<%= form_with(model: receipt, local: true) do |form| %>
-  <% if receipt.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(receipt.errors.count, "error") %> prohibited this receipt from being saved:</h2>
 
-      <ul>
-        <% receipt.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+
+
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+
+
+
+<!-- app/views/receipts/_form.html.erb -->
+<%= form_with(model: @receipt, local: true) do |form| %>
+  
+  
+  
+<div class="row">
+    <div class="col-md-9 offset-md-2">
+      <div class="card">
+        <div class="card-body">
+
+<div class="px-3">
+
+            <div class="d-flex justify-content-center flex-column text-center my-5 navbar-light">
+              <class="navbar-brand d-flex flex-column m-0" style="min-width: 0">
+                  <%= image_tag "safaricomlogo.png", :size => "300x100" %>
+                
+              </a>
+            <strong><h1>RECEIPT </h1></strong>
+            </div>
+
+           
+ <div class="card card-form">
+<div class="containerpv">
+
+  <div class="content">
+
+  
 
   <div class="field">
     <%= form.label :receipt_date %>
-    <%= form.date_select :receipt_date %>
+    <%= form.date_select :receipt_date, class: 'styled-textarea' %>
+  </div>
+<br>
+  <%= form.label :bank_code %>
+  <%= form.select :bank_code, options_from_collection_for_select(@banks, :bank_name, :bank_name), { prompt: "Select Bank" }, { id: "bank_code_select" } %>
+<br>
+<br>
+  <%= form.label :description %>
+  <%= form.text_field :description, id: "description_field", class: 'styled-textarea'  %>
+<br>
+<br>
+  <%= form.label :glaccount %>
+  <%= form.text_field :glaccount, id: "glaccount_field", class: 'styled-textarea'  %>
+  
+  <br>
+  <br>
+  
+  
+  <div class="field">
+  <%= form.label :posted %>
+  <%= form.check_box :posted , class: 'styled-textarea' %>
+</div>
+  
+  
+
+  <div class="field">
+    <%= form.label :received_by %><br>
+    <%= form.text_area :received_by, class: 'styled-textarea2' %>
   </div>
 
   <div class="field">
-    <%= form.label :bank_code %>
-    <%= form.text_area :bank_code %>
+    <%= form.label :receipt_mode         %><br>
+   
+     <%= form.select :receipt_mode, options_for_select([['Cash', 'Cash'], ['Cheque', 'Cheque'], ['EFT', 'EFT']]) %>
   </div>
-
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :received_by %>
-    <%= form.text_area :received_by %>
-  </div>
-
-  <div class="field">
-    <%= form.label :receipt_by %>
-    <%= form.text_area :receipt_by %>
-  </div>
-
-  <div class="field">
-    <%= form.label :receipt_mode %>
-    <%= form.text_area :receipt_mode %>
-  </div>
-
+<br>
   <div class="field">
     <%= form.label :receipt_description %>
-    <%= form.text_area :receipt_description %>
+    <%= form.text_area :receipt_description, class: 'styled-textarea' %>
   </div>
+  
+  </div>
+  
+   <div class="content">
+     <div class="col-lg text">
 
   <div class="field">
     <%= form.label :status %>
@@ -53,30 +103,99 @@
 
   <div class="field">
     <%= form.label :document_no %>
-    <%= form.text_area :document_no %>
+    <%= form.text_area :document_no, class: 'styled-textarea' %>
   </div>
 
   <div class="field">
     <%= form.label :amount %>
-    <%= form.text_field :amount %>
+    <%= form.text_field :amount, class: 'styled-textarea' %>
   </div>
 
   <div class="field">
     <%= form.label :received_from %>
-    <%= form.text_area :received_from %>
+    <%= form.text_area :received_from, class: 'styled-textarea' %>
   </div>
 
   <div class="field">
     <%= form.label :account_type %>
-    <%= form.text_area :account_type %>
+    <%= form.text_area :account_type, class: 'styled-textarea' %>
   </div>
 
   <div class="field">
     <%= form.label :accountno %>
-    <%= form.text_area :accountno %>
+    <%= form.text_area :accountno, class: 'styled-textarea' %>
+  </div>
+  
+  
+  </div>
+  
   </div>
 
-  <div class="actions">
+ 
+  </div>
+  
+
+  
+  
+
+
+  <h3>Receipt Lines</h3>
+  <table id="receipt-lines">
+    <thead>
+      <tr>
+        <th>Account Type</th>       
+        <th>Account No</th>
+        <th>Account Name</th>
+        <th>Amount</th>
+        <th>Invoice No</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <%= form.fields_for :receipt_lines do |line_form| %>
+        <%= render 'receipt_line_fields', f: line_form %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to 'Add Line', '#', id: 'add-receipt-line', class: 'btn btn-primary' %>
+  
+  <!-- Hidden Template for New Lines -->
+<template id="receipt-line-template">
+  <%= form.fields_for :receipt_lines, ReceiptLine.new, child_index: 'new_receipt_lines' do |line_form| %>
+    <%= render 'receipt_line_fields', f: line_form %>
+  <% end %>
+</template>
+  
+  
+  
+
+  <div>
     <%= form.submit %>
   </div>
+  <%= form.hidden_field :account_no, id: "hidden_account_no" %>
+
+ <script type="text/template" id="new-receipt-line-template">
+  <tr class="receipt-line">
+    <td><input type="text" name="receipt[receipt_lines_attributes][NEW_RECEIPT_LINE][account_type]" class="form-control"></td>
+    <td><input type="text" name="receipt[receipt_lines_attributes][NEW_RECEIPT_LINE][account_no]" class="form-control"></td>
+    <td><input type="text" name="receipt[receipt_lines_attributes][NEW_RECEIPT_LINE][account_name]" class="form-control"></td>
+    <td><input type="text" name="receipt[receipt_lines_attributes][NEW_RECEIPT_LINE][amount]" class="form-control"></td>
+    <td><input type="text" name="receipt[receipt_lines_attributes][NEW_RECEIPT_LINE][invoice_no]" class="form-control"></td>
+    <td><a href="#" class="remove-receipt-line btn btn-danger">Remove</a></td>
+  </tr>
+</script>
+ 
+  
+  
+  
+
+
 <% end %>
+
+</div>
+  
+  </div>
+
+
+

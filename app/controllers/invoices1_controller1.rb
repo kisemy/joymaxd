@@ -64,22 +64,35 @@ end
 
   # GET /invoices/1/edit 
   
+  
+  def create
+  @invoice = Invoice.new(invoice_params)
+  if @invoice.save
+    redirect_to @invoice, notice: 'Invoice was successfully created.'
+  else
+    render :new
+  end
+end
+
+  
+  
+  
   # POST /invoices or /invoices.json
-   def create
-      @invoice = Invoice.new(invoice_params)stgl?id=23
+  # def create
+    #  @invoice = Invoice.new(invoice_params)
 
-     respond_to do |format|
-       if @invoice.save
-        format.html { redirect_to invoice_url(@invoice), notice: "Invoice was successfully created." }
-         format.json { render :show, status: :created, location: @invoice }
-       else
-        format.html { render :new, status: :unprocessable_entity }
-         format.json { render json: @invoice.errors, status: :unprocessable_entity }
-      end
-     end
- end
+    # respond_to do |format|
+      # if @invoice.save
+      #  format.html { redirect_to invoice_url(@invoice), notice: "Invoice was successfully created." }
+       #  format.json { render :show, status: :created, location: @invoice }
+      # else
+        #format.html { render :new, status: :unprocessable_entity }
+         #format.json { render json: @invoice.errors, status: :unprocessable_entity }
+     # end
+     #end
+ #end
 
- end
+ #end
 
 # def create
   #   @invoice = invoices.build(invoice_params)
@@ -118,18 +131,18 @@ end
  # end
 
 
-	def update
-	    respond_to do |format|
-              @invoice = Invoice.find(params[:id])
-	      if @invoice.update(invoice_params)
-		format.html { redirect_to invoice_url(@invoice), notice: "Invoice was successfully updated." }
-		format.json { render :show, status: :ok, location: @invoice }
-	      else
-		format.html { render :edit, status: :unprocessable_entity }
-		format.json { render json: @invoice.errors, status: :unprocessable_entity }
-	      end
-	    end
-	  end
+	#def update
+	   # respond_to do |format|
+             # @invoice = Invoice.find(params[:id])
+	     # if @invoice.update(invoice_params)
+		#format.html { redirect_to invoice_url(@invoice), notice: "Invoice was successfully updated." }
+		#format.json { render :show, status: :ok, location: @invoice }
+	    #  else
+		#format.html { render :edit, status: :unprocessable_entity }
+		#format.json { render json: @invoice.errors, status: :unprocessable_entity }
+	     # end
+	   # end
+	 # end
 
 
 
@@ -234,7 +247,7 @@ end
 
     # Only allow a list of trusted parameters through.
   def invoice_params1
-   params.require(:invoice).permit(:customer_name, :contactno, :contact_name, :address, :city, :date, :sales_person_code, :sales_person_name,     invoice_lines_attributes: [:charge_type, :item_no, :description, :quantity, :unit_of_measure, :unit_price, :amount, :_destroy])
+   params.require(:invoice).permit(:customer_name, :contactno, :contact_name, :address, :city, :date, :sales_person_code, :sales_person_name,invoice_lines_attributes: [:charge_type, :item_no, :description, :quantity, :unit_of_measure, :unit_price, :amount, :_destroy])
   end
 
    def scope

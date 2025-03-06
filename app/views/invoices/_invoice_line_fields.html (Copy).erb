@@ -1,0 +1,23 @@
+<tr class="invoice_line">
+ 
+
+<td> <%= form.collection_select :description, @items, :description, :description, { prompt: 'Select a description' }, class: 'description_select' %></td>
+ 
+
+    <td><%= f.number_field :quantity %></td>
+
+    <td><%= f.text_field :unit_of_measure %></td>
+
+     <td><%= f.number_field :unit_price %></td>
+     
+    <td><%= f.number_field :amount %></td>
+ 
+
+  <td><button type="button" class="remove_invoice_line btn btn-danger">Remove Line</button></td>
+
+</tr>
+
+
+
+
+

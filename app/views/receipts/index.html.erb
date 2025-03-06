@@ -1,11 +1,69 @@
 
+<body>
+
+<p class = "notice" ><%= notice %> </p>
+<p class = "alert" ><%= alert %></p>
 
 
-<p id="notice"><%= notice %></p>
+
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="card">
+<button>
+<%= link_to 'New Receipt', new_receipt_path %>
+</button>
+
+
+<div class="table-responsive border-bottom" data-toggle="lists" data-lists-values='["js-lists-values-customer-name"]'>
+
+  <%# <div class="search-form search-form--light m-3">
+    <input type="text" class="form-control search" placeholder="Search">
+    <button class="btn" type="button" role="button"><i class="material-icons">search</i></button>
+  </div>
+   %>
+ 
+
+
+
+
+
+ <div class="table-responsive">
+
+
+ 
+
+
 
 <h1>Receipts</h1>
 
-<table>
+ <table class="table table-striped table-bordered table-hover dataTables-example">
   <thead>
     <tr>
       <th>Receipt date</th>
@@ -48,7 +106,18 @@
     <% end %>
   </tbody>
 </table>
+</div>
+</div>
+</div>
+
 
 <br>
 
-<%= link_to 'New Receipt', new_receipt_path %>
+
+
+</div>
+</div>
+</div>
+
+
+

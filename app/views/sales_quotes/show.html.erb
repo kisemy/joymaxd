@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Qtn no:</strong>
+  <%= @sales_quote.QTN_no %>
+</p>
+
+<p>
+  <strong>Customer no:</strong>
+  <%= @sales_quote.customer_no %>
+</p>
+
+<p>
+  <strong>Customer name:</strong>
+  <%= @sales_quote.customer_name %>
+</p>
+
+<p>
+  <strong>Contactno:</strong>
+  <%= @sales_quote.contactno %>
+</p>
+
+<p>
+  <strong>Contact name:</strong>
+  <%= @sales_quote.contact_name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @sales_quote.address %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @sales_quote.city %>
+</p>
+
+<p>
+  <strong>Quote date:</strong>
+  <%= @sales_quote.quote_date %>
+</p>
+
+<p>
+  <strong>Sales person code:</strong>
+  <%= @sales_quote.sales_person_code %>
+</p>
+
+<p>
+  <strong>Sales person name:</strong>
+  <%= @sales_quote.sales_person_name %>
+</p>
+
+<%= link_to 'Edit', edit_sales_quote_path(@sales_quote) %> |
+<%= link_to 'Back', sales_quotes_path %>

@@ -1,0 +1,89 @@
+<body>
+
+<p class = "notice" ><%= notice %> </p>
+<p class = "alert" ><%= alert %></p>
+
+
+
+
+
+
+
+
+
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+
+
+
+<h3>Chart of Accounts</h3>
+<div class="card">
+
+<div class="table-responsive border-bottom" data-toggle="lists" data-lists-values='["js-lists-values-customer-name"]'>
+
+  <%# <div class="search-form search-form--light m-3">
+    <input type="text" class="form-control search" placeholder="Search">
+    <button class="btn" type="button" role="button"><i class="material-icons">search</i></button>
+  </div>
+   %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Account No.</th>
+      <th>Account Name</th>
+      <th>Account Type</th>
+       <th>Postable</th>
+      <th class="text-right">Debit</th>
+      <th class="text-right">Credit</th>
+      <th class="text-right">Balance</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @chart_of_accounts.each do |chart_of_account| %>
+      <tr class="<%= color_class_for_account_type(chart_of_account.accounttype) %>">
+        <td><%= chart_of_account.no %></td>
+        <td><%= chart_of_account.name %></td>
+        <td><%= chart_of_account.accounttype %></td>      
+        <td><%= chart_of_account.postable %></td>     
+        <td><%= link_to chart_of_account.total_debit, gledgers_path(account_no: chart_of_account.no, type: 'debit') %></td>
+        <td><%= link_to chart_of_account.total_credit, gledgers_path(account_no: chart_of_account.no, type: 'credit') %></td>
+        <td><%= link_to chart_of_account.total_balance, gledgers_path(account_no: chart_of_account.no, type: 'balance') %></td>
+        
+        
+        
+ 
+        <td>
+          <%= link_to 'Show', chart_of_account, class: "btn btn-info btn-sm" %>
+          <%= link_to 'Edit', edit_chart_of_account_path(chart_of_account), class: "btn btn-warning btn-sm" %>
+          <%= link_to 'Destroy', chart_of_account, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+ </div>
+  </div>
+  
+  
+  
+  
+  </div>
+  </div>
+<%= link_to 'New Chart of Account', new_chart_of_account_path, class: "btn btn-success" %>
+

@@ -1,0 +1,160 @@
+<!-- app/views/receipts/_form.html.erb -->
+<%= form_with(model: @receipt, local: true) do |form| %>
+  
+  
+  
+<div class="row">
+    <div class="col-md-9 offset-md-2">
+      <div class="card">
+        <div class="card-body">
+
+<div class="px-3">
+
+            <div class="d-flex justify-content-center flex-column text-center my-5 navbar-light">
+              <class="navbar-brand d-flex flex-column m-0" style="min-width: 0">
+                  <%= image_tag "safaricomlogo.png", :size => "300x100" %>
+                
+              </a>
+            <strong><h1>RECEIPT </h1></strong>
+            </div>
+
+           
+ <div class="card card-form">
+<div class="containerpv">
+
+  <div class="content">
+
+  
+
+  <div class="field">
+    <%= form.label :receipt_date %>
+    <%= form.date_select :receipt_date, class: 'styled-textarea' %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :bank_code %>
+    <%= form.text_area :bank_code, class: 'styled-textarea' %>
+    
+   <br>
+    
+    
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :received_by %><br>
+    <%= form.text_area :received_by, class: 'styled-textarea2' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :receipt_mode         %><br>
+   
+     <%= form.select :receipt_mode, options_for_select([['Cash', 'Cash'], ['Cheque', 'Cheque'], ['EFT', 'EFT']]) %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :receipt_description %>
+    <%= form.text_area :receipt_description, class: 'styled-textarea' %>
+  </div>
+  
+  </div>
+  
+   <div class="content">
+     <div class="col-lg text">
+     
+     <div class="field">
+    <%= form.label :glaccount %>
+    <%= form.text_field :glaccount, id: 'bank_glaccount' %>
+  </div>
+  
+  <div class="field">
+  <%= form.label :posted %>
+  <%= form.check_box :posted %>
+</div>
+     
+     
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_area :status %>
+  </div>
+
+  <div class="field">
+    <%= form.label :document_no %>
+    <%= form.text_area :document_no, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.text_field :amount, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :received_from %>
+    <%= form.text_area :received_from, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :account_type %>
+    <%= form.text_area :account_type, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :accountno %>
+    <%= form.text_area :accountno, class: 'styled-textarea' %>
+  </div>
+  
+  
+  </div>
+  
+  </div>
+
+ 
+  </div>
+  
+  
+  
+
+
+  <h3>Receipt Lines</h3>
+  <table id="receipt-lines">
+    <thead>
+      <tr>
+        <th>Account Type</th>
+        <th>Account No</th>
+        <th>Account Name</th>
+        <th>Amount</th>
+        <th>Invoice No</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <%= form.fields_for :receipt_lines do |line_form| %>
+        <%= render 'receipt_line_fields', f: line_form %>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to 'Add Line', '#', id: 'add-receipt-line', class: 'btn btn-primary' %>
+
+  <div>
+    <%= form.submit %>
+  </div>
+
+
+<%= form.hidden_field :receipt_lines_count, value: @receipt.receipt_lines.count %>
+
+  class: 'btn btn-primary' %>
+   
+    <%= link_to 'Create Ledger', {:controller => "receipts", :action => "insert_into_rcgledger", :id => @receipt.id}, :method => :post %>
+
+
+   </div>
+
+
+
+<% end %>

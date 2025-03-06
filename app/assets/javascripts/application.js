@@ -21,4 +21,104 @@
 //= require slimscroll/jquery.slimscroll.min.js
 //= require metisMenu/jquery.metisMenu.js
 //= require inspinia.js
+//= require bankpd.js
+// require categorypd.js
+//= require payline.js
+// require accountype.js
+// require accountno.js
+//= require receipt_lines.js
+// require bank_form.js
+//= require receipts.js
+// require Chart.js
+// require invoice_lines.js
+
+
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  const addReceipt_lineButton = document.getElementById('add_receipt_line');
+  const receipt_linesTable = document.getElementById('receipt_lines').getElementsByTagName('tbody')[0];
+
+  addReceipt_lineButton.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    const time = new Date().getTime();
+    const regex = new RegExp('new_receipt_lines', 'g');
+
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = document.getElementById('receipt_lines_template').innerHTML.replace(regex, time);
+
+    receipt_linesTable.appendChild(newRow);
+  });
+});
+
+// app/assets/javascripts/application.js
+$(document).ready(function() {
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const addLineButton = document.getElementById('add-receipt-line');
+  const receiptLinesTable = document.querySelector('#receipt-lines tbody');
+
+  addLineButton.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    const newId = new Date().getTime();
+    const regex = new RegExp('new_receipt_lines', 'g');
+    const newRow = document
+      .getElementById('receipt-line-template')
+      .innerHTML.replace(regex, newId);
+
+    receiptLinesTable.insertAdjacentHTML('beforeend', newRow);
+  });
+
+  receiptLinesTable.addEventListener('click', (e) => {
+    if (e.target.classList.contains('remove-receipt-line')) {
+      e.preventDefault();
+      e.target.closest('tr').remove();
+    }
+  });
+});
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const addLineButton = document.getElementById('add-receipt-line');
+  const receiptLinesTable = document.getElementById('receipt-lines').querySelector('tbody');
+
+  addLineButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    const newId = new Date().getTime();
+    const template = document.getElementById('new-receipt-line-template').innerHTML.replace(/NEW_RECEIPT_LINE/g, newId);
+    receiptLinesTable.insertAdjacentHTML('beforeend', template);
+  });
+
+  receiptLinesTable.addEventListener('click', (e) => {
+    if (e.target.classList.contains('remove-receipt-line')) {
+      e.preventDefault();
+      e.target.closest('tr').remove();
+    }
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
 

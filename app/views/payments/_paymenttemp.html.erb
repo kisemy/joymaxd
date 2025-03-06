@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>PDFs | Ruby on Rails</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= render "layouts/shared/header" %>
+    <div class="container mt-3">
+      <%= yield %>
+    </div>
+  </body>
+</html>
+
+
+
+
+<h4>Editing Payment Voucher</h4>
+<%= form_with(model: @payment) do |f| %>
+
+
+<div class="container-fluid page__container">
+  
+  <div class="row">
+    <div class="col-md-9 offset-md-2">
+      <div class="card">
+        <div class="card-body">
+
+
+
+     
+       
+          <div class="px-3">
+
+            <div class="d-flex justify-content-center flex-column text-center my-5 navbar-light">
+              <class="navbar-brand d-flex flex-column m-0" style="min-width: 0">
+                  <%= image_tag "safaricomlogo.png", :size => "300x100" %>
+                
+              </a>
+            <strong><h1>PAYMENT VOUCHER</h1></strong>
+            </div>
+            
+            
+ <div class="card card-form">
+                  
+         
+
+
+<div class="containerpv">
+
+  <div class="content">
+
+                  <div class="container">
+		  <label for="roundedSample01">Payment Date:</label><br>
+		 
+                  <%= f.text_area :payment_date, class: 'styled-textarea' %>
+            
+		</div>
+<br>
+                 <div class="container">
+		  <label for="textarea">Paying Account Code:</label><br>
+		 
+                   <%= f.text_area :paying_account_code, class: 'styled-textarea'  %><br>
+                   
+                
+		</div>
+		
+		
+	
+
+ 
+
+	
+		
+		
+		
+		
+		
+		
+		
+<br>
+                  <div class="container">
+		  <label for="textarea">Paying Description:</label><br>
+		 
+                
+                  <%= f.text_area :paying_acc_description, id: "payment-paying_acc_description" %>
+		</div>
+<br>
+
+                 <div class="container">
+		  <label for="textarea">Prepared by:</label><br>
+		 
+                   <%= f.text_area :prepared_by, class: 'styled-textarea' %><br>
+          
+		</div>
+
+<br>
+                  <div class="container">
+		  <label for="textarea">Mode of Payment:</label><br>
+		 
+                   <%= f.text_area :mode_of_payment, class: 'styled-textarea' %><br>
+          
+		</div>
+<br>
+               <div class="container">
+		  <label for="textarea">Payment Description:</label><br>
+		 
+                   <%= f.text_area :payment_description, class: 'styled-textarea' %><br>
+          
+		</div>
+<br>
+             <div class="container">
+		  <label for="textarea">Status:</label><br>
+		 
+                   <%= f.text_area :status, class: 'styled-textarea'%><br>
+          
+		</div>
+		
+		</div>
+		
+		
+		
+		
+		
+
+ <div class="content"> 
+                 
+        <div class="col-lg text">
+ 
+ 
+                  <div class="container">
+		  <label for="textarea">Document No:</label><br>
+		 
+                   <%= f.text_area :documentno, class: 'styled-textarea' %><br>
+          
+		</div>
+		</div>
+    
+       
+<br>
+
+           <div class="col-lg text">
+                 <div class="container">
+		  <label for="textarea">Release Date:</label><br>
+		 
+                   <%= f.text_area :release_date, class: 'styled-textarea' %><br>
+          
+          </div>
+		</div>
+		
+		
+		
+    
+          
+<br>
+
+         
+         <div class="col-lg text">
+                 <div class="container">
+		  <label for="textarea">Posted:</label><br>
+		 
+                   <%= f.text_area :posted, class: 'styled-textarea'   %><br>
+          
+		</div>
+		
+		 </div>
+		
+		
+		
+		
+   
+      
+       
+                 
+        <div class="col-lg text">
+
+                 <div class="container">
+		  <label for="textarea">Amount:</label><br>
+		 
+                   <%= f.text_area :amount, class: 'styled-textarea'   %><br>
+          
+		</div>
+    
+             </div>
+
+ <div class="col-lg text">
+
+                 <div class="container">
+		  <label for="textarea">Payee Code:</label><br>
+		 
+                   <%= f.text_area :payee_code, class: 'styled-textarea'   %><br>
+          
+		</div>
+    
+             </div>
+<br>
+
+				 
+ <div class="col-lg text">
+
+                 <div class="container">
+		  <label for="textarea">Payee Name:</label><br>
+		 
+                   <%= f.text_area :payee_name, class: 'styled-textarea'   %><br>
+          
+		</div>
+    
+             </div>
+<br>		
+
+<div class="col-lg text">
+
+                 <div class="container">
+		  <label for="textarea">Account Type:</label><br>
+		 
+                   <%= f.text_area :account_type, class: 'styled-textarea'  %><br>
+          
+		</div>
+    
+             </div>
+<br>		
+	
+<div class="col-lg text">
+
+                 <div class="container">
+		  <label for="textarea">Category Type</label><br>
+		 
+                   <%= f.text_area :category_type, class: 'styled-textarea'   %><br>
+          
+		</div>
+               </div>
+<br>
+ </div>
+ </div>
+
+  
+  
+   
+  
+  
+  
+      
+      
+      
+            
+
+<p>Total Payment: <%= @total_payment %></p>
+ 
+ 
+
+            
+           
+<div class="table-responsive">
+  <div class="col">
+  <table class="table table-bordered">
+
+          <thead class="text-center">
+            <tr class="bg-light">
+              <th scope="col" >Account Type </th>
+              <th scope="col" >Account No</th>
+              <th scope="col" >Description</th>
+              <th scope="col" >Amount</th>
+              <th scope="col"></th>
+
+            </tr>
+          </thead>
+
+          <tBody id="table-body" class="fields" >
+
+		 <% @payment.paymentlines.each do |paymentline| %>
+		  <tr>
+		
+             
+      
+                    <td><%=paymentline.account_type %></td>
+                    <td><%=paymentline.accountno %></td>
+		    <td><%=paymentline.description %></td>
+		    <td><%=paymentline.amount %></td>
+		  </tr>
+		 <% end %>        
+          </tBody>
+
+        </table>
+ </div>
+</div>
+
+
+
+
+
+<div class="row border border-dark p-2">
+
+
+
+<br>
+  <%= link_to "Add Product", add_field_path(format: :js), {method: :post, remote: true, id: "addProductBtn", class: 'btn btn-primary'} %>
+
+      <div class="col">
+
+      </div>
+
+      <div class="col">
+        <div class="row">
+          <div class="col">
+            Sub Total:
+          </div>
+          <div class="col">
+            <!--  we need to fix the precision on the totals at some point 
+            $ <= @invoice.amount_due %> -->
+          </div>
+        </div>
+
+        <div class="row font-weight-bold">
+          <div class="col">
+            Grand Total Due:
+          </div>
+          <div class="col">
+            <!--  we need to fix the precision on the totals at some point 
+            $ <= @invoice.grand_total unless request.url.match('/invoices/new')%>  -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+<br>
+<br>
+    <div class="row action">
+      <div class="col-10">
+      </div>
+
+      <div class="float-right col-2">
+        <%= f.submit "Update Payment", class: 'btn btn-primary' %>
+
+   <%= link_to 'post Payment', {:controller => "payments", :action => "postgl2"}, :method=>:post %>
+
+
+
+      </div>
+
+    </div>
+
+<% end %>
+
+
+<div class="text-label">Notes</div>
+            <p class="text-muted">We appreciate your business. Should you need us to add VAT or extra notes let us know!</p>
+          </div>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+<%= link_to 'Show', @payment %> |
+<%= link_to 'Back', payments_path %>

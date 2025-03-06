@@ -1,125 +1,328 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
 
-  <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
-        <h2>Bank Form</h2>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
-            </li>
-            <li class="breadcrumb-item">
-                <a>Forms</a>
-            </li>
-            <li class="breadcrumb-item active">
-                <strong>Basic Form</strong>
-            </li>
-        </ol>
-    </div>
-</div>
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
 
-<%= form_with(@invoice) do |form| %>
-  <% if invoice.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
 
-      <ul>
-        <% invoice.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
 
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+
+<%= form_with(model: @invoice, local: true) do |form| %>
+<h2> Customer Invoice </h2>
+<div class="form-container">
+
+
+
+   <div class="main-form">
+   
+    <div class="field">
+    <%= form.label :date %>
+    <%= form.text_field :date, id: 'date', class: 'styled-textarea'  %>
+  </div>
+   
   <div class="field">
     <%= form.label :customer_name %>
-    <%= form.text_area :customer_name, {class: 'form-control'} %>
+    <%= form.collection_select :customer_name, @customers, :customer_name, :customer_name, { prompt: 'Select a customer' }, id: 'customer_select', class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :customer_no %>
+    <%= form.text_field :customer_no, id: 'customer_no', class: 'styled-textarea'  %>
   </div>
 
   <div class="field">
     <%= form.label :contactno %>
-    <%= form.text_area :contactno, {class: 'form-control'} %>
+    <%= form.text_field :contactno, id: 'contactno', class: 'styled-textarea'  %>
   </div>
 
   <div class="field">
     <%= form.label :contact_name %>
-    <%= form.text_area :contact_name, {class: 'form-control'} %>
+    <%= form.text_field :contact_name, id: 'contact_name', class: 'styled-textarea'  %>
   </div>
 
   <div class="field">
     <%= form.label :address %>
-    <%= form.text_area :address, {class: 'form-control'} %>
+    <%= form.text_field :address, id: 'address', class: 'styled-textarea'  %>
   </div>
 
   <div class="field">
     <%= form.label :city %>
-    <%= form.text_area :city, {class: 'form-control'} %>
+    <%= form.text_field :city, id: 'city', class: 'styled-textarea'  %>
   </div>
-
-  <div class="field">
-    <%= form.label :date %>
-    <%= form.date_select :date, {class: 'form-control'} %>
-  </div>
-
-  <div class="field">
+  
+   <div class="field">
     <%= form.label :sales_person_code %>
-    <%= form.text_area :sales_person_code, {class: 'form-control'} %>
+    <%= form.text_field :sales_person_code, id: 'sales_person_code', class: 'styled-textarea'  %>
   </div>
-
-  <div class="field">
+  
+   <div class="field">
     <%= form.label :sales_person_name %>
-    <%= form.text_area :sales_person_name, {class: 'form-control'} %>
+    <%= form.text_field :sales_person_name, id: 'sales_person_name', class: 'styled-textarea'  %>
   </div>
+  
+  
+  
+ </div> 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+    
 
-  <div class="actions">
-    <%= form.submit %>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const customerSelect = document.getElementById('customer_select');
+    customerSelect.addEventListener('change', function() {
+      const customerName = this.value;
+      if (customerName) {
+        fetch(`/customers/find_by_name.json?customer_name=${encodeURIComponent(customerName)}`)
+          .then(response => response.json())
+          .then(customer => {
+            document.getElementById('customer_no').value = customer.clientcode || '';
+            document.getElementById('contactno').value = customer.contactno || '';
+            document.getElementById('contact_name').value = customer.contact_name || '';
+            document.getElementById('address').value = customer.address || '';
+            document.getElementById('city').value = customer.city || '';
+            document.getElementById('sales_person_code').value = customer.sales_person_code || '';
+            document.getElementById('sales_person_name').value = customer.sales_person_name || '';
+            
+            
+            
+          })
+          .catch(error => console.error('Error fetching customer data:', error));
+      } else {
+        // Clear fields if no customer is selected
+        document.getElementById('customer_no').value = '';
+        document.getElementById('contactno').value = '';
+        document.getElementById('contact_name').value = '';
+        document.getElementById('address').value = '';
+        document.getElementById('city').value = '';
+        document.getElementById('sales_person_code').value = '';
+        document.getElementById('sales_person_name').value = '';
+      }
+    });
+  });
+</script>
 
+
+  
+
+
+  
+  
+  
+  
+
+  
+ <div class="stats-container">
+    <h3>Customer Statistics</h3>
+    
+    <div class="customer-stats">
+  <div class="stat-card">
+    <h4>Total Customers</h4>
+    <p>1,250</p>
+  </div>
+  <div class="stat-card">
+    <h4>Average Order Value</h4>
+    <p>$45.60</p>
+  </div>
+  <div class="stat-card">
+    <h4>Repeat Purchase Rate</h4>
+    <p>35%</p>
+  </div>
+  <div class="stat-card">
+    <h4>Customer Satisfaction</h4>
+    <p>4.7/5</p>
+  </div>
 </div>
+</div>
+</div>
+    
 
 
- </div>
- </div>
-        </a>
-                </div>
-            </div>
+   
+    
+    
+    
+  
 
  
+ 
+<style>
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Adds space between the form and stats container */
+}
 
-<% content_for :javascript do %>
+.main-form {
+  width: 75%; /* Main form takes up 75% of the width */
+}
 
-<script type="text/javascript">
-  <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
-        <h2>Bank Form</h2>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
-            </li>
-            <li class="breadcrumb-item">
-                <a>Forms</a>
-            </li>
-            <li class="breadcrumb-item active">
-                <strong>Basic Form</strong>
-            </li>
-        </ol>
+.stats-container {
+  width: 50%; /* Stats container takes up 20% of the width */
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.stats-container h3 {
+  margin-top: 0;
+}
+
+.stats-container p {
+  margin: 10px 0;
+}
+</style>
+
+  
+
+
+
+
+
+
+
+  <!-- Your form and other content -->
+     <h3>Invoice Lines</h3>
+  <div class="form-container">
+ 
+    <div class="table-responsive">
+      <table id="invoice_lines" class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Units of Measure</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Amount</th>
+             <th>Item No</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Existing invoice lines will be rendered here -->
+        </tbody>
+      </table>
     </div>
-</div>
+   
+  </div>
+  
+   <button type="button" id="add_invoice_line" class="btn btn-primary">Add Invoice Line</button>
+  
+<script type="text/template" id="invoice_lines_template">
+  <tr class="invoice_line">
+    <td>
+      <select class="item_select">
+        <option value="">Select an item</option>
+        <% @items.each do |item| %>
+          <option value="<%= item.description %>"><%= item.description %></option>
+        <% end %>
+      </select>
+    </td>
+    <td>
+     <input type="text" class="description" name="invoice[invoice_lines_attributes][NEW_RECORD][description]" />
+    </td>
+    <td><input type="text" class="unit_of_measure" name="invoice[invoice_lines_attributes][NEW_RECORD][unit_of_measure]" /></td>
+    <td><input type="number" class="quantity" name="invoice[invoice_lines_attributes][NEW_RECORD][quantity]" step="any" /></td>
+    <td><input type="number" class="unit_price" name="invoice[invoice_lines_attributes][NEW_RECORD][unit_price]" step="any" /></td>
+    <td><input type="number" class="amount" name="invoice[invoice_lines_attributes][NEW_RECORD][amount]" step="any" /></td>
+    <td><input type="text" class="item_id" name="invoice[invoice_lines_attributes][NEW_RECORD][item_id]" /></td>
+    <td><button type="button" class="remove_invoice_line btn btn-danger">Remove Line</button></td>
+  </tr>
+</script>
 
 
-$(function() {
 
-    $('.i-checks').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        radioClass: 'iradio_square-green',
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Add new invoice line
+  document.getElementById('add_invoice_line').addEventListener('click', function() {
+    const template = document.getElementById('invoice_lines_template').innerHTML;
+    const tbody = document.querySelector('#invoice_lines tbody');
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = template.replace(/NEW_RECORD/g, new Date().getTime()); // Ensure unique IDs
+    tbody.appendChild(newRow);
+
+    // Attach event listener to the new item select dropdown
+    const newItemSelect = newRow.querySelector('.item_select');
+    newItemSelect.addEventListener('change', function() {
+      const description = this.value; // Get the selected item's description
+      console.log('Fetching item data for description:', description); // Debugging
+
+      // Fetch item data from the server
+      fetch(`/items/find_by_description.json?description=${encodeURIComponent(description)}`)
+        .then(response => {
+          console.log('Response status:', response.status); // Debugging
+          if (!response.ok) {
+            throw new Error('Item not found');
+          }
+          return response.json();
+        })
+        .then(item => {
+          console.log('Item data fetched:', item); // Debugging
+
+          // Update all fields in the current row
+          const row = this.closest('tr');
+          row.querySelector('.description').value = item.description || '';
+          row.querySelector('.item_id').value = item.item_id || '';
+          row.querySelector('.quantity').value = item.quantity || '';
+          row.querySelector('.unit_of_measure').value = item.unit_of_measure || '';
+          row.querySelector('.unit_price').value = item.unit_price || '';
+          row.querySelector('.amount').value = item.amount || '';
+        })
+        .catch(error => {
+          console.error('Error fetching item data:', error);
+          alert('Item not found. Please check the description and try again.');
+        });
     });
+  });
 
+  // Remove invoice line
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('remove_invoice_line')) {
+      event.preventDefault();
+      const row = event.target.closest('tr');
+      row.remove();
+    }
+  });
 });
+row.querySelector('.quantity').addEventListener('input', updateAmount);
+row.querySelector('.unit_price').addEventListener('input', updateAmount);
+
+function updateAmount() {
+  const row = this.closest('tr');
+  const quantity = parseFloat(row.querySelector('.quantity').value) || 0;
+  const unitPrice = parseFloat(row.querySelector('.unit_price').value) || 0;
+  const amount = quantity * unitPrice;
+  row.querySelector('.amount').value = amount.toFixed(2);
+}
+
+
 
 </script>
 
-<% end %>
 
-<% end %>
+<div class="actions">
+    <%= form.submit %>
+</div>
 
 
+</div>
+</div>
+  <% end %> 
 
-
- 

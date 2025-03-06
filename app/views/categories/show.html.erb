@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Default description:</strong>
+  <%= @category.default_description %>
+</p>
+
+<p>
+  <strong>Default price:</strong>
+  <%= @category.default_price %>
+</p>
+
+<%= link_to 'Edit', edit_category_path(@category) %> |
+<%= link_to 'Back', categories_path %>

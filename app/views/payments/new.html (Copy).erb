@@ -1,0 +1,47 @@
+<h1>New Payment</h1>
+
+<%= render 'form', payment: @payment %>
+
+<%= link_to 'Back', payments_path %><!-- Hidden template for cloning new line items -->
+
+ <table style="display: none;">
+  <tbody>
+  <tr id="paymentlines_template">
+ 
+  
+      <td>
+     <input type="text" name="payment[paymentlines_attributes][0][description]" id="payment_paymentlines_attributes_0_description">
+      </td>
+      <td>
+      <input type="number" name="payment[paymentlines_attributes][0][amount]" id="payment_paymentlines_attributes_0_amount">
+      </td>
+      
+      <td>
+     <input type="text" name="payment[paymentlines_attributes][1][description]" id="payment_paymentlines_attributes_0_description">
+      </td>
+      <td>
+      <input type="number" name="payment[paymentlines_attributes][1][amount]" id="payment_paymentlines_attributes_0_amount">
+      </td>
+      
+      <td>
+     <input type="text" name="payment[paymentlines_attributes][2][description]" id="payment_paymentlines_attributes_0_description">
+      </td>
+      <td>
+      <input type="number" name="payment[paymentlines_attributes][2][amount]" id="payment_paymentlines_attributes_0_amount">
+      </td>
+      
+      <td>
+     <input type="text" name="payment[paymentlines_attributes][3][description]" id="payment_paymentlines_attributes_0_description">
+      </td>
+      <td>
+      <input type="number" name="payment[paymentlines_attributes][3][amount]" id="payment_paymentlines_attributes_0_amount">
+      </td>
+      
+      
+      
+      
+      <td><a href="#" class="remove_fields">Remove</a></td>
+    
+    </tr>
+  </tbody>
+</table>

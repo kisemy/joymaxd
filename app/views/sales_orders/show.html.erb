@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Order no:</strong>
+  <%= @sales_order.order_no %>
+</p>
+
+<p>
+  <strong>Customer no:</strong>
+  <%= @sales_order.customer_no %>
+</p>
+
+<p>
+  <strong>Customer name:</strong>
+  <%= @sales_order.customer_name %>
+</p>
+
+<p>
+  <strong>Contactno:</strong>
+  <%= @sales_order.contactno %>
+</p>
+
+<p>
+  <strong>Contact name:</strong>
+  <%= @sales_order.contact_name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @sales_order.address %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @sales_order.city %>
+</p>
+
+<p>
+  <strong>Order date:</strong>
+  <%= @sales_order.order_date %>
+</p>
+
+<p>
+  <strong>Sales person code:</strong>
+  <%= @sales_order.sales_person_code %>
+</p>
+
+<p>
+  <strong>Sales person name:</strong>
+  <%= @sales_order.sales_person_name %>
+</p>
+
+<%= link_to 'Edit', edit_sales_order_path(@sales_order) %> |
+<%= link_to 'Back', sales_orders_path %>

@@ -10,22 +10,26 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :charge_type %>
-    <%= form.text_area :charge_type %>
+  
+  
+ 
+<div class="field">
+    <%= form.label :item_id %>
+    <%= form.collection_select :item_id, Item.all, :id, :description, prompt: true %>
   </div>
-
-  <div class="field">
-    <%= form.label :item_no %>
-    <%= form.text_area :item_no %>
-  </div>
+ 
 
   <div class="field">
     <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= form.text_field :description, readonly: true %>
   </div>
 
+  <div class="field">
+    <%= form.label :units_of_measure %>
+    <%= form.text_field :unit_of_measure, readonly: true %>
+  </div>
+  
+  
   <div class="field">
     <%= form.label :quantity %>
     <%= form.text_field :quantity %>
@@ -39,19 +43,27 @@
   <div class="field">
     <%= form.label :unit_price %>
     <%= form.text_field :unit_price %>
-  </div>
+  
+  
+  
+  
+  
 
   <div class="field">
     <%= form.label :amount %>
-    <%= form.text_area :amount %>
+    <%= form.text_field :amount, readonly: true %>
   </div>
-
-  <div class="field">
+  
+  
+   <div class="field">
     <%= form.label :invoice_id %>
     <%= form.text_field :invoice_id %>
   </div>
+  
 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+<%= javascript_tag 'invoice_lines' %>
+

@@ -1,0 +1,101 @@
+<!-- app/views/receipts/_receipt_line_fields.html.erb -->
+<tr class="receipt-line-fields">
+
+ 
+
+  <td>
+    <%= f.select :account_type, options_for_select([['Bank', 'bank'], ['Customer', 'customer'], ['Chart of Account', 'chart_of_account']]), {}, { onchange: 'updateAccountNoOptions()' } %>
+   </td> 
+    
+<td>
+    <%= f.select :account_no, [] %>
+</td>
+
+
+
+
+
+
+ 
+
+ <div class="form-group">
+ 
+
+  <td><%= f.text_field :account_name %></td>
+   </div>
+  <td><%= f.text_field :amount %></td>
+  <td><%= f.text_field :invoiceno %></td>
+  <td><%= link_to 'Remove', '#', class: 'remove-receipt-line btn btn-danger' %></td>
+  
+
+</tr>
+
+
+<script>
+
+ function updateAccountNoOptions() {
+    var accountType = document.getElementById('receipt_line_account_type').value;
+    console.log('Selected Account Type:', accountType);  // Debugging log
+
+    var accountNoSelect = document.getElementById('receipt_line_account_no');
+
+    // Clear current options
+    accountNoSelect.innerHTML = '';
+
+    // Fetch the corresponding options based on account type
+    var options = [];
+    if (accountType === 'bank') {
+      options = <%= @banks.map { |bank| [bank.bank_name, bank.bank_name] }.to_json.html_safe %>;
+    } else if (accountType === 'customer') {
+      options = <%= @customers.map { |customer| [customer.customer_name, customer.customer_name] }.to_json.html_safe %>;
+    } else if (accountType === 'chart_of_account') {
+      options = <%= @chart_of_accounts.map { |chart_of_account| [chart_of_account.name, chart_of_account.name] }.to_json.html_safe %>;
+    }
+
+    console.log('Options:', options);  // Debugging log
+
+    // Populate the select box with new options
+    options.forEach(function(option) {
+      var opt = document.createElement('option');
+      opt.value = option[1];
+      opt.innerHTML = option[0];
+      accountNoSelect.appendChild(opt);
+    });
+  }
+
+  // Initialize the correct options on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    updateAccountNoOptions();
+  });
+</script>
+
+
+
+<!-- app/views/receipts/_receipt_line_fields.html.erb -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    window.updateAccountNoField = function (accountType) {
+      let options = [];
+      if (accountType === 'bank') {
+        options = <%= @banks.present? ? @banks.map { |bank| [bank.bank_name, bank.bank_name] }.to_json.html_safe : '[]' %>;
+      } else if (accountType === 'customer') {
+        options = <%= @customers.present? ? @customers.map { |customer| [customer.customer_name, customer.customer_name] }.to_json.html_safe : '[]' %>;
+      } else if (accountType === 'chart_of_account') {
+        options = <%= @chart_of_accounts.present? ? @chart_of_accounts.map { |chart_of_account| [chart_of_account.name, chart_of_account.name] }.to_json.html_safe : '[]' %>;
+      }
+      // Update the account_no field with the new options
+      const accountNoField = document.getElementById('account_no_field');
+      accountNoField.innerHTML = '';
+      options.forEach(option => {
+        const opt = document.createElement('option');
+        opt.value = option[1];
+        opt.text = option[0];
+        accountNoField.appendChild(opt);
+      });
+    };
+  });
+</script>
+
+
+
+

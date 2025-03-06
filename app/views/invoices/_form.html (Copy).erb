@@ -1,0 +1,96 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+
+
+
+<%= form_with(mode: invoice, local: true) do |form| %>
+  <% if invoice.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(invoice.errors.count, "error") %> prohibited this invoice from being saved:</h2>
+
+      <ul>
+        <% invoice.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :customer_name %>
+    <%= form.text_area :customer_name, {class: 'form-control'} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contactno %>
+    <%= form.text_area :contactno, {class: 'form-control'} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contact_name %>
+    <%= form.text_area :contact_name, {class: 'form-control'} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_area :address, {class: 'form-control'} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %>
+    <%= form.text_area :city, {class: 'form-control'} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_select :date, {class: 'form-control'} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sales_person_code %>
+    <%= form.text_area :sales_person_code, {class: 'form-control'} %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sales_person_name %>
+    <%= form.text_area :sales_person_name, {class: 'form-control'} %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+
+</div>
+
+
+ </div>
+ </div>
+        </a>
+                </div>
+            </div>
+
+ 
+
+
+<% end %>
+
+</div>
+</div>
+
+
+
+
+ 

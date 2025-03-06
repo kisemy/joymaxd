@@ -1,12 +1,35 @@
 Rails.application.routes.draw do
+    
 
+  #resources :sales_orders
+  #resources :sales_quotes
+  resources :salespeople
+  resources :roles  
+  resources :permissions
+    
+  resources :bankgroups
+  resources :chart_of_accounts
+  devise_for :users
+  #devise_for :users
+  resources :account_types
+  resources :categories
+  resources :vendors
+  
   resources :gledgers
   resources :products
   resources :charge_types
   resources :chargetypes
+  resources  :invoices
+  resources :invoice_lines
+  
+  resources  :salespersons
   # devise_for :users
-  #devise_for :usersresources :invoices
+  #devise_for :users
+  #resources :invoices
+   #resources :payments
 
+ #get '/payments/fetch_accountno', to: 'payments#fetch_accountno'
+ #get '/receipts/fetch_accountno', to: 'receipts#fetch_accountno'
 
  #devise_for :users,
  # :skip => [:registrations, :sessions]
@@ -28,15 +51,15 @@ Rails.application.routes.draw do
 #end
 
 
-devise_for :users
-devise_scope :user do
-  authenticated :user do
-    root 'dashboards#dashboard_1', as: :authenticated_root
-  end
+#devise_for :users
+#devise_scope :user do
+ # authenticated :user do
+    #root 'dashboards#dashboard_1', as: :authenticated_root
+ # end
 
-  root 'devise/sessions#new'
+  #root 'devise/sessions#new'
 
-end
+#end
 
 
 # authenticated :user do
@@ -50,17 +73,19 @@ end
 #root 'dashboards#dashboard_1'
 #root to: 'dashboards#dashboard_1'
    
-  resources :receipt_lines
-  resources :receipts
+  #resources :receipt_lines
+  #resources :receipts
+  #resources :receipts, only: [:new, :create, :edit, :update]
+  
+  
   resources :paymentlines
-  resources :payments
-  resources :items
+  #resources :payments
+  #resources :items
   resources :cashes
-  resources :banks
+ resources :banks
   resources :accharts
-  resources :invoice_lines
-  resources :invoices
-  resources :customers
+  
+  #resources :customers
 # You can have the root of your site routed with "root"
   
 
@@ -71,6 +96,7 @@ end
   get "dashboards/dashboard_4"
   get "dashboards/dashboard_4_1"
   get "dashboards/dashboard_5"
+  get "dashboards/index"
 
   get "layoutsoptions/index"
   get "layoutsoptions/off_canvas"
@@ -124,7 +150,7 @@ end
   get "appviews/blog"
   get "appviews/article"
   get "appviews/issue_tracker"
-  # resources :invoices
+   
 
   get "pages/search_results"
 
@@ -207,7 +233,7 @@ end
 
   get "landing/index"
 
-
+root to: 'dashboards#dashboard_1'
 # routes for adding fields dynamically
 #resources :invoices do
   #get '/add_field', to: 'invoices#add_field', as: 'add_field'
@@ -224,15 +250,15 @@ resources :invoices do
 #get "invoices/postgl" => "invoices#postgl"
 #post "invoices/postgl" => "invoices#postgl"
  post 'postgl'
- get  'postgl'
+ #get  'postgl'
 
 #get 'i/:id/:description', to: 'vouchers#interested', as: :interested
 end
 end
 
 
- get '/add_field', to: 'payments#add_field', as: 'add_field'
-  post '/add_field', to: 'payments#add_field'
+ #get '/add_field', to: 'payments#add_field', as: 'add_field'
+  #post '/add_field', to: 'payments#add_field'
 
 
 
@@ -240,21 +266,289 @@ end
 
 
 
-resources :payments do
+#resources :payments do
 
 
 
-   collection do 
+  # collection do 
 #get "invoices/postgl" => "invoices#postgl"
 #post "invoices/postgl" => "invoices#postgl"
- post 'postgl'
- get  'postgl'
+ #post 'postgl2'
+ #get  'postgl2'
+ 
+ 
+  #post 'payments/:id/insert_into_gledger', to: 'payments#insert_into_gledger'
+
 
 #get 'i/:id/:description', to: 'vouchers#interested', as: :interested
+#end
+#end
+
+# config/routes.rb
+# resources :banks, only: [:show]
+# config/routes.rb
+resources :categories, only: [:show]
+
+#resources :payments, only: [:show]
+
+ #post 'payments/insert_into_gledger', to: 'payments#insert_into_gledger'
+
+ #  get 'receipts/:id/insert_into_rcgledger', to: 'receipts#insert_into_rcgledger'
+ #  post 'receipts/:id/insert_into_rcgledger', to: 'receipts#insert_into_rcgledger'
+   
+   
+   
+ #resources :receipts do
+   # collection do 
+  #  get 'receipts/:id/insert_into_rcgledger', to: 'receipts#insert_into_rcgledger'
+#   post 'receipts/:id/insert_into_rcgledger', to: 'receipts#insert_into_rcgledger'
+# end
+# end
+
+
+resources :bankgroups, only: [:index]
+#get 'bankgroups/get_myglaccount', to: 'bankgroups#get_myglaccount'
+#post 'bankgroups/get_myglaccount', to: 'bankgroups#get_myglaccount'
+#get 'bankgroups/:code/get_myglaccount', to: 'bankgroups#get_myglaccount'
+#post 'bankgroups/:code/get_myglaccount', to: 'bankgroups#get_myglaccount'
+
+#get 'bankgroups/:posting_group/get_gl_account', to: 'bankgroups#get_gl_account'
+# get 'bank_groups/get_glaccount', to: 'bank_groups#get_glaccount'
+#post 'bankgroups/get_glaccount', to: 'bankgroups#get_glaccount'
+# post 'bankgroups/get_glaccount', to: 'bankgroups#get_glaccount'
+
+#post 'bankgroups/:id/get_glaccount'
+#resources :bankgroups do
+ #  member do
+    #  get 'get_myglaccount'
+    #end
+  #end
+
+
+resources :bankgroups, param: :code do
+  get 'get_glaccount', on: :member
 end
+
+#resources :banks, param: :bank_name do
+ # get 'get_bankglaccount', on: :member
+#end
+
+
+
+
+
+
+
+
+#resources :receipts, param: :bank_name do
+ 
+  #  get 'get_bank_details', on: :member
+
+#end
+
+
+# config/routes.rb
+#resources :receipts, only: [:new, :create, :edit, :update] do
+ # collection do
+   # get :fetch_bank_details
+ # end
+#end
+
+#resources :receipts, only: [:new, :create, :edit, :update] do
+  #collection do
+   # get :fetch_bank_details # This ensures it's not treated as an ID for show
+  #end
+#end
+
+
+#resources :receipt_lines do
+ # get 'update_lookup', on: :collection
+#end
+
+
+
+
+
+#get 'receipt_lines/update_lookup', to: 'receipt_lines#update_lookup'
+
+
+
+
+
+
+
+
+   # get 'receipts/fetch_accounts', to: 'receipts#fetch_accounts', as: :fetch_receipt_accounts
+#post 'receipts/fetch_accounts', to: 'receipts#fetch_accounts', as: :fetch_receipt_accounts
+ # get :fetch_bank_details, to: 'receipts#fetch_bank_details', as: :fetch_bank_details
+
+
+#resources :receipts, only: [:new, :show, :create, :edit, :update, :index]
+
+# Custom routes
+#scope :receipts do
+# get 'receipts/fetch_accounts', to: 'receipts#fetch_accounts', as: :fetch_receipt_accounts
+#post 'receipts/fetch_accounts', to: 'receipts#fetch_accounts', as: :fetch_receipt_accounts
+#get :fetch_bank_details, to: 'receipts#fetch_bank_details', as: :fetch_bank_details
+
+#get 'receipts/:id/insert_into_rcgledger', to: 'receipts#insert_into_rcgledger'
+#post 'receipts/:id/insert_into_rcgledger', to: 'receipts#insert_into_rcgledger'
+ 
+#end
+
+
+# Custom routes
+#get 'receipts/fetch_accounts', to: 'receipts#fetch_accounts', as: :fetch_receipt_accounts
+#get 'receipts/fetch_bank_details', to: 'receipts#fetch_bank_details', as: :fetch_bank_details
+#get 'receipts/:id/insert_into_rcgledger', to: 'receipts#insert_into_rcgledger'
+#post 'receipts/:id/insert_into_rcgledger', to: 'receipts#insert_into_rcgledger'
+
+# RESTful routes
+#resources :receipts, only: [:new, :show, :create, :edit, :update, :index]
+
+
+
+
+
+
+
+
+
+
+#get 'receipts/fetch_accounts', to: 'receipts#fetch_accounts'
+#post 'receipts/fetch_accounts', to: 'receipts#fetch_accounts'
+
+
+
+
+
+
+#namespace :receipts do
+ # get :fetch_bank_details, to: 'receipts#fetch_bank_details', as: :fetch_bank_details
+ 
+# resources :receipt_lines, only: [:update]
+
+ 
+ 
+ resources :receipts, only: [:new, :show, :create, :edit, :index, :update, :delete] do
+  collection do
+    get :fetch_accounts
+    get :fetch_bank_details
+  end
+  member do
+    get :insert_into_rcgledger
+    post :insert_into_rcgledger
+  end
 end
 
 
+#post '/save_receipt_line', to: 'receipt_lines#save_receipt_line'
 
+
+
+
+
+
+get '/paymentlines/fetch_account_number', to: 'paymentlines#fetch_account_number'
+
+
+ get 'dashboards/account_charts', to: 'dashboards#account_charts'
+
+
+get 'dashboards', to: 'dashboards#index'
+
+  
+#resources :receipt_lines do
+#  collection do
+ #   get :account_options
+ # end
+#end
+
+
+# config/routes.rb
+#resources :items, only: [:show]
+
+
+
+resources :receipt_lines
+
+#resources :receipt_lines, only: [:new, :create]
+
+
+get 'api/banks', to: 'banks#index'
+  get 'api/customers', to: 'customers#index'
+  get 'api/chart_of_accounts', to: 'chart_of_accounts#index'
+
+ resources :gledgers, only: [:index] # Only the index action is needed
+ 
+
+ 
+ get 'chart_of_accounts', to: 'chart_of_accounts#edit_index'
+  post 'chart_of_accounts', to: 'chart_of_accounts#edit_index'
+ 
+# config/routes.rb
+
+
+#get '/payments/:id/fetch_accountno', to: 'payments#fetch_accountno'
+#post 'payments/:id/fetch_accountno', to: 'payments#fetch_accountno'
+
+# get '/payments/:id/fetch_accountno', to: 'payments#fetch_accountno'
+ #get '/payments/:id/fetch_accountno', to: 'payments#fetch_accountno'
+ 
+ 
+resources :roles
+resources :permissions
+resources :users do
+  member do
+    get 'assign_roles'
+    patch 'update_roles'
+  end
+end 
+ 
+resources :roles do
+  member do
+    get 'assign_permissions'
+    patch 'update_permissions'
+  end
+end
+
+
+# config/routes.rb
+resources :payments do
+  collection do
+    get 'fetch_accountno' # This defines a collection route
+  end
+end
+
+resources :customers do
+  collection do
+    get :find_by_name
+  end
+end
+
+# config/routes.rb
+resources :items do
+  collection do
+    get :find_by_description
+  end
+  end
+
+#get 'items/find_by_description', to: 'items#find_by_description'
+get 'items/find_by_description', to: 'items#find_by_description'
+
+resources :sales_quotes do
+    collection do
+      get 'get_customer_details'
+    end
+  end
+  
+ resources :sales_orders do
+    collection do
+      get 'get_customer_details'
+    end
+  end
+  
 
 end
+
+

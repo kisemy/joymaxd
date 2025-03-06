@@ -1,0 +1,14 @@
+<!-- app/views/payments/insert_form.html.erb -->
+<h1>Select Payment to Insert into Gledger</h1>
+
+<%= form_with url: insert_into_gledger_payments_path, method: :post do %>
+  <div class="field">
+    <%= label_tag :payment_id, "Payment ID" %>
+    <%= text_field_tag :payment_id %>
+  </div>
+
+  <div class="actions">
+    <%= submit_tag "Insert into Gledger" %>
+  </div>
+<% end %>
+

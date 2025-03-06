@@ -1,0 +1,487 @@
+<body>
+
+<p class = "notice" ><%= notice %> </p>
+<p class = "alert" ><%= alert %></p>
+
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+            <!--<%= yield %>-->
+
+
+
+
+
+<div class="wrapper wrapper-content">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-4">
+            
+             
+<div class="containerrt">
+  <div class="chart-box">
+    <h3>Expense Pie Chart</h3>
+    <canvas id="expensePieChart" width="200" height="100"></canvas>
+  </div>
+</div>
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const ctx = document.getElementById('expensePieChart').getContext('2d');
+    const pieChartData = <%= @pie_chart_data.to_json.html_safe %>;
+
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: pieChartData.map(data => data.name),
+        datasets: [{
+          data: pieChartData.map(data => data.y),
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: false, // Disable responsiveness
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                return `${context.label}: ${context.raw}`;
+              }
+            }
+          }
+        }
+      }
+    });
+  });
+</script>
+
+ 
+ 
+ 
+     
+
+  
+    
+    
+    </div>
+    <div class="chart-box">Chart 2
+    
+    
+    
+    <div class="chart-container">
+  <canvas id="accountChart"></canvas>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const ctx = document.getElementById('accountChart').getContext('2d');
+    
+    // Dynamic data passed from the controller
+    const labels = <%= raw @account_data.keys.map(&:to_json) %>;
+    const data = <%= raw @account_data.values.to_json %>;
+
+    new Chart(ctx, {
+      type: 'pie', // You can change to 'bar', 'doughnut', etc.
+      data: {
+        labels: labels,
+        datasets: [{
+          data: data,
+          backgroundColor: ['#4caf50', '#f44336', '#2196f3', '#ff9800', '#9c27b0'] // Add colors as needed
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }
+    });
+  });
+</script>
+    
+    
+    
+    </div>
+    <div class="chart-box">Chart 3
+    
+  
+  <canvas id="chartCanvas" width="200" height="100"></canvas>
+
+    
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const ctx = document.getElementById('chartCanvas').getContext('2d');
+    const chartData = <%= raw @chart_data.to_json %>;
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: Object.keys(chartData),
+        datasets: [{
+          label: 'Total Balances',
+          data: Object.values(chartData),
+          backgroundColor: ['#FF5733', '#33FF57'],
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+          },
+        },
+      },
+    });
+  });
+</script>
+    
+    </div>
+    <div class="chart-box">Chart 4</div>
+    <div class="chart-box">Chart 5</div>
+    <div class="chart-box">Chart 6</div>
+  </div>
+
+
+<style>
+
+/* Base styling */
+body1 {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Main container grid */
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+  grid-gap: 20px; /* Space between containers */
+  width: 90%; /* Page width with some padding */
+  max-width: 1200px; /* Optional: Max width for large screens */
+  margin: auto;
+}
+
+/* Individual chart containers */
+.chart-box {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  min-height: 150px; /* Ensure a minimum height for charts */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect for chart containers */
+.chart-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+  
+
+</style>
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  <h1>Dashboard</h1>
+  
+  <br>
+  <h3>Expense Pie Chart</h3>
+<canvas id="expensePieChart" width="400" height="400"></canvas>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const ctx = document.getElementById('expensePieChart').getContext('2d');
+    const pieChartData = <%= @pie_chart_data.to_json.html_safe %>;
+
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: pieChartData.map(data => data.name),
+        datasets: [{
+          data: pieChartData.map(data => data.y),
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)'
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)'
+          ],
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `${context.label}: ${context.raw}`;
+              }
+            }
+          }
+        }
+      }
+    });
+  });
+</script>
+
+           
+
+  
+  
+  <br>
+  
+  <h3> Charts of Accounts </h3>
+  
+<div class="chart-container">
+  <canvas id="accountChart"></canvas>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const ctx = document.getElementById('accountChart').getContext('2d');
+    
+    // Dynamic data passed from the controller
+    const labels = <%= raw @account_data.keys.map(&:to_json) %>;
+    const data = <%= raw @account_data.values.to_json %>;
+
+    new Chart(ctx, {
+      type: 'pie', // You can change to 'bar', 'doughnut', etc.
+      data: {
+        labels: labels,
+        datasets: [{
+          data: data,
+          backgroundColor: ['#4caf50', '#f44336', '#2196f3', '#ff9800', '#9c27b0'] // Add colors as needed
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }
+    });
+  });
+</script>
+
+<br>
+
+  <h3> Income Statement </h3>
+
+
+<div class="chart-container">
+  <h3>Income vs balance sheet </h3>
+ 
+    
+<canvas id="chartCanvas" width="400" height="200"></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const ctx = document.getElementById('chartCanvas').getContext('2d');
+    const chartData = <%= raw @chart_data.to_json %>;
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: Object.keys(chartData),
+        datasets: [{
+          label: 'Total Balances',
+          data: Object.values(chartData),
+          backgroundColor: ['#FF5733', '#33FF57'],
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+          },
+        },
+      },
+    });
+  });
+</script>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+            
+          </div>  
+        </div>
+    </div>
+
+</div>
+</div>
+
+
+ 
+
+
+
+
+
+<% content_for :javascript do %>
+
+
+            <!-- Footer -->
+                <!--<%= render 'layouts/footer' %>-->
+
+      <!--  </div>-->
+        <!-- End page wrapper-->
+
+        <!-- Right sidebar -->
+        <%= render 'layouts/rightsidebar' %>
+
+   <!-- </div>-->
+
+
+    <!-- End wrapper-->
+
+    <!-- Include javascript per-controller - vendor plugins -->
+    <%= javascript_include_tag params[:controller] if javascript_exists?(params[:controller]) %>
+
+    <!-- Include javascript per-view -->
+    <!-- For demo purpose we include javascript in view but you can easily start SeedProject and organize it with Rails asset pipeline as you want -->
+    <%= yield :javascript %>
+
+    <!-- Include Toast notification -->
+    <%= yield :toast %>
+
+<% end %>
+
+ 
+
+
+ 
+ 
+ 
+ 
+
+
+  
+    
+    
+    
+    
+    
+   </div>
+
+ </div> 
+    
+  </div>
+</div>
+

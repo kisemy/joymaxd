@@ -1,12 +1,13 @@
 <br><br>
 
+<%= link_to 'Download as PDF', payment_path(@payment, format: :pdf) %>
 
-<div class="invoice p-5">
+<div class="payment p-5">
 
-  <% if @invoice %>
-    <%= render partial: 'show_invoice', locals: {invoice: @invoice} %>
+  <% if @payment %>
+    <%= render partial: 'paymenttemp', locals: {payment: @payment} %>
   <% else %>
-    <h4>Invoice does not exist!</h4>
+    <h4>payment does not exist!</h4>
   <% end %>
 
 

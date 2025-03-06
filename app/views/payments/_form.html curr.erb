@@ -1,0 +1,155 @@
+<%= form_with(model: @payment, local: true) do |form| %>
+
+  <% if payment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(payment.errors.count, "error") %> prohibited this payment from being saved:</h2>
+
+      <ul>
+        <% payment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+<div class="container-fluid page__container">
+  
+  <div class="row">
+    <div class="col-md-7 offset-md-2">
+     <div class="card">
+        <div class="card-body"> 
+  
+  
+  
+  
+  
+  
+  
+
+
+    <div class="col-lg-8">
+
+<br>
+  <div class="field">
+  <strong>
+    <%= form.label :payment_date %>
+    <%= form.date_select :payment_date, class: 'styled-textarea'  %>
+  </div>
+ 
+<br>
+  <div class="field">
+    <%= form.label :paying_account_code %>
+    <%= form.text_area :paying_account_code, class: 'styled-textarea'  %>
+ 
+   <%= form.collection_select :bank_id, @banks, :id, :bank_name, {}, { id: "bank-select" } %>
+   
+    
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :paying_acc_description %>
+   
+    <%= form.text_area :paying_acc_description, id: "payment-paying_acc_description" %>
+    
+    
+
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :prepared_by %>
+    <%= form.text_area :prepared_by, class: 'styled-textarea'  %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :mode_of_payment %>
+    <%= form.text_area :mode_of_payment, class: 'styled-textarea'  %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :payment_description %>
+    <%= form.text_area :payment_description, class: 'styled-textarea'  %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_area :status, class: 'styled-textarea'  %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :documentno %>
+    <%= form.text_area :documentno, class: 'styled-textarea'  %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :release_date %>
+    <%= form.date_select :release_date, class: 'styled-textarea'  %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :posted %>
+    <%= form.text_area :posted, class: 'styled-textarea'  %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.text_field :amount, class: 'styled-textarea'  %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :payee_code %>
+    <%= form.text_area :payee_code, class: 'styled-textarea'  %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :payee_name %>
+    <%= form.text_area :payee_name, class: 'styled-textarea'  %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :account_type %>
+    <%= form.text_area :account_type, class: 'styled-textarea'  %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :category_type %>
+    <%= form.text_area :category_type, class: 'styled-textarea'  %>
+  </div>
+ </strong>
+  <div class="actions">
+    <%= form.submit %>
+
+  
+  
+
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>
+ <% end %>
+ <script>
+ document.addEventListener("DOMContentLoaded", () => {
+  const bankSelect = document.getElementById("bank-select");
+  const descriptionField = document.getElementById("bank-bank_name");
+  const bank_acc_noField = document.getElementById("bank-bank_acc_no");
+
+  if (bankSelect) {
+    bankSelect.addEventListener("change", (event) => {
+      const selectedBankId = event.target.value;
+
+      // Fetch the category data (mocking the data here, but you'd typically do an AJAX call)
+      fetch(`/banks/${selectedBankId}`)
+        .then(response => response.json())
+        .then(data => {
+          bank_nameField.value = data.default_description;
+          bank_acc_noField.value = data.default_bank_acc_no;
+        });
+    });
+  }
+});
+ 
+ </script>
+
+
+
+

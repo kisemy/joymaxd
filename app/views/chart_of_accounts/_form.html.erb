@@ -1,0 +1,86 @@
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+
+
+
+<%= form_with(model: chart_of_account, local: true) do |form| %>
+  <% if chart_of_account.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(chart_of_account.errors.count, "error") %> prohibited this chart of account from being saved:</h2>
+      <ul>
+        <% chart_of_account.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :no, "Account No." %>
+    <%= form.number_field :no, class: "form-control", placeholder: "Enter account number" %>
+  </div>
+
+
+
+
+
+   <div class="form-group">
+    <%= form.label :name, "Account Name" %>
+    <%= form.text_area :name, class: "form-control", placeholder: "Enter account name", rows: 2 %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :accounttype, "Account Type" %>
+    <%= form.text_area :accounttype, class: "form-control", placeholder: "Enter account type", rows: 1 %>
+  </div>
+  
+  
+  
+
+  <div class="form-group">
+    <%= form.label :account_category, "Account Category" %>
+    <%= form.text_area :account_category, class: "form-control", placeholder: "Enter account category", rows: 1 %>
+  </div>
+  
+  
+  <div class="form-group">
+    <%= form.label :postable, "Postable" %>
+    <%= form.text_area :postable, class: "form-control", placeholder: "Enter account category", rows: 1 %>
+  </div>
+  
+  
+  
+
+  <div class="form-row">
+    <div class="col">
+      <%= form.label :debit, "Debit" %>
+      <%= form.number_field :debit, class: "form-control", step: "0.01", placeholder: "0.00", readonly: true  %>
+    </div>
+    <div class="col">
+      <%= form.label :credit, "Credit" %>
+      <%= form.number_field :credit, class: "form-control", step: "0.01", placeholder: "0.00", readonly: true  %>
+    </div>
+    <div class="col">
+      <%= form.label :balance, "Balance" %>
+      <%= form.number_field :balance, class: "form-control", step: "0.01", placeholder: "0.00", readonly: true  %>
+    </div>
+  </div>
+
+  <div class="form-group mt-3">
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
+  </div>
+    </div>

@@ -1,0 +1,76 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+
+
+
+
+<p id="notice"><%= notice %></p>
+
+<h1>Salespeople</h1>
+
+<div class="card">
+
+<div class="table-responsive border-bottom" data-toggle="lists" data-lists-values='["js-lists-values-customer-name"]'>
+
+  <%# <div class="search-form search-form--light m-3">
+    <input type="text" class="form-control search" placeholder="Search">
+    <button class="btn" type="button" role="button"><i class="material-icons">search</i></button>
+  </div>
+   %>
+ 
+
+ <div class="table-responsive">
+ <table class="table table-striped table-bordered table-hover dataTables-example" >
+
+  <thead>
+    <tr>
+      <th>Sales Code</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone no</th>
+      <th>Job title</th>
+      <th>Total sales</th>
+      <th>Commission</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @salespeople.each do |salesperson| %>
+      <tr>
+        <td><%= salesperson.id %></td>
+        <td><%= salesperson.name %></td>
+        <td><%= salesperson.email %></td>
+        <td><%= salesperson.phone_no %></td>
+        <td><%= salesperson.job_title %></td>
+        <td><%= salesperson.total_sales %></td>
+        <td><%= salesperson.commission %></td>
+        <td><%= link_to 'Show', salesperson %></td>
+        <td><%= link_to 'Edit', edit_salesperson_path(salesperson) %></td>
+        <td><%= link_to 'Destroy', salesperson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+<br>
+
+<%= link_to 'New Salesperson', new_salesperson_path %>
+
+</div>
+</div>

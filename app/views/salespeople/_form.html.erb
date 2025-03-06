@@ -1,0 +1,47 @@
+<%= form_with(model: salesperson, local: true) do |form| %>
+  <% if salesperson.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(salesperson.errors.count, "error") %> prohibited this salesperson from being saved:</h2>
+
+      <ul>
+        <% salesperson.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_area :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_area :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone_no %>
+    <%= form.text_area :phone_no %>
+  </div>
+
+  <div class="field">
+    <%= form.label :job_title %>
+    <%= form.text_area :job_title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :total_sales %>
+    <%= form.text_field :total_sales %>
+  </div>
+
+  <div class="field">
+    <%= form.label :commission %>
+    <%= form.text_field :commission %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

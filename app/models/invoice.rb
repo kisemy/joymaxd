@@ -6,6 +6,8 @@ has_many :invoice_lines, dependent: :destroy
 #accepts_nested_attributes_for :invoice_lines
 
   accepts_nested_attributes_for :invoice_lines
+ belongs_to :customer, foreign_key: :customer_no, primary_key: :clientcode
+  validates :customer_no, presence: true
 
     #accepts_nested_attributes_for :invoice_lines
      #def invoice_lines_attributes=(hash)
@@ -39,15 +41,6 @@ has_many :invoice_lines, dependent: :destroy
 
 
 
-def calculate_product_totals
-    self.invoice_lines.each do |invoice_line|
-      if invoice_line
-        invoice_line.amount = invoice_line.unit_price * invoice_line.quantity
-       #@subtotal = @subtotal + invoice_line.amount 
-      end 
-    end
-    self.save
-  end
 
 
 

@@ -11,27 +11,14 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :receipt_date %>
-    <%= form.date_select :receipt_date %>
-  </div>
+
 
   <div class="field">
     <%= form.label :receipt_account %>
     <%= form.text_area :receipt_account %>
   </div>
 
-  <div class="field">
-    <%= form.label :account_type %>
-    <%= form.text_area :account_type %>
-  </div>
-
-  <div class="field">
-    <%= form.label :account_no %>
-    <%= form.text_area :account_no %>
-  </div>
-
-  <div class="field">
+   <div class="field">
     <%= form.label :account_name %>
     <%= form.text_area :account_name %>
   </div>
@@ -46,12 +33,69 @@
     <%= form.text_area :invoiceno %>
   </div>
 
+
+
   <div class="field">
-    <%= form.label :receipt_id %>
-    <%= form.text_field :receipt_id %>
+    <%= form.label :account_type %>
+    <%= form.select :account_type, options_for_select([['Bank', 'bank'], ['Customer', 'customer'], ['Chart of Account', 'chart_of_account']]), {}, { onchange: 'updateAccountNoOptions()' } %>
   </div>
+
+  <div class="field">
+    <%= form.label :account_no, 'Account No' %>
+    <%= form.select :account_no, [] %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :receipt_id, 'Receipt_id' %>
+    <%= form.text_area :receipt_id %>
+  </div> 
+  
+ 
+
+  
+  
+  
 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+
+<script>
+
+ function updateAccountNoOptions() {
+    var accountType = document.getElementById('receipt_line_account_type').value;
+    console.log('Selected Account Type:', accountType);  // Debugging log
+
+    var accountNoSelect = document.getElementById('receipt_line_account_no');
+
+    // Clear current options
+    accountNoSelect.innerHTML = '';
+
+    // Fetch the corresponding options based on account type
+    var options = [];
+    if (accountType === 'bank') {
+      options = <%= @banks.map { |bank| [bank.bank_name, bank.bank_name] }.to_json.html_safe %>;
+    } else if (accountType === 'customer') {
+      options = <%= @customers.map { |customer| [customer.customer_name, customer.customer_name] }.to_json.html_safe %>;
+    } else if (accountType === 'chart_of_account') {
+      options = <%= @chart_of_accounts.map { |chart_of_account| [chart_of_account.name, chart_of_account.name] }.to_json.html_safe %>;
+    }
+
+    console.log('Options:', options);  // Debugging log
+
+    // Populate the select box with new options
+    options.forEach(function(option) {
+      var opt = document.createElement('option');
+      opt.value = option[1];
+      opt.innerHTML = option[0];
+      accountNoSelect.appendChild(opt);
+    });
+  }
+
+  // Initialize the correct options on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    updateAccountNoOptions();
+  });
+</script>
+

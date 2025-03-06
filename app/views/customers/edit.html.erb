@@ -1,5 +1,8 @@
 <h1>Editing Customer</h1>
 
+
+<%= link_to 'Download as PDF', customer_path(@customer, format: :pdf) %>
+
 <%= render 'form', customer: @customer %>
 
 <%= link_to 'Show', @customer %> |

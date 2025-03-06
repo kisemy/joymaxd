@@ -1,0 +1,353 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+
+<%= form_with(model: @invoice, local: true) do |form| %>
+
+<div class="form-container">
+
+<h3> Customer Card </h3>
+
+   <div class="main-form">
+   
+    <div class="field">
+    <%= form.label :date %>
+    <%= form.text_field :date, id: 'date', class: 'styled-textarea'  %>
+  </div>
+   
+  <div class="field">
+    <%= form.label :customer_name %>
+    <%= form.collection_select :customer_name, @customers, :customer_name, :customer_name, { prompt: 'Select a customer' }, id: 'customer_select', class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :customer_no %>
+    <%= form.text_field :customer_no, id: 'customer_no', class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contactno %>
+    <%= form.text_field :contactno, id: 'contactno', class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contact_name %>
+    <%= form.text_field :contact_name, id: 'contact_name', class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address, id: 'address', class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %>
+    <%= form.text_field :city, id: 'city', class: 'styled-textarea'  %>
+  </div>
+  
+   <div class="field">
+    <%= form.label :sales_person_code %>
+    <%= form.text_field :sales_person_code, id: 'sales_person_code', class: 'styled-textarea'  %>
+  </div>
+  
+   <div class="field">
+    <%= form.label :sales_person_name %>
+    <%= form.text_field :sales_person_name, id: 'sales_person_name', class: 'styled-textarea'  %>
+  </div>
+  
+  
+  
+ </div> 
+ 
+   <h3>Invoice Lines</h3>
+  <div class="table-responsive">
+    <table id="invoice_lines" class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Item No</th>
+          <th>Description</th>
+          <th>Units of Measure</th>
+          <th>Quantity</th>
+          <th>Unit Price</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= form.fields_for :invoice_lines do |invoice_line| %>
+          <%= render 'invoice_line_fields', f: invoice_line %>
+        <% end %>
+      </tbody>
+    </table>
+  </div> 
+  
+  
+     
+
+<script type="text/template" id="invoice_lines_template">
+  <%= render 'invoice_line_fields', f: InvoiceLine.new, id: 'NEW_RECORD' %>
+</script>
+ 
+ 
+ 
+ 
+ 
+ 
+    
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const customerSelect = document.getElementById('customer_select');
+    customerSelect.addEventListener('change', function() {
+      const customerName = this.value;
+      if (customerName) {
+        fetch(`/customers/find_by_name.json?customer_name=${encodeURIComponent(customerName)}`)
+          .then(response => response.json())
+          .then(customer => {
+            document.getElementById('customer_no').value = customer.clientcode || '';
+            document.getElementById('contactno').value = customer.contactno || '';
+            document.getElementById('contact_name').value = customer.contact_name || '';
+            document.getElementById('address').value = customer.address || '';
+            document.getElementById('city').value = customer.city || '';
+            document.getElementById('sales_person_code').value = customer.sales_person_code || '';
+            document.getElementById('sales_person_name').value = customer.sales_person_name || '';
+            
+            
+            
+          })
+          .catch(error => console.error('Error fetching customer data:', error));
+      } else {
+        // Clear fields if no customer is selected
+        document.getElementById('customer_no').value = '';
+        document.getElementById('contactno').value = '';
+        document.getElementById('contact_name').value = '';
+        document.getElementById('address').value = '';
+        document.getElementById('city').value = '';
+        document.getElementById('sales_person_code').value = '';
+        document.getElementById('sales_person_name').value = '';
+      }
+    });
+  });
+</script>
+
+
+  
+
+
+  
+  
+  
+  
+
+  
+ <div class="stats-container">
+    <h3>Customer Statistics</h3>
+    
+    <div class="customer-stats">
+  <div class="stat-card">
+    <h4>Total Customers</h4>
+    <p>1,250</p>
+  </div>
+  <div class="stat-card">
+    <h4>Average Order Value</h4>
+    <p>$45.60</p>
+  </div>
+  <div class="stat-card">
+    <h4>Repeat Purchase Rate</h4>
+    <p>35%</p>
+  </div>
+  <div class="stat-card">
+    <h4>Customer Satisfaction</h4>
+    <p>4.7/5</p>
+  </div>
+</div>
+</div>
+</div>
+    
+
+
+   
+    
+    
+    
+  
+
+ 
+ 
+<style>
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Adds space between the form and stats container */
+}
+
+.main-form {
+  width: 75%; /* Main form takes up 75% of the width */
+}
+
+.stats-container {
+  width: 50%; /* Stats container takes up 20% of the width */
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.stats-container h3 {
+  margin-top: 0;
+}
+
+.stats-container p {
+  margin: 10px 0;
+}
+</style>
+
+  
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Add new invoice line
+    document.getElementById('add_invoice_line').addEventListener('click', function() {
+      const template = document.getElementById('invoice_lines_template').innerHTML;
+      const tbody = document.querySelector('#invoice_lines tbody');
+      const newRow = document.createElement('tr');
+      newRow.innerHTML = template.replace(/NEW_RECORD/g, new Date().getTime()); // Ensure unique IDs
+      tbody.appendChild(newRow);
+    });
+
+    // Remove invoice line
+    document.addEventListener('click', function(event) {
+      if (event.target.classList.contains('remove_invoice_line')) {
+        event.preventDefault();
+        const row = event.target.closest('tr');
+        row.remove();
+      }
+    });
+  });
+</script> 
+  
+
+  
+
+
+  
+  
+  
+  
+  
+  
+   <!-- Add Invoice Line Button -->
+  <button type="button" id="add_invoice_line" class="btn btn-primary">Add Invoice Line</button>
+ 
+ 
+
+  <div class="actions">
+    <%= form.submit %>
+
+</div>
+
+  <!-- Hidden template for new paymentline rows -->
+  <script type="text/template" id="invoice_lines_template">
+      <tr class="invoice_line">
+     
+<td>
+  <input type="text" name="invoice[invoice_lines_attributes][NEW_RECORD][description]" id="invoice_invoice_lines_attributes_NEW_RECORD_description" />
+</td>
+          
+         
+             <td><input type="text" name="invoice[invoice_lines_attributes][NEW_RECORD][item_no]" id="invoice_invoice_lines_attributes_NEW_RECORD_item_no" </td>
+        
+            <td><input type="text" name="invoice[invoice_lines_attributes][NEW_RECORD][description]" id="invoice_invoice_lines_attributes_NEW_RECORD_description" </td>
+        
+           <td>
+            <input type="number" name="invoice[invoice_lines_attributes][NEW_RECORD][quantity]" id="invoice_invoice_lines_attributes_NEW_RECORD_quantity" step="any" </td>
+         
+           <td> <input type="text" name="invoice[invoice_lines_attributes][NEW_RECORD][unit_of_measure]" id="invoice_invoice_lines_attributes_NEW_RECORD_unit_of_measure" </td>
+          
+            <td><input type="number" name="invoice[invoice_lines_attributes][NEW_RECORD][unit_price]" id="invoice_invoice_lines_attributes_NEW_RECORD_unit_price" step="any" </td>
+        
+            <td><input type="number" name="invoice[invoice_lines_attributes][NEW_RECORD][amount]" id="invoice_invoice_lines_attributes_NEW_RECORD_amount" step="any" </td>
+           
+          <td><button type="button" class="remove_invoice_line btn btn-danger">Remove Line</button></td>
+      
+      
+    </tr>
+  </script>
+  
+ 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Add new invoice line
+  document.getElementById('add_invoice_line').addEventListener('click', function() {
+    const template = document.getElementById('invoice_lines_template').innerHTML;
+    const tbody = document.querySelector('#invoice_lines tbody');
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = template.replace(/NEW_RECORD/g, new Date().getTime()); // Ensure unique IDs
+    tbody.appendChild(newRow);
+  });
+
+  // Remove invoice line
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('remove_invoice_line')) {
+      event.preventDefault();
+      const row = event.target.closest('tr');
+      row.remove();
+    }
+  });
+});
+</script>
+
+
+
+
+ 
+
+
+<% end %>
+
+</div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const customerSelect = document.getElementById('customer_select');
+    customerSelect.addEventListener('change', function() {
+      const customerId = this.value;
+      if (customerId) {
+        fetch(`/customers/${customerId}.json`)
+          .then(response => response.json())
+          .then(customer => {
+            document.getElementById('customer_no').value = customer.customer_no || '';
+            document.getElementById('customer_name').value = customer.name || '';
+            document.getElementById('contactno').value = customer.contactno || '';
+            document.getElementById('contact_name').value = customer.contact_name || '';
+            document.getElementById('address').value = customer.address || '';
+            document.getElementById('city').value = customer.city || '';
+          });
+      } else {
+        // Clear fields if no customer is selected
+        document.getElementById('customer_no').value = '';
+        document.getElementById('customer_name').value = '';
+        document.getElementById('contactno').value = '';
+        document.getElementById('contact_name').value = '';
+        document.getElementById('address').value = '';
+        document.getElementById('city').value = '';
+      }
+    });
+  });
+</script>
+  
+
+ 

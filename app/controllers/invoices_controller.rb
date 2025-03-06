@@ -1,16 +1,39 @@
 class InvoicesController < ApplicationController
 
- before_action :set_invoice, only: %i[ show edit update destroy]
+ #before_action :set_invoice, only: %i[ show edit update index destroy]
+  before_action :set_invoice, only: [:show, :edit, :update, :destroy]
+ 
   before_action :find_invoice, only: [:show, :edit, :update, :destroy]
+before_action :set_invoices, only: [:index]
+ 
 
-  attr_accessor :id, :customer_name, :contactno, :contact_name, :address, :city, :date, :sales_person_code, :sales_person_name
+  
+  attr_accessor :id,
+
+
+  
+
+
+  
+  
+
+
+
+
+
+
+
+
+
 
   
   # GET /invoices or /invoices.json
   def index
  
-    @invoices = Invoice.all
-     @invoices = scope
+   
+   #  @invoices = scope
+    #@invoices = Invoice.all || [] # Fallback to an empty array if Invoice.all returns nil
+   #   Rails.logger.info "Invoices: #{@invoices.inspect}" # Log the value of @invoices
   end
 
 
@@ -21,28 +44,8 @@ class InvoicesController < ApplicationController
 
   def show
 @invoice = Invoice.find(params[:id])
-@total_invoice = @invoice.invoice_lines.sum(:amount)
-
- 
 
 
- #@invoice = Invoice.find(params[:id])
-#  @invoice = scope.find(params[:id])
-  # @invoice.invoice_lines.buildecord::RecordNotFound in InvoicesController#postgl
-
-    respond_to do |format|
-     format.html
-      format.pdf do
-        render pdf: "Invoice No. #{@invoice.id}",
-        page_size: 'A4',
-        template: "invoices/invoicetmp.html.erb",
-        layout: "pdf.html.erb",
-       orientation: "portrait",
-       lowquality: true,
-        zoom: 1, 
-       dpi: 75
-     end
-    end
 end
 
 
@@ -52,6 +55,9 @@ end
   def new
     @invoice = Invoice.new
     @invoice.invoice_lines.build
+    @customers = Customer.all 
+    @items = Item.all 
+    
   end
 
 
@@ -69,19 +75,47 @@ end
   # GET /invoices/1/edit 
   
   # POST /invoices or /invoices.json
-   def create
-      @invoice = Invoice.new(invoice_params)
+   # def create
+   #    @invoice = Invoice.new(invoice_params)
+    #  respond_to do |format|
+    #    if @invoice.save
+   #      format.html { redirect_to invoice_url(@invoice), notice: "Invoice line was successfully created." }
+     #   format.json { render :show, status: :created, location: @invoice } 
+    #    else
+     #   format.html { render :new, status: :unprocessable_entity }
+       #  format.json { render json: @invoice.errors, status: :unprocessable_entity }   
+    #   end
+    #  end
+#  end
+ 
 
-     respond_to do |format|
-       if @invoice.save
-        format.html { redirect_to invoice_url(@invoice), notice: "Invoice was successfully created." }
-         format.json { render :show, status: :created, location: @invoice }
-       else
-        format.html { render :new, status: :unprocessable_entity }
-         format.json { render json: @invoice.errors, status: :unprocessable_entity }
-      end
-     end
- end
+ def create
+  @invoice = Invoice.new(invoice_params)
+  respond_to do |format|
+    if @invoice.save
+      format.html { redirect_to invoice_url(@invoice), notice: "Invoice was successfully created." }
+      format.json { render :show, status: :created, location: @invoice }
+    else
+     @customers = Customer.all 
+     @items = Item.all 
+      format.html { render :new, status: :unprocessable_entity }
+      format.json { render json: @invoice.errors, status: :unprocessable_entity }
+    end
+  end
+end
+   
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 
 # def create
   #   @invoice = invoices.build(invoice_params)
@@ -120,22 +154,6 @@ end
   # end
 
 
- def update
-   if @invoice.update(invoice_params)
-     flash[:notice] = "Updated invoice successfully!"
-     @invoice.calculate_product_totals
-      redirect_to invoice_path(@invoice)
-    else
-     flash[:alert] = @invoice.errors.full_messages.uniq
-      render :edit
-    end
-  end
-
-
-
-
-
-#end
  
 
   # DELETE /invoices/1 or /invoices/1.json
@@ -244,13 +262,26 @@ end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_invoice
-       @invoice = Invoice.find(params[:id])
+      @invoice = Invoice.find(params[:id])
+      #  @invoice = Invoice.all
     end
+
+
+
+
 
     # Only allow a list of trusted parameters through.
   def invoice_params
-   params.require(:invoice).permit(:customer_name, :contactno, :contact_name, :address, :city, :date, :sales_person_code, :sales_person_name,     invoice_lines_attributes: [:charge_type, :item_no, :description, :quantity, :unit_of_measure, :unit_price, :amount, :_destroy])
+   params.require(:invoice).permit(:customer_no, :customer_name, :contactno, :contact_name, :address, :city, :date, :sales_person_code, :sales_person_name, invoice_lines_attributes: [:charge_type, :item_no, :description, :quantity, :unit_of_measure, :unit_price, :amount, :_destroy])
   end
+
+  
+  
+  
+  
+  
+  
+  
 
    def scope
       ::Invoice.all.includes(:invoice_lines)
@@ -261,7 +292,9 @@ def find_invoice
    # @invoice = Invoice.find_by(id: params[:id])
   end
 
-
+ def set_invoices
+    @invoices = Invoice.all
+  end
 
 
 

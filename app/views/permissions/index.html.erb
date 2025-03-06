@@ -1,0 +1,53 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+
+
+<h1>Permissions</h1>
+
+<%= link_to 'New Permission', new_permission_path, class: 'btn btn-primary' %>
+
+<div class="card">
+ <div class="table-responsive">
+ <table class="table table-striped table-bordered table-hover dataTables-example" >
+
+  <thead>
+    <tr>
+      <th>Action</th>
+      <th>Subject Class</th>
+      <th>Subject ID</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @permissions.each do |permission| %>
+      <tr>
+        <td><%= permission.action %></td>
+        <td><%= permission.subject_class %></td>
+        <td><%= permission.subject_id %></td>
+        <td>
+          <%= link_to 'View', permission_path(permission), class: 'btn btn-info' %>
+          <%= link_to 'Edit', edit_permission_path(permission), class: 'btn btn-warning' %>
+          <%= link_to 'Delete', permission_path(permission), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div>

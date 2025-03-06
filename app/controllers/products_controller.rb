@@ -4,25 +4,33 @@ class ProductsController < ApplicationController
   # GET /products or /products.json
   def index
     @products = Product.all
+    @categories = Category.all
   end
 
   # GET /products/1 or /products/1.json
   def show
+  @categories = Category.all
+  
   end
 
   # GET /products/new
   def new
     @product = Product.new
-  end
+      @categories = Category.all
+  end  
 
   # GET /products/1/edit
   def edit
+    @product = Product.find(params[:id])
+  
+  @categories = Category.all
+  
   end
 
   # POST /products or /products.json
   def create
     @product = Product.new(product_params)
-
+ @categories = Category.all
     respond_to do |format|
       if @product.save
         format.html { redirect_to product_url(@product), notice: "Product was successfully created." }
@@ -65,6 +73,6 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.require(:product).permit(:name, :description, :price, :user_id)
+      params.require(:product).permit(:name, :description, :price, :user_id, :category_id)
     end
 end

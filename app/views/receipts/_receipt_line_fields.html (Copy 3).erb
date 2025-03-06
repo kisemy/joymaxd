@@ -1,0 +1,115 @@
+<!-- app/views/receipts/_receipt_line_fields.html.erb -->
+<tr class="receipt-line">
+
+
+
+<td>
+ <div class="form-group">
+  <select id="account_type" name="account_type" class="form-control">
+    <option value="Customer">Customer</option>
+    <option value="Bank">Bank</option>
+    <option value="G/L">G/L</option>
+  </select>
+</div>
+</td>
+
+<td>
+<div class="form-group">
+  <select id="account_no" name="account_no" class="form-control">
+    <option value="">Select Account</option>
+  </select>
+
+</td>
+
+
+  
+  
+
+<tr class="receipt-line">
+  <td>
+    <div class="form-group">
+      <%= f.select :account_type, ['Customer', 'Bank', 'G/L'], {}, class: 'form-control' %>
+    </div>
+  </td>
+  <td>
+    <div class="form-group">
+      <%= f.select :account_no, options_for_select([]), {}, class: 'form-control' %>
+    </div>
+  </td>
+</tr>
+
+
+
+
+
+
+
+ 
+
+ <div class="form-group">
+ 
+
+  <td><%= f.text_field :account_name %></td>
+   </div>
+  <td><%= f.text_field :amount %></td>
+  <td><%= f.text_field :invoiceno %></td>
+  <td><%= link_to 'Remove', '#', class: 'remove-receipt-line btn btn-danger' %></td>
+  
+
+</tr>
+
+<script>
+  
+
+    const accountTypeSelect = document.getElementById('account_type');
+    const accountNoSelect = document.getElementById('account_no');
+    const saveButton = document.getElementById('saveButton');
+
+    // Populate account_no dropdown dynamically
+    accountTypeSelect.addEventListener('change', function () {
+      const selectedType = this.value;
+      accountNoSelect.innerHTML = '<option value="">Select Account</option>';
+
+      if (accountOptions[selectedType]) {
+        accountOptions[selectedType].forEach(option => {
+          const optElement = document.createElement('option');
+          optElement.value = option.value;
+          optElement.textContent = option.text;
+          accountNoSelect.appendChild(optElement);
+        });
+      }
+    });
+
+    // Save data dynamically
+    saveButton.addEventListener('click', function () {
+      const accountType = accountTypeSelect.value;
+      const accountNo = accountNoSelect.value;
+
+      if (!accountNo) {
+        alert('Please select an account number.');
+        return;
+      }
+
+      // Make an AJAX POST request to save data
+      fetch('/save_receipt_line', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ account_type: accountType, account_no: accountNo })
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert('Data saved successfully!');
+          } else {
+            alert('Error saving data.');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    });
+  </script>
+
+

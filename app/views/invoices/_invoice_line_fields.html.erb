@@ -1,0 +1,32 @@
+<tr class="invoice_line_fields">
+  
+  <td>
+      <select class="item_select">
+        <option value="">Select an item</option>
+        <% @items.each do |item| %>
+          <option value="<%= item.description %>"><%= item.description %></option>
+        <% end %>
+      </select>
+    </td>
+  <td>
+    <%= f.text_field :item_no, class: 'item_no' %>
+  </td>
+  <td>
+    <%= f.text_field :description, class: 'description' %>
+  </td>
+  <td>
+    <%= f.text_field :unit_of_measure, class: 'unit_of_measure' %>
+  </td>
+  <td>
+    <%= f.number_field :quantity, class: 'quantity' %>
+  </td>
+  <td>
+    <%= f.number_field :unit_price, class: 'unit_price'%>
+  </td>
+  <td>
+    <%= f.number_field :amount, class: 'amount' %>
+  </td>
+  <td>
+    <%= link_to_remove_association "Remove Line", f, class: 'btn btn-danger' %>
+  </td>
+</tr>

@@ -1,9 +1,16 @@
 class Payment < ApplicationRecord
-has_many :paymentlines, dependent: :destroy
+
+ has_many :banks
 
 #accepts_nested_attributes_for :invoice_lines
 
-  accepts_nested_attributes_for :paymentlines
+
+  
+ has_many :paymentlines, dependent: :destroy
+
+  accepts_nested_attributes_for :paymentlines, allow_destroy: true  
+  
+  
 
 end
 

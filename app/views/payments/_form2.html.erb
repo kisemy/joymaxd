@@ -1,0 +1,411 @@
+<%= form_with(model: @payment) do |f| %>
+ 
+
+<div class="container-fluid page__container">
+
+
+<div id="payment-lines">
+    <!-- New payment line row -->
+    <div class="payment-line">
+      <label for="account_type">Account Type</label>
+      <select class="account_type" name="payment[paymentlines_attributes][new_paymentlines][0][account_type]">
+        <option value="">Select Account Type</option>
+        <option value="customer">customer</option>
+        <option value="vendor">vendor</option>
+        <option value="gl_account">GL Account</option>
+        <option value="bank">bank</option>
+        <option value="fixed_asset">Fixed Asset</option>
+      </select>
+
+      <label for="accountno">Account Number</label>
+      <select class="accountno" name="payment[paymentlines_attributes][new_paymentlines][0][accountno]">
+        <option value="">Select Account Number</option>
+      </select>
+    </div>
+    <!-- Additional rows will be appended here dynamically -->
+  </div>
+
+  <button type="button" id="add-line">Add Payment Line</button> 
+
+
+
+
+
+  
+  <div class="row">
+    <div class="col-md-9 offset-md-2">
+      <div class="card">
+        <div class="card-body">
+
+
+
+     
+       
+          <div class="px-3">
+
+            <div class="d-flex justify-content-center flex-column text-center my-5 navbar-light">
+              <class="navbar-brand d-flex flex-column m-0" style="min-width: 0">
+                  <%= image_tag "bright.jpg", :size => "850x100" %>
+                
+              </a>
+            <strong><h1>PAYMENT VOUCHER</h1></strong>
+            </div>
+            
+            
+ <div class="card card-form">
+                  
+         
+
+
+<div class="containerpv">
+
+  <div class="content">
+
+                  <div class="container">
+		  <label for="roundedSample01">Payment Date:</label><br>
+		 
+                  <%= f.text_area :payment_date, class: 'styled-textarea' %>
+            
+		</div>
+<br>
+                 <div class="container">
+		  <label for="textarea">Paying Account Code:</label><br>
+		 
+                   <%= f.text_area :paying_account_code, class: 'styled-textarea'  %><br>
+                   
+                
+		</div>
+		
+		
+	
+
+ 
+
+	
+		
+		
+		
+		
+		
+		
+		
+<br>
+                  <div class="container">
+		  <label for="textarea">Paying Description:</label><br>
+		 
+                
+                  <%= f.text_area :paying_acc_description, id: "payment-paying_acc_description" %>
+		</div>
+<br>
+
+                 <div class="container">
+		  <label for="textarea">Prepared by:</label><br>
+		 
+                   <%= f.text_area :prepared_by, class: 'styled-textarea' %><br>
+          
+		</div>
+
+<br>
+                  <div class="container">
+		  <label for="textarea">Mode of Payment:</label><br>
+		 
+                   <%= f.text_area :mode_of_payment, class: 'styled-textarea' %><br>
+          
+		</div>
+<br>
+               <div class="container">
+		  <label for="textarea">Payment Description:</label><br>
+		 
+                   <%= f.text_area :payment_description, class: 'styled-textarea' %><br>
+          
+		</div>
+<br>
+             <div class="container">
+		  <label for="textarea">Status:</label><br>
+		 
+                   <%= f.text_area :status, class: 'styled-textarea'%><br>
+          
+		</div>
+		
+		</div>
+		
+		
+		
+		
+		
+
+ <div class="content"> 
+                 
+        <div class="col-lg text">
+ 
+ 
+                  <div class="container">
+		  <label for="textarea">Document No:</label><br>
+		 
+                   <%= f.text_area :documentno, class: 'styled-textarea' %><br>
+          
+		</div>
+		</div>
+    
+       
+<br>
+
+           <div class="col-lg text">
+                 <div class="container">
+		  <label for="textarea">Release Date:</label><br>
+		 
+                   <%= f.text_area :release_date, class: 'styled-textarea' %><br>
+          
+          </div>
+		</div>
+		
+		
+		
+    
+          
+<br>
+
+         
+         <div class="col-lg text">
+                 <div class="container">
+		  <label for="textarea">Posted:</label><br>
+		 
+                   <%= f.text_area :posted, class: 'styled-textarea'   %><br>
+          
+		</div>
+		
+		 </div>
+		
+		
+		
+		
+   
+      
+       
+                 
+        <div class="col-lg text">
+
+                 <div class="container">
+		  <label for="textarea">Amount:</label><br>
+		 
+                   <%= f.text_area :amount, class: 'styled-textarea'   %><br>
+          
+		</div>
+    
+             </div>
+
+ <div class="col-lg text">
+
+                 <div class="container">
+		  <label for="textarea">Payee Code:</label><br>
+		 
+                   <%= f.text_area :payee_code, class: 'styled-textarea'   %><br>
+          
+		</div>
+    
+             </div>
+<br>
+
+				 
+ <div class="col-lg text">
+
+                 <div class="container">
+		  <label for="textarea">Payee Name:</label><br>
+		 
+                   <%= f.text_area :payee_name, class: 'styled-textarea'   %><br>
+          
+		</div>
+    
+             </div>
+<br>		
+
+<div class="col-lg text">
+
+                 <div class="container">
+		  <label for="textarea">Account Type:</label><br>
+		 
+                   <%= f.text_area :account_type, class: 'styled-textarea'  %><br>
+          
+		</div>
+    
+             </div>
+<br>		
+	
+<div class="col-lg text">
+
+                 <div class="container">
+		  <label for="textarea">Category Type</label><br>
+		 
+                   <%= f.text_area :category_type, class: 'styled-textarea'   %><br>
+          
+		</div>
+               </div>
+<br>
+ </div>
+ </div>
+
+  
+  
+   
+  
+
+
+
+
+
+  <h3>Payment Lines</h3>
+  
+  <div class="table-responsive">
+  <div class="col">
+  <table class="table table-bordered">
+  
+  <table id="paymentlines">
+    <thead>
+      <tr>
+      <th>Account Type</th>
+      <th>Account No</th>
+        <th>Description</th>
+        <th>Amount</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Use fields_for :paymentlines to generate the correct nested form -->
+      <%= f.fields_for :paymentlines do |item| %>
+      
+      <% end %>
+    </tbody>
+  </table>
+  
+  </div>
+  </div>
+  </div>
+
+  <!-- Button to add new paymentline rows -->
+  <button type="button" id="add_paymentline">Add Payment Line</button>
+
+  <%= f.submit 'Save Payment' %>
+  
+ 
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ 
+  
+
+
+ 
+<!-- Hidden template for new paymentline rows -->
+<script type="text/template" id="paymentlines_template">
+
+  <tr>
+
+  <td>
+      <select name="payment[paymentlines_attributes][new_paymentlines][account_type]">
+        <option value="">Select Account Type</option>
+        <% AccountType.all.each do |account_type| %>
+          <option value="<%= account_type.name %>"><%= account_type.name %></option>
+        <% end %>
+      </select>
+    </td>
+    
+    <td>
+    <label for="account_type">Account Type</label>
+  <select id="account_type" name="payment[paymentlines_attributes][new_paymentlines][account_type]">
+    <option value="customer">Customer</option>
+    <option value="vendor">Vendor</option>
+    <option value="gl_account">GL Account</option>
+    <option value="bank">Bank</option>
+    <option value="fixed_asset">Fixed Asset</option>
+  </select>
+    
+    </td>
+  
+ <td> <select id="accountno" name="payment[paymentlines_attributes][new_paymentlines][accountno]">
+    <option value="">Select Account Number</option>
+  </select></td>
+  
+ <td>
+ <select class="accountno" name="payment[paymentlines_attributes][new_paymentlines][0][accountno]">
+        <option value="">Select Account Number</option>
+      </select>
+ </td>
+    <td><input type="text" name="payment[paymentlines_attributes][new_paymentlines][description]" placeholder="Description"></td>
+    <td><input type="number" name="payment[paymentlines_attributes][new_paymentlines][amount]" placeholder="Amount"></td>
+    <td><a href="#" class="remove_fields">Remove</a></td>
+  </tr>
+
+</script>
+<% end %>
+
+
+<script>
+  $('#account_type').on('change', function() {
+    var accountType = $(this).val();
+
+    $.ajax({
+      url: '/payments/fetch_accountno',
+      method: 'GET',
+      data: { account_type: accountType },
+      success: function(response) {
+        var accountnoSelect = $('#accountno');
+        accountnoSelect.empty();
+        $.each(response.accountno_options, function(index, accountno) {
+          accountnoSelect.append(new Option(accountno, accountno));
+        });
+      }
+    });
+  });
+</script>
+<script>
+
+$(document).on('change', '.account_type', function() {
+  var accountType = $(this).val();
+  var accountnoSelect = $(this).closest('.payment-line').find('.accountno'); // Find the associated accountno select
+
+  // Send AJAX request to fetch account numbers based on account type
+  $.ajax({
+    url: '/payments/fetch_accountno',
+    method: 'GET',
+    data: { account_type: accountType },
+    success: function(response) {
+      accountnoSelect.empty();
+      accountnoSelect.append(new Option('Select Account Number', ''));
+      $.each(response.accountno_options, function(index, accountno) {
+        accountnoSelect.append(new Option(accountno, accountno));
+      });
+    }
+  });
+});
+
+// Add new payment line
+$('#add-line').on('click', function() {
+  var index = $('.payment-line').length; // Keep track of the line index
+  var newLine = `
+    <div class="payment-line">
+      <label for="account_type">Account Type</label>
+      <select class="account_type" name="payment[paymentlines_attributes][new_paymentlines][${index}][account_type]">
+        <option value="">Select Account Type</option>
+        <option value="customer">Customer</option>
+        <option value="vendor">Vendor</option>
+        <option value="gl_account">GL Account</option>
+        <option value="bank">Bank</option>
+        <option value="fixed_asset">Fixed Asset</option>
+      </select>
+
+      <label for="accountno">Account Number</label>
+      <select class="accountno" name="payment[paymentlines_attributes][new_paymentlines][${index}][accountno]">
+        <option value="">Select Account Number</option>
+      </select>
+    </div>
+  `;
+  $('#payment-lines').append(newLine);
+});
+
+</script>

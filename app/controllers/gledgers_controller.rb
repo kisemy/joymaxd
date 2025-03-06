@@ -4,9 +4,37 @@ class GledgersController < ApplicationController
   #validates :documentno, :description, :amount, presence: true
 
   # GET /gledgers or /gledgers.json
+ # def index
+ #   @gledgers = Gledger.all
+#  end
+  
+  
   def index
-    @gledgers = Gledger.all
+    @account_no = params[:account_no]
+    @type = params[:type]
+
+    # Fetch the chart of account for reference
+    @chart_of_account = ChartOfAccount.find_by(no: @account_no)
+
+    # Filter gledgers based on the account_no and type
+    @gledgers = Gledger.where(accountno: @account_no)
+
+    case @type
+    when 'debit'
+      @gledgers = @gledgers.where('amount > 0') # Debit transactions (positive amounts)
+    when 'credit'
+      @gledgers = @gledgers.where('amount < 0') # Credit transactions (negative amounts)
+    when 'balance'
+      # Balance is the difference between debit and credit, so show all transactions
+    end
   end
+  
+  
+  
+  
+  
+  
+  
 
   # GET /gledgers/1 or /gledgers/1.json
   def show

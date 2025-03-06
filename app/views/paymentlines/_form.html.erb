@@ -1,3 +1,4 @@
+<div data-controller="paymentline">
 <%= form_with(model: paymentline, local: true) do |form| %>
   <% if paymentline.errors.any? %>
     <div id="error_explanation">
@@ -45,8 +46,81 @@
     <%= form.label :payment_id %>
     <%= form.text_field :payment_id %>
   </div>
+  
+  
+   <div>
+    <%= form.label :account_type %>
+    <%= form.select :account_type, ['customer', 'bank', 'g/l account'], {}, { id: 'account_type_select' } %>
+  </div>
+
+  <div>
+    <%= form.label :accountno %>
+    <%= form.text_field :accountno, id: 'accountno_field' %>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+  
+  
+  
 
   <div class="actions">
     <%= form.submit %>
   </div>
 <% end %>
+ </div>
+ 
+ <script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const accountTypeSelect = document.getElementById('account_type_select');
+    const accountnoField = document.getElementById('accountno_field');
+
+    accountTypeSelect.addEventListener('change', function() {
+      const selectedAccountType = accountTypeSelect.value;
+
+      if (selectedAccountType) {
+        fetchAccountNumber(selectedAccountType);
+      } else {
+        accountnoField.value = '';
+      }
+    });
+
+    function fetchAccountNumber(accountType) {
+      // Based on account type, fetch account number via AJAX or directly populate
+      if (accountType === 'customer') {
+        // Fetch customer account number based on customer_name
+        const customerName = 'Sample Customer Name'; // Get this dynamically from the form if available
+        fetch(`/customers/account_number?name=${customerName}`)
+          .then(response => response.json())
+          .then(data => {
+            accountnoField.value = data.account_number;
+          });
+      } else if (accountType === 'bank') {
+        // Fetch bank account number based on bank_name
+        const bankName = 'Sample Bank Name'; // Get this dynamically from the form if available
+        fetch(`/banks/account_number?name=${bankName}`)
+          .then(response => response.json())
+          .then(data => {
+            accountnoField.value = data.account_number;
+          });
+      } else if (accountType === 'g/l account') {
+        // Fetch G/L account number based on chart_of_account name
+        const glAccountName = 'Sample G/L Account Name'; // Get this dynamically from the form if available
+        fetch(`/chart_of_accounts/account_number?name=${glAccountName}`)
+          .then(response => response.json())
+          .then(data => {
+            accountnoField.value = data.account_number;
+          });
+      }
+    }
+  });
+</script>

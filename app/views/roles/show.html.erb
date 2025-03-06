@@ -1,0 +1,31 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+
+
+<h1>Role: <%= @role.name %></h1>
+
+<h3>Permissions</h3>
+<ul>
+  <% @role.permissions.each do |permission| %>
+    <li><%= permission.action %> on <%= permission.subject_class %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Back to Roles', roles_path, class: 'btn btn-secondary' %>
+
+</div>
+</div>

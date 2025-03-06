@@ -1,0 +1,175 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+
+
+
+
+
+
+
+<!-- app/views/sales_quotes/new.html.erb -->
+<%= form_with(model: @sales_quote, local: true) do |form| %>
+  <div class="form-container">
+
+
+
+   <div class="main-form">
+   <br>
+  
+  <div class="field">
+    <%= form.label :customer_name %>
+    <%= form.select :customer_name, @customers.pluck(:customer_name), include_blank: true, class: 'styled-textarea'  %>
+  </div>
+  
+  <br>
+
+  <div class="field">
+    <%= form.label :customer_no %>
+    <%= form.text_field :customer_no, readonly: true, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contactno %>
+    <%= form.text_field :contactno, readonly: true, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :contact_name %>
+    <%= form.text_field :contact_name, readonly: true, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %>
+    <%= form.text_field :address, readonly: true, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :city %>
+    <%= form.text_field :city, readonly: true, class: 'styled-textarea'  %>
+  </div>
+
+  <!-- Other fields for the sales quote -->
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+</div>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const customerNameSelect = document.querySelector('#sales_quote_customer_name');
+    const customerNoField = document.querySelector('#sales_quote_customer_no');
+    const contactNoField = document.querySelector('#sales_quote_contactno');
+    const contactNameField = document.querySelector('#sales_quote_contact_name');
+    const addressField = document.querySelector('#sales_quote_address');
+    const cityField = document.querySelector('#sales_quote_city');
+
+    customerNameSelect.addEventListener('change', function() {
+      const customerName = this.value;
+      if (customerName) {
+        fetch(`/sales_quotes/get_customer_details?customer_name=${encodeURIComponent(customerName)}`)
+          .then(response => response.json())
+          .then(data => {
+            customerNoField.value = data.customer_no || '';
+            contactNoField.value = data.contactno || '';
+            contactNameField.value = data.contact_name || '';
+            addressField.value = data.address || '';
+            cityField.value = data.city || '';
+          })
+          .catch(error => console.error('Error fetching customer details:', error));
+      } else {
+        customerNoField.value = '';
+        contactNoField.value = '';
+        contactNameField.value = '';
+        addressField.value = '';
+        cityField.value = '';
+      }
+    });
+  });
+</script>
+
+
+  
+  
+  
+
+  
+ <div class="stats-container">
+    <h3>Customer Statistics</h3>
+    
+    <div class="customer-stats">
+  <div class="stat-card">
+    <h4>Total Customers</h4>
+    <p>1,250</p>
+  </div>
+  <div class="stat-card">
+    <h4>Average Order Value</h4>
+    <p>$45.60</p>
+  </div>
+  <div class="stat-card">
+    <h4>Repeat Purchase Rate</h4>
+    <p>35%</p>
+  </div>
+  <div class="stat-card">
+    <h4>Customer Satisfaction</h4>
+    <p>4.7/5</p>
+  </div>
+</div>
+</div>
+</div>
+    
+
+
+   
+    
+    
+    
+  
+
+ 
+ 
+<style>
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Adds space between the form and stats container */
+}
+
+.main-form {
+  width: 95%; /* Main form takes up 75% of the width */
+}
+
+.stats-container {
+  width: 50%; /* Stats container takes up 20% of the width */
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.stats-container h3 {
+  margin-top: 0;
+}
+
+.stats-container p {
+  margin: 10px 0;
+}
+</style>
+

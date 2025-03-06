@@ -19,6 +19,12 @@
 
     <!-- Main javascript files -->
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_tag 'invoice_line' %>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<%= javascript_tag 'invoice_lines' %>
+
+
  <style>
 textarea {
   border-style: none;

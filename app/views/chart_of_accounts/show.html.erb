@@ -1,0 +1,38 @@
+<p>
+  <strong>Account No.:</strong>
+  <%= @chart_of_account.no %>
+</p>
+
+<p>
+  <strong>Account Name:</strong>
+  <%= @chart_of_account.name %>
+</p>
+
+<p>
+  <strong>Account Type:</strong>
+  <%= @chart_of_account.accounttype %>
+</p>
+
+<p>
+  <strong>Account Category:</strong>
+  <%= @chart_of_account.account_category %>
+</p>
+
+<p>
+  <strong>Debit:</strong>
+  <%= number_to_currency(@chart_of_account.debit, unit: "", precision: 2) %>
+</p>
+
+<p>
+  <strong>Credit:</strong>
+  <%= number_to_currency(@chart_of_account.credit, unit: "", precision: 2) %>
+</p>
+
+<p>
+  <strong>Balance:</strong>
+  <%= number_to_currency(@chart_of_account.balance, unit: "", precision: 2) %>
+</p>
+
+<%= link_to 'Edit', edit_chart_of_account_path(@chart_of_account), class: "btn btn-warning" %>
+<%= link_to 'Back', chart_of_accounts_path, class: "btn btn-secondary" %>
+

@@ -1,0 +1,18 @@
+<!-- app/views/payments/_paymentline_fields.html.erb -->
+<tr class="paymentline">
+  <td>
+    <%= f.select :account_type, options_for_select(['customer', 'vendor', 'gl_account', 'bank', 'fixed_asset']), { prompt: 'Select Account Type' }, class: 'account_type' %>
+  </td>
+  <td>
+    <%= f.select :accountno, [], { prompt: 'Select Account Number' }, class: 'accountno' %>
+  </td>
+  <td>
+    <%= f.text_field :description, placeholder: 'Description' %>
+  </td>
+  <td>
+    <%= f.number_field :amount, placeholder: 'Amount' %>
+  </td>
+  <td>
+    <%= link_to 'Remove', '#', class: 'remove_fields' %>
+  </td>
+</tr>

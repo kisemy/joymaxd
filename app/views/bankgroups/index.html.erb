@@ -1,0 +1,36 @@
+<h1>Bank Groups and GL Accounts</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Bank Group Code</th>
+      <th>Bank Group Name</th>
+      <th>GL Account (Chart of Account No)</th>
+      <th>Chart of Account Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bankgroups.each do |bankgroup| %>
+      <tr>
+        <td><%= bankgroup.code %></td>
+        <td><%= bankgroup.description %></td>
+        <td><%= bankgroup.gl_account %></td>
+
+        <% chart_of_account = ChartOfAccount.find_by(no: bankgroup.code) %>
+        <% if chart_of_account %>
+          <td><%= chart_of_account.accountno %></td>
+          <td><%= chart_of_account.name %></td>
+        <% else %>
+          <td colspan="2">No associated Chart of Account</td>
+        <% end %>
+        td><%= link_to 'Show', bankgroup %></td>
+        <td><%= link_to 'Edit', edit_bankgroup_path(bankgroup) %></td>
+        <td><%= link_to 'Destroy', bankgroup, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        
+        
+        
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

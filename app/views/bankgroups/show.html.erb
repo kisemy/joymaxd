@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @bankgroup.code %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @bankgroup.description %>
+</p>
+
+<p>
+  <strong>Gl account:</strong>
+  <%= @bankgroup.gl_account %>
+</p>
+
+<%= link_to 'Edit', edit_bankgroup_path(@bankgroup) %> |
+<%= link_to 'Back', bankgroups_path %>
