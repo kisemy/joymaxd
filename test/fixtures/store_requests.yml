@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  invoice_no: MyString
+  request_date: 2025-03-31
+  destination_code: MyText
+  destination_name: MyText
+  status: MyString
+  warehouse_code: MyText
+  Warehouse_name: MyText
+  requsted_by: MyText
+  request_status: MyText
+  delivery_place: MyText
+
+two:
+  invoice_no: MyString
+  request_date: 2025-03-31
+  destination_code: MyText
+  destination_name: MyText
+  status: MyString
+  warehouse_code: MyText
+  Warehouse_name: MyText
+  requsted_by: MyText
+  request_status: MyText
+  delivery_place: MyText

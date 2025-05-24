@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sales Order</title>
+  <style>
+   body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    /* Container for the invoice */
+    .invoice-container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    /* Header styles */
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      color: #007bff;
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .header p {
+      color: #666;
+      margin: 5px 0;
+    }
+
+    /* Company and customer details */
+    .details {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+    .details .company, .details .customer {
+      flex: 1;
+    }
+
+    .details h2 {
+      font-size: 18px;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    .details p {
+      margin: 5px 0;
+      color: #555;
+    }
+
+    /* Table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    table th, table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    table th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    table tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    /* Total section */
+    .total {
+      text-align: right;
+      margin-bottom: 30px;
+    }
+
+    .total p {
+      font-size: 18px;
+      color: #007bff;
+      margin: 5px 0;
+    }
+
+    /* Footer styles */
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+      color: #666;
+    }
+
+    .footer a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Print button styles */
+    .print-button {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .print-button button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .print-button button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Hide the button when printing */
+    @media print {
+      .print-button {
+        display: none;
+      }
+    }
+    
+    
+  <div style="max-width: 800px; margin: 20px auto; padding: 20px; background-color: white; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 8px;">
+  <h1 style="color: #007bff; text-align: center;">Stock_In #<%= @stockin_header.stk_no %></h1>
+  <p style="color: #666; text-align: center;">Generated on: <%= Time.current.strftime("%B %d, %Y") %></p>
+</div>  
+    
+    
+    
+  </style>
+  
+
+  
+  
+</head>
+<body>
+  <div class="invoice-container">
+    <!-- Header -->
+    <div class="header">
+     <%= image_tag 'safaricomlogo.png', alt: 'Company Logo', class: 'logo' %>
+    
+    
+    
+    
+      <h1>Stockin_No #<%= @stockin_header.stk_no %></h1>
+      <p>Generated on: <%= Time.current.strftime("%B %d, %Y") %></p>
+    </div>
+
+    <!-- Company and Customer Details -->
+    <div class="details">
+      <div class="company">
+        <h2>From:</h2>
+        <p>Your Company Name</p>
+        <p>123 Business Street</p>
+        <p>City, State, ZIP</p>
+        <p>Email: info@brighterp.com</p>
+        <p>Phone: (123) 456-7890</p>
+      </div>
+      <div class="customer">
+        <h2>Bill To:</h2>
+        <p><%= @stockin_header.supplier_name %></p>
+        <p><%= @stockin_header.supplier_address %></p>
+        <p>123 Business Street</p>
+        <p>City, State, ZIP</p>
+        <p>Email: info@brighterp.com</p>
+        <p>Phone: (123) 456-7890</p>
+      
+      </div>
+    </div>
+
+    <!-- Sales Order Details Table -->
+  
+    
+     <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+  <thead>
+    <tr>
+      <th style="padding: 8px; border: 1px solid #000; background-color: #007bff; color: white; text-align: left;">Product</th>
+      <th style="padding: 8px; border: 1px solid #000; background-color: #007bff; color: white; text-align: center;">Quantity</th>
+      <th style="padding: 8px; border: 1px solid #000; background-color: #007bff; color: white; text-align: right;">Price</th>
+      <th style="padding: 8px; border: 1px solid #000; background-color: #007bff; color: white; text-align: right;">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @stockin_header.stocklines.each do |line| %>
+      <tr>
+        <td style="padding: 8px; border: 1px solid #000; text-align: left;"><%= line.product_description %></td>
+        <td style="padding: 8px; border: 1px solid #000; text-align: center;"><%= line.quantity %></td>
+        <td style="padding: 8px; border: 1px solid #000; text-align: right;"><%= number_to_currency(line.unit_price, unit: "") %></td>
+        <td style="padding: 8px; border: 1px solid #000; text-align: right;"><%= number_to_currency(line.amount, unit: "") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3" style="padding: 8px; border: 1px solid #000; text-align: right; font-weight: bold;">Subtotal:</td>
+     
+      <td style="padding: 8px; border: 1px solid #000; text-align: right; font-weight: bold;"> <%= number_to_currency(@stockin_header.stocklines.sum(&:amount), unit: "") %></td>
+    </tr>
+    <tr>
+      <td colspan="3" style="padding: 8px; border: 1px solid #000; text-align: right; font-weight: bold;">Tax </td>
+      <td style="padding: 8px; border: 1px solid #000; text-align: right; font-weight: bold;"><%= number_to_currency(@stockin_header.stocklines.sum(&:amount)*0.16, unit: "") %></td>
+    </tr>
+    <tr>
+      <td colspan="3" style="padding: 8px; border: 1px solid #000; text-align: right; font-weight: bold; background-color: #f9f9f9;">Grand Total</td>
+      <td style="padding: 8px; border: 1px solid #000; text-align: right; font-weight: bold; background-color: #f9f9f9;"><%= number_to_currency(@stockin_header.stocklines.sum(&:amount), unit: "") %> </td>
+    </tr>
+  </tfoot>
+</table>
+  
+    <% @stockin_header.stocklines.sum(&:amount) %>
+    
+    
+    <% 
+  # Calculate totals
+  subtotal = @stockin_header.stocklines.sum(&:amount)
+  tax_rate = 0.10 # Assuming 10% tax rate - adjust as needed
+  tax = subtotal * tax_rate
+  grand_total = subtotal + tax
+%>
+
+    
+    
+    
+    
+    
+
+    
+     <div class="print-button">
+   
+    <%= link_to 'Create Ledger', {:controller => "stockin_headers", :action => "insert_into_gledger", :id => @stockin_header.stk_no}, :method => :post %>
+
+
+   </div>
+   <br>
+   <br>
+   
+   
+   <div class="print-button">
+   
+
+    <%= button_to 'POST TO Ledger', {:controller => "stockin_headers", :action => "process_stockin", :id => @stockin_header.stk_no}, :method => :post %>
+
+
+   </div>
+   
+   
+   
+    
+    <!-- Print to PDF Button -->
+    <div class="print-button">
+      <button onclick="printInvoice()">Print to PDF</button>
+    </div>
+  </div>
+  
+  
+  <br>
+  <br>
+
+   
+  
+  
+  
+  
+
+  <!-- JavaScript to handle printing -->
+  <script>
+    function printInvoice() {
+      window.print(); // Trigger the browser's print functionality
+    }
+  </script>
+</body>
+</html>

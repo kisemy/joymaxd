@@ -1,0 +1,180 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+
+
+
+
+<style>
+.styled-textarea {
+  width: 600px;   /* Adjust width */
+  
+  resize: none;   /* Optional: Disable resizing */
+}
+/* Add this to make the card smaller */
+.smaller-card {
+  max-width: 1100px;  /* Adjust this value as needed */
+  margin: 0 auto;    /* Centers the card */
+}
+
+</style
+
+
+
+<%= form_with(model: stockout_header, local: true, html: { class: 'needs-validation', novalidate: true }) do |form| %>
+
+  <% if stockout_header.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(stockout_header.errors.count, "error") %> prohibited this stockout_header from being saved:</h2>
+
+      <ul>
+        <% stockout_header.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  
+  <div class="card smaller-card">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs" id="formTabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab">Basic Info</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="details-tab" data-toggle="tab" href="#details" role="tab">Details</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="advanced-tab" data-toggle="tab" href="#advanced" role="tab">Advanced</a>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="card-body tab-content" id="formTabsContent">
+      <!-- Basic Tab -->
+      <div class="tab-pane fade show active" id="basic" role="tabpanel">
+       
+  <div class="field">
+    <%= form.label :stko %><br>
+    <%= form.text_field :stko , class: 'styled-textarea'%>
+  </div>
+
+  <div class="field">
+    <%= form.label :request_no %><br>
+    <%= form.text_field :request_no, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :client_code %><br>
+    <%= form.text_field :client_code, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :client_name %><br>
+    <%= form.text_area :client_name, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :address %><br>
+    <%= form.text_area :address, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %><br>
+    <%= form.text_area :email, class: 'styled-textarea' %>
+  </div>
+  
+  
+   <div class="field">
+    <%= form.label :telephone %><br>
+    <%= form.text_area :telephone, class: 'styled-textarea' %>
+  </div>
+
+  
+        
+      </div>
+      
+      <!-- Details Tab -->
+      <div class="tab-pane fade" id="details" role="tabpanel">
+      
+    
+  <div class="field">
+    <%= form.label :client_category %><br>
+    <%= form.text_area :client_category, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %><br>
+    <%= form.text_field :status, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :warehouse_code %><br>
+    <%= form.text_field :warehouse_code, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :warehouse_name %><br>
+    <%= form.text_area :warehouse_name, class: 'styled-textarea' %>
+  </div>
+
+
+      </div>
+      
+      <!-- Advanced Tab -->
+      <div class="tab-pane fade" id="advanced" role="tabpanel">
+    
+     
+  <div class="field">
+    <%= form.label :request_date %><br>
+    <%= form.date_select :request_date, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :release_date %><br>
+    <%= form.date_select :release_date, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :requested_by %><br>
+    <%= form.text_field :requested_by, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :issued %>
+    <%= form.check_box :issued, class: 'styled-textarea' %>
+  </div>
+
+        
+        
+      </div>
+      
+      
+    </div>
+  
+  
+  
+  
+ 
+  
+    <div class="actions">
+  <%= form.submit 'Save', class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+</div>
+</div>

@@ -1,0 +1,35 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project_no: 
+  project_name: MyText
+  financial_year: MyString
+  brief_description: MyText
+  department: MyString
+  budgeted: 9.99
+  actual: 9.99
+  longitude: 9.99
+  latitude: 9.99
+  start_date: 2025-05-06
+  end_date: 2025-05-06
+  project_status: MyString
+  sub_county: MyString
+  ward: MyString
+  village: MyString
+
+two:
+  project_no: 
+  project_name: MyText
+  financial_year: MyString
+  brief_description: MyText
+  department: MyString
+  budgeted: 9.99
+  actual: 9.99
+  longitude: 9.99
+  latitude: 9.99
+  start_date: 2025-05-06
+  end_date: 2025-05-06
+  project_status: MyString
+  sub_county: MyString
+  ward: MyString
+  village: MyString

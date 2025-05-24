@@ -1,6 +1,34 @@
 Rails.application.routes.draw do
-    
-
+  #resources :programmes, param: :programme_code
+  resources :programmes
+  resources :project_tasks
+  resources :villages
+  resources :wards
+  resources :sub_counties
+  resources :sub_sections
+  resources :sections
+  #resources :sections, param: :section_code
+  resources :departments
+  resources :financial_years
+  #resources :projects
+  resources :projects, param: :project_no
+  
+# or if using friendly_id:
+# resources :projects
+  resources :warehouses
+  resources :internal_supplies
+  resources :suppliers
+  resources :stockissue_lines
+ resources :stockout_headers
+  resources :store_requestlines
+  resources :store_requests
+  resources :stocklines
+# config/routes.rb
+#resources :stockin_headers, param: :stk_no
+  #resources :stockin_headers
+  resources :item_ledgers
+  resources :salesorder_lines
+  resources :salesquote_lines
   #resources :sales_orders
   #resources :sales_quotes
   resources :salespeople
@@ -79,8 +107,8 @@ Rails.application.routes.draw do
   
   
   resources :paymentlines
-  #resources :payments
-  #resources :items
+  resources :payments
+  resources :items
   resources :cashes
  resources :banks
   resources :accharts
@@ -245,16 +273,15 @@ root to: 'dashboards#dashboard_1'
 
 
 
-resources :invoices do
-   collection do 
+##collection do 
 #get "invoices/postgl" => "invoices#postgl"
 #post "invoices/postgl" => "invoices#postgl"
- post 'postgl'
+ #post 'postgl'
  #get  'postgl'
 
 #get 'i/:id/:description', to: 'vouchers#interested', as: :interested
-end
-end
+#end
+#end
 
 
  #get '/add_field', to: 'payments#add_field', as: 'add_field'
@@ -289,9 +316,9 @@ end
 # config/routes.rb
 resources :categories, only: [:show]
 
-#resources :payments, only: [:show]
+resources :payments, only: [:show]
 
- #post 'payments/insert_into_gledger', to: 'payments#insert_into_gledger'
+ post 'sales_orders/insert_into_gledger', to: 'sales_orders#insert_into_gledger'
 
  #  get 'receipts/:id/insert_into_rcgledger', to: 'receipts#insert_into_rcgledger'
  #  post 'receipts/:id/insert_into_rcgledger', to: 'receipts#insert_into_rcgledger'
@@ -514,11 +541,11 @@ end
 
 
 # config/routes.rb
-resources :payments do
-  collection do
-    get 'fetch_accountno' # This defines a collection route
-  end
-end
+#resources :payments do
+ # collection do
+   # get 'fetch_accountno' # This defines a collection route
+ # end
+#end
 
 resources :customers do
   collection do
@@ -527,14 +554,14 @@ resources :customers do
 end
 
 # config/routes.rb
-resources :items do
-  collection do
-    get :find_by_description
-  end
-  end
+#resources :items do
+ # collection do
+   # get :find_by_description
+  #end
+  #end
 
 #get 'items/find_by_description', to: 'items#find_by_description'
-get 'items/find_by_description', to: 'items#find_by_description'
+#get 'items/find_by_description', to: 'items#find_by_description'
 
 resources :sales_quotes do
     collection do
@@ -548,6 +575,55 @@ resources :sales_quotes do
     end
   end
   
+  
+
+
+
+
+
+
+ resources :stockin_headers, param: :stk_no do
+    collection do
+      get :get_supplier  # Simple endpoint name
+    end
+  end
+
+resources :stocklines do
+  collection do
+    get :find_by_description
+  end
+  end
+
+#get 'items/find_by_description', to: 'items#find_by_description'
+ 
+ 
+  post 'stockin_headers/insert_into_gledger', to: 'stockin_headers#insert_into_gledger'
+ 
+# resources :stockin_header do
+ # member do
+   # post :process_stockin
+ # end
+#end
+ post 'stockin_headers/:id/process_stockin', to: 'stockin_headers#process_stockin'
+ 
+# config/routes.rb
+resources :projects, only: [:show]
+
+resources :wards, only: [:index]
+# config/routes.rb
+
+
+resources :programmes, only: [:index]
+
+resources :projects do
+  collection do
+    post :import
+  end
+end
+
+ get 'analytics/dashboard', to: 'analytics#dashboard'
+
+
 
 end
 

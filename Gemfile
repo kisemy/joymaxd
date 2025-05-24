@@ -45,6 +45,12 @@ gem 'mini_racer', platforms: :ruby
 #gem 'bootsnap'
 #, '>= 1.4.2', require: false
 
+#gem 'wkhtmltopdf-binary-edge'
+
+#gem 'pdfkit'
+
+
+
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 # Gemfile
@@ -55,13 +61,55 @@ gem 'wkhtmltopdf-binary'
 
 #gem 'wkhtmltopdf-binary'
 
-gem 'grover'
+#gem 'grover'
 
-gem 'prawn'
+#gem 'prawn'
 
 gem 'cocoon'
 
 # gem 'pristine'
+
+#gem 'jquery-datatables'
+
+gem 'geocoder'
+
+gem 'chartkick'
+
+gem 'highcharts'
+
+#gem 'jquery-datatables'
+gem 'jquery-ui-rails' # if you need jQuery UI styling
+gem 'datatables-rails' # includes Bootstrap integration
+
+
+#gem 'datatables-buttons'
+
+
+#gem 'datatables-bootstrap4'
+
+
+gem 'axlsx'
+gem 'axlsx_rails'
+
+gem 'roo'
+gem 'roo-xls'
+
+#gem 'will_paginate', '~> 3.3'
+
+gem 'kaminari'
+
+gem 'will_paginate'
+
+gem 'groupdate'
+
+
+
+# Gemfile
+
+#gem 'dataTables.bootstrap4', '~> 3.0' # if using Bootstrap 4
+
+#gem 'datatables-bootstrap4' # if using Bootstrap
+
 
 
 group :development, :test do

@@ -1,0 +1,83 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+<!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+    <!-- Navigation -->
+    <%= render 'layouts/navigation' %>
+
+    <!-- Page wraper -->
+    <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+        <!-- Page wrapper -->
+        <%= render 'layouts/topnavbar' %>
+
+        <!-- Main view  -->
+        <!--<%= yield %>-->
+
+        <p id="notice"><%= notice %></p>
+
+        <h1>Stockin Headers</h1>
+
+        <table id="stockinHeadersTable" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Stk no</th>
+                    <th>Invoice no</th>
+                    <th>Received date</th>
+                    <th>Supplier code</th>
+                    <th>Supplier name</th>
+                    <th>Source code</th>
+                    <th>Source name</th>
+                    <th>Source type</th>
+                    <th>Po no</th>
+                    <th>Received by</th>
+                    <th>Received</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <% @stockin_headers.each do |stockin_header| %>
+                    <tr>
+                        <td><%= stockin_header.stk_no %></td>
+                        <td><%= stockin_header.invoice_no %></td>
+                        <td><%= stockin_header.received_date %></td>
+                        <td><%= stockin_header.supplier_code %></td>
+                        <td><%= stockin_header.supplier_name %></td>
+                        <td><%= stockin_header.source_code %></td>
+                        <td><%= stockin_header.source_name %></td>
+                        <td><%= stockin_header.source_type %></td>
+                        <td><%= stockin_header.PO_no %></td>
+                        <td><%= stockin_header.received_by %></td>
+                        <td><%= stockin_header.received %></td>
+                        <td>
+                            <%= link_to 'Show', stockin_header_path(stockin_header.stk_no) if stockin_header.stk_no.present? %>
+                            <%= link_to 'Edit', edit_stockin_header_path(stockin_header.stk_no) if stockin_header.stk_no.present? %>
+                            <%= link_to 'Destroy', stockin_header_path(stockin_header.stk_no), method: :delete, data: { confirm: 'Are you sure?' } if stockin_header.stk_no.present? %>
+                        </td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+
+        <br>
+
+        <%= link_to 'New Stockin Header', new_stockin_header_path %>
+
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('#stockinHeadersTable').DataTable({
+        responsive: true,
+        dom: '<"top"f>rt<"bottom"lip><"clear">',
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search..."
+        }
+    });
+});
+</script>

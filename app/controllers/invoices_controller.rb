@@ -44,9 +44,51 @@ before_action :set_invoices, only: [:index]
 
   def show
 @invoice = Invoice.find(params[:id])
-
-
+   #respond_to do |format|
+   #format.html
+      #format.pdf do
+       # render pdf: "invoice_#{@invoice.id}",
+             #  template: 'invoices/show_invoice',
+            #   formats: [:html],
+             #  disposition: :inline, # Open in browser instead of downloading
+              # layout: 'pdf', # Optional: Use a custom PDF layout
+              # page_size: 'A4',
+             #  margin: { top: 20, bottom: 20, left: 20, right: 20 }
+      #end
+    #end 
+    
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "invoice_#{@invoice.id}",
+               template: 'invoices/show',
+               formats: [:html],
+               disposition: :inline,
+               layout: 'pdf' # Optional: Use a custom layout
+      end
+    end 
 end
+
+ def show_invoice
+@invoice = Invoice.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "invoice_#{@invoice.id}",
+               template: 'invoices/show_invoice.html.erb',
+               formats: [:html],
+               disposition: :inline, # Open in browser instead of downloading
+               layout: 'pdf', # Optional: Use a custom PDF layout
+               page_size: 'A4',
+               margin: { top: 20, bottom: 20, left: 20, right: 20 }
+      end
+    end 
+end
+
+
+
+
 
 
 

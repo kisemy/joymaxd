@@ -1,0 +1,148 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+
+<%= form_with(model: section, local: true) do |form| %>
+  <% if section.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(section.errors.count, "error") %> prohibited this section from being saved:</h2>
+
+      <ul>
+        <% section.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+   <div class="card smaller-card">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs" id="formTabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab">Basic Info</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+    <div class="card-body tab-content" id="formTabsContent">
+      <!-- Basic Tab -->
+      <div class="tab-pane fade show active" id="basic" role="tabpanel">
+       
+
+  <div class="field">
+    <%= form.label :section_code %>
+    <%= form.text_field :section_code, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :section_name %>
+    <%= form.text_area :section_name, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :current_co_name %>
+    <%= form.text_area :current_co_name, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :current_co_telephone %>
+    <%= form.text_field :current_co_telephone, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :current_co_email %>
+    <%= form.text_area :current_co_email, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :general_section_email %>
+    <%= form.text_area :general_section_email, class: 'styled-textarea'  %>
+  </div>
+
+
+  
+    <div class="field">
+  <%= form.select :department, 
+      @departments.map { |d| [d.department_name, d.department_name, { 'data-code' => d.department_code }] }, 
+      { include_blank: true }, 
+      { class: 'styled-textarea department-select' } %>
+</div>
+ 
+   
+   
+  
+  <div class="field">
+  <%= form.label :department_code %><br>
+  <%= form.text_field :department_code, class: 'styled-textarea department-code-field' %>
+</div>
+
+ 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const departmentSelect = document.querySelector('.department-select');
+  const codeField = document.querySelector('.department-code-field');
+  
+  if (departmentSelect && codeField) {
+    departmentSelect.addEventListener('change', function() {
+      const selectedOption = this.options[this.selectedIndex];
+      const departmentCode = selectedOption.getAttribute('data-code');
+      codeField.value = departmentCode || '';
+    });
+  }
+});
+
+</script>
+  
+  
+  
+  
+  
+
+  <div class="field">
+    <%= form.label :complete_projects %>
+    <%= form.text_field :complete_projects, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :projects_in_progress %>
+    <%= form.text_field :projects_in_progress, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+  
+  </div>  
+      
+      </div>
+  
+  
+  
+<% end %>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+
+

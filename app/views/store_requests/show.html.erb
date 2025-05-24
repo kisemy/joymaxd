@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Invoice no:</strong>
+  <%= @store_request.invoice_no %>
+</p>
+
+<p>
+  <strong>Request date:</strong>
+  <%= @store_request.request_date %>
+</p>
+
+<p>
+  <strong>Destination code:</strong>
+  <%= @store_request.destination_code %>
+</p>
+
+<p>
+  <strong>Destination name:</strong>
+  <%= @store_request.destination_name %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @store_request.status %>
+</p>
+
+<p>
+  <strong>Warehouse code:</strong>
+  <%= @store_request.warehouse_code %>
+</p>
+
+<p>
+  <strong>Warehouse name:</strong>
+  <%= @store_request.Warehouse_name %>
+</p>
+
+<p>
+  <strong>Requsted by:</strong>
+  <%= @store_request.requsted_by %>
+</p>
+
+<p>
+  <strong>Request status:</strong>
+  <%= @store_request.request_status %>
+</p>
+
+<p>
+  <strong>Delivery place:</strong>
+  <%= @store_request.delivery_place %>
+</p>
+
+<%= link_to 'Edit', edit_store_request_path(@store_request) %> |
+<%= link_to 'Back', store_requests_path %>

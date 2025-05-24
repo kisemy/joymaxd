@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Item no:</strong>
+  <%= @item_ledger.item_no %>
+</p>
+
+<p>
+  <strong>Posting date:</strong>
+  <%= @item_ledger.posting_date %>
+</p>
+
+<p>
+  <strong>Document no:</strong>
+  <%= @item_ledger.document_no %>
+</p>
+
+<p>
+  <strong>Source no:</strong>
+  <%= @item_ledger.source_no %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @item_ledger.description %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @item_ledger.quantity %>
+</p>
+
+<%= link_to 'Edit', edit_item_ledger_path(@item_ledger) %> |
+<%= link_to 'Back', item_ledgers_path %>

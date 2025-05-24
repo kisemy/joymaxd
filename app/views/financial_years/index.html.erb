@@ -1,0 +1,54 @@
+
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+            <!--<%= yield %>-->
+
+
+
+
+<p id="notice"><%= notice %></p>
+
+<h1>Financial Years</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @financial_years.each do |financial_year| %>
+      <tr>
+        <td><%= financial_year.code %></td>
+        <td><%= financial_year.description %></td>
+        <td><%= link_to 'Show', financial_year %></td>
+        <td><%= link_to 'Edit', edit_financial_year_path(financial_year) %></td>
+        <td><%= link_to 'Destroy', financial_year, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Financial Year', new_financial_year_path %>
+
+</div>
+</div>

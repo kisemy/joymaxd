@@ -1,52 +1,190 @@
-<%= form_with(model: item, local: true) do |form| %>
-  <% if item.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+<%= form_with(model: item, local: true, html: { class: 'needs-validation', novalidate: true }) do |f| %>
+<!-- app/views/your_model/_form.html.erb -->
 
-      <ul>
-        <% item.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
+  <div class="card">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs" id="formTabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab">Basic Info</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="details-tab" data-toggle="tab" href="#details" role="tab">Details</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="advanced-tab" data-toggle="tab" href="#advanced" role="tab">Advanced</a>
+        </li>
       </ul>
     </div>
+    
+    <div class="card-body tab-content" id="formTabsContent">
+      <!-- Basic Tab -->
+      <div class="tab-pane fade show active" id="basic" role="tabpanel">
+       
+        
+      <div class="form-group">
+    <%= f.label :description %>
+    <%= f.text_area :description, class: 'styled-textarea'  %>
+  </div>
+
+   <div class="form-group">
+    <%= f.label :units_of_measure %>
+    <%= f.text_area :units_of_measure, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :unit_cost %>
+    <%= f.text_field :unit_cost, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :unit_price %>
+    <%= f.text_area :unit_price, class: 'styled-textarea'  %>
+  </div> 
+        
+        
+         
+        
+        
+        
+        
+      </div>
+      
+      <!-- Details Tab -->
+      <div class="tab-pane fade" id="details" role="tabpanel">
+      
+     <div class="form-group">
+    <%= f.label :inventory %>
+    <%= f.text_field :inventory, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :shelf_no %>
+    <%= f.text_area :shelf_no, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :item_category %>
+    <%= f.text_area :item_category, class: 'styled-textarea'  %>
+  </div>
+
+      
+      sales_account, sales_acc_name, cost_account, cost_acc_name,purchase_account, purchase_acc_name i
+      
+      
+      
+      
+      
+        
+        
+       
+      </div>
+      
+      <!-- Advanced Tab -->
+      <div class="tab-pane fade" id="advanced" role="tabpanel">
+    
+     
+  <div class="field">
+    <%= f.label :sales_acc_name %>
+    <%= f.select :sales_acc_name, 
+          options_from_collection_for_select(@chart_of_accounts, 'name', 'name', item.sales_acc_name),
+          { include_blank: true },
+          { class: 'form-control', data: { target: 'sales-account-select' } } %>
+  </div>
+
+  <div class="field">
+    <%= f.label :sales_account %>
+    <%= f.text_field :sales_account, 
+          value: @chart_of_accounts.find_by(name: item.sales_acc_name)&.no || item.sales_account,
+          class: 'form-control', data: { target: 'sales-account-field' } %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cost_acc_name %>
+    <%= f.select :cost_acc_name, 
+          options_from_collection_for_select(@chart_of_accounts, 'name', 'name', item.cost_acc_name),
+          { include_blank: true },
+          { class: 'form-control', data: { target: 'cost-account-select' } } %>
+  </div>
+
+  <div class="field">
+    <%= f.label :cost_account %>
+    <%= f.text_field :cost_account, 
+          value: @chart_of_accounts.find_by(name: item.cost_acc_name)&.no || item.cost_account,
+          class: 'form-control', data: { target: 'cost-account-field' } %>
+  </div>
+
+  <div class="field">
+    <%= f.label :purchase_acc_name %>
+    <%= f.select :purchase_acc_name, 
+          options_from_collection_for_select(@chart_of_accounts, 'name', 'name', item.purchase_acc_name),
+          { include_blank: true },
+          { class: 'form-control', data: { target: 'purchase-account-select' } } %>
+  </div>
+
+  <div class="field">
+    <%= f.label :purchase_account %>
+    <%= f.text_field :purchase_account, 
+          value: @chart_of_accounts.find_by(name: item.purchase_acc_name)&.no || item.purchase_account,
+          class: 'form-control', data: { target: 'purchase-account-field' } %>
+  </div>
+  
+  
+  
+  
+  </div>
+    </div>
+     <div class="card-footer text-end">
+      <%= f.submit 'Save', class: 'btn btn-primary' %>
+    </div>
+   
+  </div>
+  
+  
+  
+  <% end %>
+  <!-- Other form fields and submit button -->
+
+
+<%= javascript_tag do %>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Set up event listeners for account selection changes
+    setupAccountAutofill('sales');
+    setupAccountAutofill('cost');
+    setupAccountAutofill('purchase');
+
+    function setupAccountAutofill(prefix) {
+      const select = document.querySelector(`[data-target="${prefix}-account-select"]`);
+      const field = document.querySelector(`[data-target="${prefix}-account-field"]`);
+
+      if (select && field) {
+        select.addEventListener('change', function() {
+          const selectedName = this.value;
+          if (selectedName) {
+            // In a real app, you would fetch the account number via AJAX
+            // This is a simplified version assuming the data is preloaded
+            const accounts = <%= @chart_of_accounts.to_json.html_safe %>;
+            const selectedAccount = accounts.find(account => account.name === selectedName);
+            if (selectedAccount) {
+              field.value = selectedAccount.no;
+            }
+          } else {
+            field.value = '';
+          }
+        });
+      }
+    }
+  });
+	
+     
+        
+        
+        
+        
+        
+        
+        
+       
+
+ 
   <% end %>
 
-  <div class="field">
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div class="field">
-    <%= form.label :units_of_measure %>
-    <%= form.text_area :units_of_measure %>
-  </div>
-
-  <div class="field">
-    <%= form.label :unit_cost %>
-    <%= form.text_field :unit_cost %>
-  </div>
-
-  <div class="field">
-    <%= form.label :unit_price %>
-    <%= form.text_area :unit_price %>
-  </div>
-
-  <div class="field">
-    <%= form.label :inventory %>
-    <%= form.text_field :inventory %>
-  </div>
-
-  <div class="field">
-    <%= form.label :shelf_no %>
-    <%= form.text_area :shelf_no %>
-  </div>
-
-  <div class="field">
-    <%= form.label :item_category %>
-    <%= form.text_area :item_category %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>

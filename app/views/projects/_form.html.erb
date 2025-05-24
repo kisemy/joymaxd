@@ -1,0 +1,531 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/sidebar' %>
+ 
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+           
+ <%= render 'layouts/topnavbar' %>
+            <!-- Main view  -->
+            
+            
+            
+ 
+            
+            
+            
+            
+            
+            
+            
+
+
+
+
+
+<%= form_with(model: project, local: true) do |form| %>
+  <% if project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+      <ul>
+        <% project.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <%# At the top of your form partial %>
+<%= content_tag :div, 
+                data: { 
+                  controller: "wards",
+                  wards_current_ward_value: @project.ward 
+                } do %>
+  <!-- Your form content -->
+<% end %>
+  
+  
+  
+  
+  
+  
+   
+<div class="card smaller-card">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs" id="formTabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="basic-tab" data-bs-toggle="tab" href="#basic" role="tab" aria-controls="basic" aria-selected="true">Basic Info</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="details-tab" data-bs-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">Details</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="advanced-tab" data-bs-toggle="tab" href="#advanced" role="tab" aria-controls="advanced" aria-selected="false">Advanced</a>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="card-body tab-content" id="formTabsContent">
+    <!-- Basic Tab -->
+    <div class="tab-pane fade show active" id="basic" role="tabpanel" aria-labelledby="basic-tab">
+      <!-- Your basic tab content -->
+        <div class="field">
+    <%= form.label :project_no %><br>
+    <%= form.text_field :project_no, class: 'styled-textarea', readonly: true %>
+  </div>
+<br>
+
+  <div class="field">
+    <%= form.label :project_name %><br>
+    <%= form.text_area :project_name, class: 'styled-textarea' %>
+  </div>
+<br>
+  
+<div class="field">
+    <%= form.label :financial_year %><br> 
+   <%= form.select :financial_year, 
+    FinancialYear.pluck(:code), 
+    {}, 
+    { id: 'financial_year', class: 'select2 styled-textarea' } %>
+
+    
+  </div>
+  
+
+  
+  
+<br>
+  <div class="field">
+    <%= form.label :brief_description %><br>
+    <%= form.text_area :brief_description, class: 'styled-textarea' %>
+  </div>
+<br>
+
+ 
+
+  
+   
+  <div class="field">
+  <%= form.select :department, 
+      @departments.map { |d| [d.department_name, d.department_name, { 'data-code' => d.department_code }] }, 
+      { include_blank: true }, 
+      { class: 'styled-textarea department-select', data: { remote: true, url: programmes_path(format: :json) } } %>
+       { include_blank: true }, 
+     
+      
+</div>
+ 
+   
+   
+  
+  <div class="field">
+  <%= form.label :department_code %><br>
+  <%= form.text_field :department_code, class: 'styled-textarea department-code-field' %>
+</div>
+
+
+
+
+
+ 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const departmentSelect = document.querySelector('.department-select');
+  const codeField = document.querySelector('.department-code-field');
+  
+  if (departmentSelect && codeField) {
+    departmentSelect.addEventListener('change', function() {
+      const selectedOption = this.options[this.selectedIndex];
+      const departmentCode = selectedOption.getAttribute('data-code');
+      codeField.value = departmentCode || '';
+    });
+  }
+});
+</script>
+
+
+
+
+<div class="field", class: 'styled-textarea'>
+  <%= form.label :programme %><br>
+  <%= form.select :programme_name, 
+                  options_for_select([['Select Programme', '']]), 
+                  {}, 
+                  { id: 'project_programme', disabled: true } %>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const departmentSelect = document.querySelector('select.department-select');
+  const programmeSelect = document.getElementById('project_programme');
+
+  if (departmentSelect && programmeSelect) {
+    departmentSelect.addEventListener('change', function() {
+      const selectedOption = this.options[this.selectedIndex];
+      const departmentCode = selectedOption ? selectedOption.getAttribute('data-code') : '';
+      
+      console.log('Department changed. Code:', departmentCode); // Debug log
+      
+      programmeSelect.disabled = !departmentCode;
+      
+      if (departmentCode) {
+        fetchProgrammes(departmentCode);
+      } else {
+        resetProgrammeSelect();
+      }
+    });
+  }
+
+  function fetchProgrammes(departmentCode) {
+    console.log('Fetching programmes for department:', departmentCode); // Debug log
+    
+    fetch(`/programmes?department_code=${encodeURIComponent(departmentCode)}&format=json`)
+      .then(response => {
+        console.log('Response status:', response.status); // Debug log
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.json();
+      })
+      .then(data => {
+        console.log('Received programme data:', data); // Debug log
+        updateProgrammeSelect(data);
+      })
+      .catch(error => {
+        console.error('Error fetching programmes:', error);
+        resetProgrammeSelect();
+      });
+  }
+
+  function updateProgrammeSelect(programmes) {
+    console.log('Updating programme select with:', programmes); // Debug log
+    
+    // Clear existing options except the first one
+    while (programmeSelect.options.length > 1) {
+      programmeSelect.remove(1);
+    }
+    
+    if (programmes && programmes.length > 0) {
+      programmes.forEach(programme => {
+        const option = new Option(programme.programme_name, programme.programme_name);
+        programmeSelect.add(option);
+      });
+      programmeSelect.disabled = false;
+    } else {
+      programmeSelect.disabled = true;
+    }
+  }
+
+  function resetProgrammeSelect() {
+    console.log('Resetting programme select'); // Debug log
+    while (programmeSelect.options.length > 1) {
+      programmeSelect.remove(1);
+    }
+    programmeSelect.disabled = true;
+  }
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="field">
+    <%= form.label :programme_code %><br>
+    <%= form.text_field :programme_code, class: 'styled-textarea programme-code-field' %>
+  </div> 
+    
+    
+ 
+
+
+ 
+  
+  <div class="field">
+    <%= form.label :sub_programme_name %><br>
+    <%= form.text_field :sub_programme_name, class: 'styled-textarea' %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :sub_programme_code %><br>
+    <%= form.text_field :sub_programme_code, class: 'styled-textarea' %>
+  </div>
+  
+ 
+ 
+ 
+<br>
+  <div class="field">
+    <%= form.label :budgeted %><br>
+    <%= form.text_field :budgeted, class: 'styled-textarea' %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :actual %><br>
+    <%= form.text_field :actual, class: 'styled-textarea' %>
+  </div>
+<br>
+   <div class="field">
+    <%= form.label :start_date %><br>
+    <%= form.date_select :start_date, class: 'styled-textarea' %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :end_date %><br>
+    <%= form.date_select :end_date, class: 'styled-textarea' %>
+  </div>
+  <br>
+   <div class="field">
+    <%= form.label :project_status %><br>
+    <%= form.text_field :project_status, class: 'styled-textarea' %>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+    </div>
+    
+    <!-- Details Tab -->
+    <div class="tab-pane fade" id="details" role="tabpanel" aria-labelledby="details-tab">
+      <!-- Your details tab content -->
+      
+
+ <div class="field">
+  <%= form.label :sub_county_name %><br>
+  <%= form.select :sub_county, 
+      @sub_counties.map { |d| [d.sub_county_name, d.sub_county_name, { 'data-code' => d.sub_county_code }] }, 
+      { include_blank: true }, 
+      { class: 'styled-textarea sub_county-select', data: { remote: true, url: wards_path(format: :json) } } %>
+</div>
+
+<div class="field">
+  <%= form.label :sub_county_code %><br>
+  <%= form.text_field :sub_county_code, class: 'styled-textarea sub_county-code-field', readonly: true %>
+</div>
+
+<div class="field">
+  <%= form.label :ward %>
+  <%= form.select :ward, 
+                  options_for_select([['Select Ward', '']]), 
+                  {}, 
+                  { id: 'project_ward', disabled: true } %>
+</div>
+
+<script>
+// app/javascript/packs/application.js (or similar)
+document.addEventListener('DOMContentLoaded', function() {
+  const subCountySelect = document.querySelector('.sub_county-select');
+  const wardSelect = document.getElementById('project_ward');
+  const subCountyCodeField = document.querySelector('.sub_county-code-field');
+
+  if (subCountySelect) {
+    subCountySelect.addEventListener('change', function() {
+      const selectedOption = this.options[this.selectedIndex];
+      const subCountyCode = selectedOption ? selectedOption.getAttribute('data-code') : '';
+      
+      subCountyCodeField.value = subCountyCode || '';
+      wardSelect.disabled = !subCountyCode;
+      
+      if (subCountyCode) {
+        fetchWards(subCountyCode);
+      } else {
+        resetWardSelect();
+      }
+    });
+  }
+
+  function fetchWards(subCountyCode) {
+    fetch(`/wards?sub_county_code=${encodeURIComponent(subCountyCode)}&format=json`)
+      .then(response => response.json())
+      .then(data => {
+        updateWardSelect(data);
+      })
+      .catch(error => {
+        console.error('Error fetching wards:', error);
+        resetWardSelect();
+      });
+  }
+
+  function updateWardSelect(wards) {
+    wardSelect.innerHTML = '<option value="">Select Ward</option>';
+    wards.forEach(ward => {
+      const option = document.createElement('option');
+      option.value = ward.ward_name;
+      option.textContent = ward.ward_name;
+      wardSelect.appendChild(option);
+    });
+  }
+
+  function resetWardSelect() {
+    wardSelect.innerHTML = '<option value="">Select Ward</option>';
+    wardSelect.disabled = true;
+  }
+});
+</script>
+  
+   
+  
+  
+
+ 
+
+   
+      
+ 
+<div class="field">
+  <%= form.label :ward %>
+  <%= form.select :ward, 
+                  options_for_select([['Select Ward', '']]), 
+                  {}, 
+                  { id: 'project_ward', disabled: true } %>
+</div>
+
+
+
+
+
+  
+ 
+ <div class="field">
+    <%= form.label :ward_code %><br>
+    <%= form.text_field :ward_code, class: 'styled-textarea'  %>
+  </div> 
+
+
+
+
+
+  <div class="field">
+    <%= form.label :village %><br>
+    <%= form.text_field :village, class: 'styled-textarea'  %>
+  </div> 
+  
+  <div class="field">
+    <%= form.label :village_code %><br>
+    <%= form.text_field :village_code, class: 'styled-textarea'  %>
+  </div> 
+      
+    <div class="field">
+    <%= form.label :pictures %>
+    <%= form.file_field :pictures, multiple: true, accept: 'image/png,image/jpeg,image/gif' %>
+  </div>
+  
+  <% if @project.pictures.attached? %>
+  <% @project.pictures.each do |picture| %>
+    <%= image_tag picture.variant(resize: "300x300") %>
+    <!-- or just: -->
+    <%= image_tag picture %>
+  <% end %>
+<% end %>
+     
+    
+    </div>
+    
+    <!-- Advanced Tab -->
+    <div class="tab-pane fade" id="advanced" role="tabpanel" aria-labelledby="advanced-tab">
+      <!-- Your advanced tab content -->
+      
+          
+ <br>
+   <div class="field">
+    <%= form.label :longitude %><br>
+    <%= form.text_field :longitude, class: 'styled-textarea'  %><br>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :latitude %><br>
+    <%= form.text_field :latitude, class: 'styled-textarea'  %>
+  </div>
+    
+  <p>
+  <strong>Location:</strong>
+  Latitude: <%= @project.latitude %>, Longitude: <%= @project.longitude %>
+</p>
+
+<!-- Optional: Display a map using Google Maps or similar -->
+
+ <% if @project.geocoded? %>
+  <div class="map-container">
+    <h3>Project Location</h3>
+    <div id="project-map" style="height: 400px; width: 100%;"></div>
+    
+    <script>
+      function initProjectMap() {
+        const projectLocation = {
+          lat: <%= @project.latitude %>,
+          lng: <%= @project.longitude %>
+        };
+        
+        const map = new google.maps.Map(document.getElementById('project-map'), {
+          zoom: 15,
+          center: projectLocation
+        });
+        
+        new google.maps.Marker({
+          position: projectLocation,
+          map: map,
+          title: "<%= @project.project_name %>"
+        });
+      }
+    </script>
+    
+    <%= google_maps_api_script_tag %>
+  </div>
+<% else %>
+  <p>No location data available for this project.</p>
+<% end %>
+  
+  
+      
+    </div>
+
+  
+  
+      
+  
+    </div>
+    
+
+ 
+
+  
+
+ 
+ 
+
+  
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+  
+  
+  <% end %>
+
+
+ </div>
+ 
+ </div>
+ 
+
+

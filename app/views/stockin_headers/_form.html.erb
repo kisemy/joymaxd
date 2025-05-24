@@ -1,0 +1,511 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+
+
+<style>
+.styled-textarea {
+  width: 1000px;   /* Adjust width */
+  
+  resize: none;   /* Optional: Disable resizing */
+}
+/* Add this to make the card smaller */
+.smaller-card {
+  max-width: 1300px;  /* Adjust this value as needed */
+  margin: 0 auto;    /* Centers the card */
+}
+
+</style>
+
+
+<%= form_with(model: stockin_header, local: true, html: { class: 'needs-validation', novalidate: true }) do |form| %>
+<!-- app/views/your_model/_form.html.erb -->
+
+  <div class="card smaller-card">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs" id="formTabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab">Basic Info</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="details-tab" data-toggle="tab" href="#details" role="tab">Details</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="advanced-tab" data-toggle="tab" href="#advanced" role="tab">Advanced</a>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="card-body tab-content" id="formTabsContent">
+      <!-- Basic Tab -->
+      <div class="tab-pane fade show active" id="basic" role="tabpanel">
+       
+  
+  
+<div class="field">
+  <%= form.label :stk_no %><br>
+ <%= form.text_field :stk_no, readonly: true, class: 'styled-textarea', class: 'readonly-field' %> 
+</div>
+
+<br>
+<div class="field">
+    <%= form.label :invoice_no %><br>
+    <br>
+    <%= form.text_field :invoice_no, class: 'styled-textarea', readonly: true %>
+  </div>
+<br>
+<!-- other fields -->
+  <div class="field">
+  <%= form.label :supplier_name %><br>
+  <%= form.collection_select :supplier_name, 
+        Supplier.order(:supplier_name).all, 
+        :supplier_name, :supplier_name,
+        { include_blank: '-- Select Supplier --' },
+        { id: 'supplier-select', class: 'styled-textarea'} %>
+</div>
+<br>
+<div class="field">
+  <%= form.label :supplier_code %><br>
+  <%= form.text_field :supplier_code, id: 'supplier-code',class: 'styled-textarea', readonly: true %>
+</div>
+<br>
+<div class="field">
+  <%= form.label :supplier_name %><br>
+  <%= form.text_field :supplier_name, id: 'supplier-name', class: 'styled-textarea', readonly: true %>
+</div>
+<br>
+<div class="field">
+  <%= form.label :supplier_address %><br>
+  <%= form.text_area :supplier_address, id: 'supplier-address' ,class: 'styled-textarea', readonly: true %>
+</div>
+<br>
+<div class="field">
+  <%= form.label :telephone %><br>
+  <%= form.text_field :telephone, id: 'supplier-telephone', class: 'styled-textarea', readonly: true %>
+</div>
+<br>
+<div class="field">
+  <%= form.label :supplier_email  %><br>
+  
+ <%= form.text_field :supplier_email, id: 'supplier-email', class: 'styled-textarea', readonly: true %>
+ 
+  </div> 
+  
+<div class="field">
+  <%= form.label :source_code  %><br>
+  
+ <%= form.text_field :source_code, id: 'source_code', class: 'styled-textarea', readonly: true %>
+ 
+  </div>   
+  
+  
+
+<br>
+
+
+
+<br>
+
+
+  
+
+  <div class="field">
+    <%= form.label :received_date %>
+    <br>
+    <%= form.date_select :received_date %>
+  </div>
+  <br>
+  
+   <div class="field">
+    <%= form.label :Posted %>
+      <br>
+    <%= form.check_box :posted %>
+  </div>
+  
+  
+  
+
+        
+      </div>
+      
+      <!-- Details Tab -->
+      <div class="tab-pane fade" id="details" role="tabpanel">
+      
+    <div class="field">
+  <%= form.label :s_no %>
+  <%= form.text_field :s_no, readonly: true, class: 'form-control', id: 's_no_field' %>
+</div> 
+  
+    
+     
+    
+       <div class="field">
+    <%= form.label :warehouse_location_code %>
+      <br>
+    <%= form.text_field :warehouse_location_code, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :warehouse_location_name %>
+      <br>
+    <%= form.text_area :warehouse_location_name, class: 'styled-textarea' %>
+  </div>
+
+
+
+      
+        
+        
+       
+      </div>
+      
+      <!-- Advanced Tab -->
+      <div class="tab-pane fade" id="advanced" role="tabpanel">
+    
+     
+ <div class="field">
+    <%= form.label :PO_no %>
+      <br>
+    <%= form.text_area :PO_no, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :received_by %>
+      <br>
+    <%= form.text_area :received_by, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :received %>
+      <br>
+    <%= form.check_box :received %>
+  </div>
+  
+  
+  
+  
+	
+        
+        
+      </div>
+    </div>
+    
+    
+    
+
+    
+    
+    
+    
+    
+   <!-- other fields -->
+  
+
+  <!-- Your form and other content -->
+ 
+  <div class="form-container">
+ 
+ <div class="card smaller-card">
+ <h3>sales lines</h3>
+    <div class="table-responsive">
+      <table id="stocklines" class="table table-bordered" style="color: blue; border-color: blue;"
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Units of Measure</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Amount</th>
+             <th>Item No</th>
+             <th>Purchase Account</th>
+             <th>Description</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Existing salesorder_lines will be rendered here -->
+        </tbody>
+      </table>
+    </div>
+   
+  </div>
+  
+<button type="button" id="add_stockline" class="btn btn-primary">Add stockline</button>
+  
+<script type="text/template" id="stocklines_template">
+  <tr class="stockline">
+   
+   
+    <td>
+      <select class="item_select">
+        <option value="">Select an item</option>
+        <% @items.each do |item| %>
+          <option value="<%= item.cost_account %>" 
+                  data-description="<%= item.description %>"
+                  data-unit-of-measure="<%= item.units_of_measure %>"
+                  data-inventory-account="<%= item.purchase_account %>" 
+                  data-unit-price="<%= item.unit_price %>">
+            <%= item.description %>
+          </option>
+        <% end %>
+      </select>
+    </td>
+    
+
+    
+    <td><input type="text" class="unit_of_measure" name="stockin_header[stocklines_attributes][NEW_RECORD][unit_of_measure]" /></td>
+    <td><input type="number" class="quantity" name="stockin_header[stocklines_attributes][NEW_RECORD][quantity]" /></td>
+    <td><input type="number" class="unit_price" name="stockin_header[stocklines_attributes][NEW_RECORD][unit_price]" step="any" /></td>
+    <td><input type="number" class="amount" name="stockin_header[stocklines_attributes][NEW_RECORD][amount]" readonly /></td>
+    <td><input type="text" class="item_no" name="stockin_header[stocklines_attributes][NEW_RECORD][batch_no]" /></td>
+    <td><input type="text" class="inventory_account" name="stockin_header[stocklines_attributes][NEW_RECORD][inventory_account]" /></td>
+    <td><input type="text" class="product_description" name="stockin_header[stocklines_attributes][NEW_RECORD][product_description]" /></td>
+    <td class="hidden-row"><input type="text" class="order_no" name="stockin_header[stocklines_attributes][NEW_RECORD][stk_no]" /></td>
+    <td><button type="button" class="remove_stockline btn btn-danger">Remove Line</button></td>
+  </tr>
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // Use event delegation to handle dynamically added rows
+    $(document).on('input', '.quantity, .unit_price', function() {
+      // Find the closest row
+      const row = $(this).closest('tr');
+      
+      // Get the quantity and unit_price values from the current row
+      const quantity = parseFloat(row.find('.quantity').val()) || 0;
+      const unitPrice = parseFloat(row.find('.unit_price').val()) || 0;
+      
+      // Calculate the amount
+      const amount = quantity * unitPrice;
+      
+      // Update the amount field in the current row
+      row.find('.amount').val(amount.toFixed(2));
+    });`
+
+    // Initial calculation for pre-filled rows
+    $('.stockline').each(function() {
+      const row = $(this);
+      const quantity = parseFloat(row.find('.quantity').val()) || 0;
+      const unitPrice = parseFloat(row.find('.unit_price').val()) || 0;
+      const amount = quantity * unitPrice;
+      row.find('.amount').val(amount.toFixed(2));
+    });
+  });
+</script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // Add new stock line
+    $('#add_stockline').click(function() {
+      const template = $('#stocklines_template').html();
+      const newRow = $(template.replace(/NEW_RECORD/g, new Date().getTime()));
+      $('#stocklines tbody').append(newRow);
+    });
+
+    // Handle item selection change
+    $(document).on('change', '.item_select', function() {
+      const selectedOption = $(this).find('option:selected');
+      const row = $(this).closest('tr');
+      
+      // Populate fields from data attributes
+      row.find('.product_description').val(selectedOption.data('description'));
+      row.find('.unit_of_measure').val(selectedOption.data('unit-of-measure'));
+      row.find('.unit_price').val(selectedOption.data('unit-price'));
+      row.find('.inventory_account').val(selectedOption.data('inventory-account'));
+      row.find('.item_no').val(selectedOption.val()); // Set item_no to the item ID
+      
+      // Trigger amount calculation
+      row.find('.quantity').trigger('input');
+    });
+
+    // Calculate amount when quantity or price changes
+    $(document).on('input', '.quantity, .unit_price', function() {
+      const row = $(this).closest('tr');
+      const quantity = parseFloat(row.find('.quantity').val()) || 0;
+      const unitPrice = parseFloat(row.find('.unit_price').val()) || 0;
+      const amount = quantity * unitPrice;
+      row.find('.amount').val(amount.toFixed(2));
+    });
+
+    // Remove stock line
+    $(document).on('click', '.remove_stockline', function() {
+      $(this).closest('tr').remove();
+    });
+  });
+</script>
+
+  
+ 
+
+
+
+
+
+
+
+
+<style>
+#salesorder-lines {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#salesorder-lines th, #salesorder-lines td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#salesorder-lines th {
+  background-color: #f2f2f2;
+}
+
+.nested-fields {
+  background-color: #f9f9f9;
+}
+
+
+.hidden-row {
+  display: none;
+}
+
+</style>
+
+
+
+
+
+
+
+
+  <div>
+  
+ <div>
+  
+  
+ 
+ <div class="card-footer text-end">
+      <%= form.submit 'Save', class: 'btn btn-primary' %>
+    </div>
+  </div>  
+  
+  
+<% end %>
+
+</div>
+</div>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+// app/javascript/packs/application.js (or in your view)
+document.addEventListener('DOMContentLoaded', function() {
+  const supplierSelect = document.getElementById('supplier-select');
+  
+  if (!supplierSelect) return;
+
+  supplierSelect.addEventListener('change', function() {
+    const supplierName = this.value.trim();
+    
+    if (!supplierName) {
+      resetSupplierFields();
+      return;
+    }
+
+    fetchSupplierData(supplierName);
+  });
+
+  async function fetchSupplierData(supplierName) {
+    try {
+      const response = await fetch(
+        `/stockin_headers/get_supplier?supplier_name=${encodeURIComponent(supplierName)}`
+      );
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        console.error('Error:', data.error);
+        alert(data.error || 'Failed to fetch supplier data');
+        resetSupplierFields();
+        return;
+      }
+      
+      updateSupplierFields(data);
+    } catch (error) {
+      console.error('Network error:', error);
+      alert('Network error - please check console');
+      resetSupplierFields();
+    }
+  }
+
+  function updateSupplierFields(data) {
+    setFieldValue('supplier-code', data.supplier_code);
+    setFieldValue('supplier-name', data.supplier_name);
+    setFieldValue('supplier-address', data.supplier_address);
+    setFieldValue('supplier-telephone', data.telephone);
+    setFieldValue('supplier-email', data.supplier_email);
+    setFieldValue('source_code', data.source_codea);
+  }
+
+  function resetSupplierFields() {
+    setFieldValue('supplier-code', '');
+    setFieldValue('supplier-name', '');
+    setFieldValue('supplier-address', '');
+    setFieldValue('supplier-telephone', '');
+    setFieldValue('supplier-email', '');
+    setFieldValue('source-codea', '');
+  }
+
+  function setFieldValue(id, value) {
+    const field = document.getElementById(id);
+    if (field) field.value = value || '';
+  }
+});
+
+</script>

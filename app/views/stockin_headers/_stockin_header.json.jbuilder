@@ -1,0 +1,2 @@
+json.extract! stockin_header, :id, :stk_no, :invoice_no, :received_date, :supplier_code, :supplier_name, :supplier_address, :supplier_email, :telephone, :donor, :donor_name, :project_code, :project_name, :warehouse_location_code, :warehouse_location_name, :source_code, :source_name, :source_address, :source_email, :source_telephone, :source_type, :PO_no, :received_by, :received, :created_at, :updated_at
+json.url stockin_header_url(stockin_header, format: :json)

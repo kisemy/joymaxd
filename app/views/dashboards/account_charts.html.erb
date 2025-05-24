@@ -1,8 +1,3 @@
-<body>
-
-<p class = "notice" ><%= notice %> </p>
-<p class = "alert" ><%= alert %></p>
-
 <!-- Skin configuration box -->
 <!-- <%= render 'layouts/skinconfig' %> -->
 
@@ -19,469 +14,241 @@
             <%= render 'layouts/topnavbar' %>
 
             <!-- Main view  -->
-            <!--<%= yield %>-->
 
 
 
 
+<!-- app/views/dashboard/index.html.erb -->
 
-<div class="wrapper wrapper-content">
-<div class="row">
-    <div class="col-lg-12">
-        <div class="row">
-            <div class="col-lg-4">
-            
-             
-<div class="containerrt">
-  <div class="chart-box">
-    <h3>Expense Pie Chart</h3>
-    <canvas id="expensePieChart" width="200" height="100"></canvas>
-  </div>
-</div>
-
-
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const ctx = document.getElementById('expensePieChart').getContext('2d');
-    const pieChartData = <%= @pie_chart_data.to_json.html_safe %>;
-
-    new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: pieChartData.map(data => data.name),
-        datasets: [{
-          data: pieChartData.map(data => data.y),
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: false, // Disable responsiveness
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'top',
-          },
-          tooltip: {
-            callbacks: {
-              label: function (context) {
-                return `${context.label}: ${context.raw}`;
-              }
-            }
-          }
-        }
-      }
-    });
-  });
-</script>
-
- 
- 
- 
-     
-
+ <!-- app/views/dashboard/index.html.erb -->
+<div class="dashboard-container">
+  <h1>Projects Dashboard</h1>
   
-    
-    
-    </div>
-    <div class="chart-box">Chart 2
-    
-    
-    
-    <div class="chart-container">
-  <canvas id="accountChart"></canvas>
-</div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const ctx = document.getElementById('accountChart').getContext('2d');
-    
-    // Dynamic data passed from the controller
-    const labels = <%= raw @account_data.keys.map(&:to_json) %>;
-    const data = <%= raw @account_data.values.to_json %>;
-
-    new Chart(ctx, {
-      type: 'pie', // You can change to 'bar', 'doughnut', etc.
-      data: {
-        labels: labels,
-        datasets: [{
-          data: data,
-          backgroundColor: ['#4caf50', '#f44336', '#2196f3', '#ff9800', '#9c27b0'] // Add colors as needed
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'bottom'
-          }
-        }
-      }
-    });
-  });
-</script>
-    
-    
-    
-    </div>
-    <div class="chart-box">Chart 3
-    
+  <div class="tiles-container">
+    <!-- Projects Tile -->
+   
+    <%= link_to projects_path, class: 'dashboard-tile-link' do %>
   
-  <canvas id="chartCanvas" width="200" height="100"></canvas>
-
+       <div class="dashboard-tile">
     
-
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const ctx = document.getElementById('chartCanvas').getContext('2d');
-    const chartData = <%= raw @chart_data.to_json %>;
-
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: Object.keys(chartData),
-        datasets: [{
-          label: 'Total Balances',
-          data: Object.values(chartData),
-          backgroundColor: ['#FF5733', '#33FF57'],
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            display: true,
-            position: 'top',
-          },
-        },
-      },
-    });
-  });
-</script>
-    
+      <div class="tile-header">Projects</div>
+      <div class="tile-content"><%= @projects_count %></div>
     </div>
-    <div class="chart-box">Chart 4</div>
-    <div class="chart-box">Chart 5</div>
-    <div class="chart-box">Chart 6</div>
+  
+  <% end %>
+ 
+    
+    <!-- Sub-Counties Tile -->
+    
+     <%= link_to sub_counties_path, class: 'dashboard-tile-link' do %>
+    <div class="dashboard-tile">
+      <div class="tile-header">Sub-Counties</div>
+      <div class="tile-content"><%= @sub_counties_count %></div>
+    </div>
+    <% end %>
+    
+    <!-- Wards Tile -->
+    <%= link_to wards_path, class: 'dashboard-tile-link' do %>
+    <div class="dashboard-tile">
+      <div class="tile-header">Wards</div>
+      <div class="tile-content"><%= @wards_count %></div>
+    </div>
+    <% end %>
+    
+    <!-- Villages Tile -->
+    <%= link_to villages_path, class: 'dashboard-tile-link' do %>
+    <div class="dashboard-tile">
+      <div class="tile-header">Villages</div>
+      <div class="tile-content"><%= @villages_count %></div>
+    </div>
+    <% end %>
+    
+    <!-- Departments Tile -->
+    <%= link_to departments_path, class: 'dashboard-tile-link' do %>
+    <div class="dashboard-tile">
+      <div class="tile-header">Departments</div>
+      <div class="tile-content"><%= @departments_count %></div>
+    </div>
+    <% end %>
+    
+    <!-- Sections Tile -->
+    <%= link_to sections_path, class: 'dashboard-tile-link' do %>
+    <div class="dashboard-tile">
+      <div class="tile-header">Sections</div>
+      <div class="tile-content"><%= @sections_count %></div>
+    </div>
+    <% end %>
+    
+    <!-- Sub-Sections Tile -->
+    <%= link_to sub_sections_path, class: 'dashboard-tile-link' do %>
+    <div class="dashboard-tile">
+      <div class="tile-header">Sub-Sections</div>
+      <div class="tile-content"><%= @sub_sections_count %></div>
+    </div>
   </div>
+  <% end %>
+</div>
 
 
 <style>
 
-/* Base styling */
-body1 {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #f9f9f9;
-  color: #333;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
+.dashboard-container {
+  padding: 20px;
+  
+  h1 {
+    margin-bottom: 30px;
+  }
 }
 
-/* Main container grid */
-.container {
+.tiles-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
-  grid-gap: 20px; /* Space between containers */
-  width: 90%; /* Page width with some padding */
-  max-width: 1200px; /* Optional: Max width for large screens */
-  margin: auto;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
 }
 
-/* Individual chart containers */
-.chart-box {
+.dashboard-tile {
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   padding: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-  min-height: 150px; /* Ensure a minimum height for charts */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Hover effect for chart containers */
-.chart-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-
-
-
+  transition: transform 0.3s ease;
   
+  &:hover {
+    transform: translateY(-5px);
+  }
+  
+  .tile-header {
+    font-size: 16px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  .tile-content {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2c3e50;
+  }
+  
+  .tile-footer {
+    font-size: 12px;
+    color: #7f8c8d;
+    margin-top: 10px;
+  }
+}
+
+
+
+
+/* app/assets/stylesheets/dashboard.scss */
+
+/* Base tile styles */
+.dashboard-tile {
+  border-radius: 8px;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-5px);
+  }
+  
+  .tile-header {
+    font-size: 16px;
+    margin-bottom: 10px;
+    opacity: 0.9;
+  }
+  
+  .tile-content {
+    font-size: 32px;
+    font-weight: bold;
+  }
+}
+
+/* Individual tile colors */
+.tile-1 {
+  background: #3498db; /* Blue */
+}
+
+.tile-2 {
+  background: #2ecc71; /* Green */
+}
+
+.tile-3 {
+  background: #e74c3c; /* Red */
+}
+
+.tile-4 {
+  background: #f39c12; /* Orange */
+}
+
+.tile-5 {
+  background: #9b59b6; /* Purple */
+}
+
+.tile-6 {
+  background: #1abc9c; /* Teal */
+}
+
+.tile-7 {
+  background: #34495e; /* Dark blue */
+}
+
+
+
+/* app/assets/stylesheets/dashboard.scss */
+
+.dashboard-tile {
+  /* Base tile styles */
+  border-radius: 8px;
+  padding: 20px;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  
+  /* Blue color scheme */
+  background: #3498db; /* Primary blue color */
+  background: linear-gradient(135deg, #3498db, #2980b9); /* Optional gradient */
+  color: white; /* Sets text color for all child elements */
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(52, 152, 219, 0.3); /* Blue shadow */
+  }
+
+  .tile-header {
+    font-size: 16px;
+    margin-bottom: 8px;
+    opacity: 0.9;
+    font-weight: 500;
+    color: white; /* Explicit white */
+  }
+
+  .tile-content {
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+    color: white; /* Explicit white */
+  }
+}
+
+
+
+
+
+
+
+
+
+
 
 </style>
 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
-  <h1>Dashboard</h1>
-  
-  <br>
-  <h3>Expense Pie Chart</h3>
-<canvas id="expensePieChart" width="400" height="400"></canvas>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const ctx = document.getElementById('expensePieChart').getContext('2d');
-    const pieChartData = <%= @pie_chart_data.to_json.html_safe %>;
-
-    new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: pieChartData.map(data => data.name),
-        datasets: [{
-          data: pieChartData.map(data => data.y),
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(255, 159, 64, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: 'top',
-          },
-          tooltip: {
-            callbacks: {
-              label: function(context) {
-                return `${context.label}: ${context.raw}`;
-              }
-            }
-          }
-        }
-      }
-    });
-  });
-</script>
-
-           
-
-  
-  
-  <br>
-  
-  <h3> Charts of Accounts </h3>
-  
-<div class="chart-container">
-  <canvas id="accountChart"></canvas>
-</div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const ctx = document.getElementById('accountChart').getContext('2d');
-    
-    // Dynamic data passed from the controller
-    const labels = <%= raw @account_data.keys.map(&:to_json) %>;
-    const data = <%= raw @account_data.values.to_json %>;
-
-    new Chart(ctx, {
-      type: 'pie', // You can change to 'bar', 'doughnut', etc.
-      data: {
-        labels: labels,
-        datasets: [{
-          data: data,
-          backgroundColor: ['#4caf50', '#f44336', '#2196f3', '#ff9800', '#9c27b0'] // Add colors as needed
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'bottom'
-          }
-        }
-      }
-    });
-  });
-</script>
-
-<br>
-
-  <h3> Income Statement </h3>
-
-
-<div class="chart-container">
-  <h3>Income vs balance sheet </h3>
- 
-    
-<canvas id="chartCanvas" width="400" height="200"></canvas>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const ctx = document.getElementById('chartCanvas').getContext('2d');
-    const chartData = <%= raw @chart_data.to_json %>;
-
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: Object.keys(chartData),
-        datasets: [{
-          label: 'Total Balances',
-          data: Object.values(chartData),
-          backgroundColor: ['#FF5733', '#33FF57'],
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            display: true,
-            position: 'top',
-          },
-        },
-      },
-    });
-  });
-</script>
-<br>
-
-
-
-
-
-
-
-
-
-
-
-            
-          </div>  
-        </div>
-    </div>
-
 </div>
 </div>
-
-
- 
-
-
-
-
-
-<% content_for :javascript do %>
-
-
-            <!-- Footer -->
-                <!--<%= render 'layouts/footer' %>-->
-
-      <!--  </div>-->
-        <!-- End page wrapper-->
-
-        <!-- Right sidebar -->
-        <%= render 'layouts/rightsidebar' %>
-
-   <!-- </div>-->
-
-
-    <!-- End wrapper-->
-
-    <!-- Include javascript per-controller - vendor plugins -->
-    <%= javascript_include_tag params[:controller] if javascript_exists?(params[:controller]) %>
-
-    <!-- Include javascript per-view -->
-    <!-- For demo purpose we include javascript in view but you can easily start SeedProject and organize it with Rails asset pipeline as you want -->
-    <%= yield :javascript %>
-
-    <!-- Include Toast notification -->
-    <%= yield :toast %>
-
-<% end %>
-
- 
-
-
- 
- 
- 
- 
-
-
-  
-    
-    
-    
-    
-    
-   </div>
-
- </div> 
-    
-  </div>
-</div>
-

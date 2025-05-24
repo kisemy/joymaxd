@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @stockissue_line.code %>
+</p>
+
+<p>
+  <strong>Product description:</strong>
+  <%= @stockissue_line.product_description %>
+</p>
+
+<p>
+  <strong>Issued quantity:</strong>
+  <%= @stockissue_line.issued_quantity %>
+</p>
+
+<p>
+  <strong>Unit cost:</strong>
+  <%= @stockissue_line.unit_cost %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @stockissue_line.amount %>
+</p>
+
+<p>
+  <strong>Issued:</strong>
+  <%= @stockissue_line.issued %>
+</p>
+
+<p>
+  <strong>Stock balance:</strong>
+  <%= @stockissue_line.stock_balance %>
+</p>
+
+<p>
+  <strong>Expiry date:</strong>
+  <%= @stockissue_line.expiry_date %>
+</p>
+
+<p>
+  <strong>Batch no:</strong>
+  <%= @stockissue_line.batch_no %>
+</p>
+
+<p>
+  <strong>Expired:</strong>
+  <%= @stockissue_line.expired %>
+</p>
+
+<p>
+  <strong>Batch quantity:</strong>
+  <%= @stockissue_line.batch_quantity %>
+</p>
+
+<p>
+  <strong>Client code:</strong>
+  <%= @stockissue_line.client_code %>
+</p>
+
+<p>
+  <strong>Latest expiry:</strong>
+  <%= @stockissue_line.latest_expiry %>
+</p>
+
+<p>
+  <strong>Client name:</strong>
+  <%= @stockissue_line.client_name %>
+</p>
+
+<p>
+  <strong>Stockout header:</strong>
+  <%= @stockissue_line.stockout_header_id %>
+</p>
+
+<%= link_to 'Edit', edit_stockissue_line_path(@stockissue_line) %> |
+<%= link_to 'Back', stockissue_lines_path %>

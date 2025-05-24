@@ -1,0 +1,213 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+<!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+    <!-- Navigation -->
+    <%= render 'layouts/navigation' %>
+
+    <!-- Page wraper -->
+    <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+        <!-- Page wrapper -->
+        <%= render 'layouts/topnavbar' %>
+
+        <!-- Main view  -->
+        <!--<%= yield %>-->
+
+
+
+
+
+<style>
+
+chart-container {
+  margin: 20px 0;
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+#gantt_chart {
+  font-family: Arial, sans-serif;
+}
+
+/* app/assets/stylesheets/projects.css */
+.gantt-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.chart-tooltip {
+  padding: 10px;
+  min-width: 200px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.chart-tooltip h4 {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.chart-tooltip p {
+  margin: 5px 0;
+  font-size: 13px;
+  color: #666;
+}
+
+.google-visualization-tooltip {
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  border-radius: 4px !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .gantt-container {
+    padding: 10px;
+  }
+  
+  #gantt_chart {
+    height: 600px !important; /* Fixed height for mobile */
+  }
+}
+
+
+.gantt-container {
+  width: 100%;
+  overflow-x: auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#gantt_chart {
+  width: 100%;
+  min-width: <%= [@project_tasks.count * 100, 1000].max %>px; /* Ensure minimum width */
+}
+
+
+
+
+
+
+
+
+
+
+
+</style>
+
+<script>
+const options = {
+  width: '100%', // Use full container width
+  height: <%= @chart_height %>,
+  chartArea: {
+    width: '90%', // Leave some margin for labels
+    height: '80%'
+  },
+  gantt: {
+    barHeight: 24, // Slightly taller bars
+    trackHeight: 36, // More space between tracks
+    // Remove fixed padding to allow expansion
+    viewport: {
+      visible: {
+        units: 'months', // Adjust based on your time scale
+        count: <%= (@project_tasks.maximum(:planned_end_date) - @project_tasks.minimum(:planned_start_date)).to_i / 30 %>
+      }
+    }
+  }
+};
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+<!-- app/views/projects/show.html.erb -->
+
+<div class="gantt-container">
+  <div id="gantt_chart" style="width: 100%; min-height: 600px;"></div>
+</div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize the chart only if the container exists
+  if (document.getElementById('gantt_chart')) {
+    initializeGanttChart();
+  }
+});
+
+function initializeGanttChart() {
+  google.charts.load('current', {
+    packages: ['gantt'],
+    callback: drawGanttChart
+  });
+}
+
+function drawGanttChart() {
+  const data = new google.visualization.DataTable();
+  data.addColumn('string', 'Task ID');
+  data.addColumn('string', 'Task Name');
+  data.addColumn('date', 'Start Date');
+  data.addColumn('date', 'End Date');
+  data.addColumn('number', 'Duration');
+  data.addColumn('number', 'Percent Complete');
+  data.addColumn('string', 'Dependencies');
+
+  // Add your actual task data
+  <% @project_tasks.each do |task| %>
+    data.addRow([
+      '<%= task.task_no %>',
+      '<%= j(task.task_description) %>',
+      new Date('<%= task.planned_start_date %>'),
+      new Date('<%= task.planned_end_date %>'),
+      null,
+      <%= task.percentage_coverage.to_f || 0 %>,
+      '<%= task.p_tsk_01 %>'
+    ]);
+  <% end %>
+
+  const options = {
+    height: <%= @chart_height %>,
+    gantt: {
+      trackHeight: 30,
+      criticalPathEnabled: false,
+      arrow: {
+        angle: 60,
+        width: 2,
+        color: '#ccc'
+      }
+    }
+  };
+
+  const chart = new google.visualization.Gantt(document.getElementById('gantt_chart'));
+  
+  // Handle window resizing
+  window.addEventListener('resize', function() {
+    chart.draw(data, options);
+  });
+  
+  chart.draw(data, options);
+}
+</script>
+
+</div>
+</div>

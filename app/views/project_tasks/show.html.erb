@@ -1,0 +1,74 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Task no:</strong>
+  <%= @project_task.task_no %>
+</p>
+
+<p>
+  <strong>Auto no:</strong>
+  <%= @project_task.auto_no %>
+</p>
+
+<p>
+  <strong>P tsk 01:</strong>
+  <%= @project_task.p_tsk_01 %>
+</p>
+
+<p>
+  <strong>Task description:</strong>
+  <%= @project_task.task_description %>
+</p>
+
+<p>
+  <strong>Project code:</strong>
+  <%= @project_task.project_no %>
+</p>
+
+<p>
+  <strong>Planned start date:</strong>
+  <%= @project_task.planned_start_date %>
+</p>
+
+<p>
+  <strong>Planned end date:</strong>
+  <%= @project_task.planned_end_date %>
+</p>
+
+<p>
+  <strong>Actual start date:</strong>
+  <%= @project_task.actual_start_date %>
+</p>
+
+<p>
+  <strong>Actual end date:</strong>
+  <%= @project_task.actual_end_date %>
+</p>
+
+<p>
+  <strong>Planned task duration:</strong>
+  <%= @project_task.planned_task_duration %>
+</p>
+
+<p>
+  <strong>Actual task duration:</strong>
+  <%= @project_task.actual_task_duration %>
+</p>
+
+<p>
+  <strong>Percentage coverage planned:</strong>
+  <%= @project_task.percentage_coverage_planned %>
+</p>
+
+<p>
+  <strong>Percentage coverage:</strong>
+  <%= @project_task.percentage_coverage %>
+</p>
+
+<p>
+  <strong>Parallel:</strong>
+  <%= @project_task.parallel %>
+</p>
+
+<%= link_to 'Edit', edit_project_task_path(@project_task) %> |
+<%= link_to 'Back', project_tasks_path %>

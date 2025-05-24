@@ -2,6 +2,15 @@ class SalesQuote < ApplicationRecord
 self.primary_key = 'QTN_no'
  belongs_to :customer, foreign_key: 'customer_no', primary_key: 'clientcode'
   before_create :generate_qtn_no
+  
+ has_many :salesquote_lines, dependent: :destroy
+
+
+
+  accepts_nested_attributes_for :salesquote_lines 
+  
+  
+  
 
   private
 

@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sub_section_code: MyString
+  sub_section_name: MyText
+  section: one
+  department: one
+  complete_projects: 9.99
+  projects_in_progress: 9.99
+
+two:
+  sub_section_code: MyString
+  sub_section_name: MyText
+  section: two
+  department: two
+  complete_projects: 9.99
+  projects_in_progress: 9.99

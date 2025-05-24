@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  code: MyString
+  product_description: MyText
+  quantity: 9.99
+  unit_cost: 9.99
+  amount: 9.99
+  received: false
+  expiry_date: 2025-03-31
+  batch_no: MyString
+  stock_balance: 9.99
+  destination_code: MyString
+  destination_name: MyText
+  store_request: one
+
+two:
+  code: MyString
+  product_description: MyText
+  quantity: 9.99
+  unit_cost: 9.99
+  amount: 9.99
+  received: false
+  expiry_date: 2025-03-31
+  batch_no: MyString
+  stock_balance: 9.99
+  destination_code: MyString
+  destination_name: MyText
+  store_request: two

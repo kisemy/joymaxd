@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  task_no: 
+  auto_no: MyString
+  p_tsk_01: MyString
+  task_description: MyText
+  project_code: MyString
+  planned_start_date: 2025-05-09
+  planned_end_date: 2025-05-09
+  actual_start_date: 2025-05-09
+  actual_end_date: 2025-05-09
+  planned_task_duration: 1
+  actual_task_duration: 1
+  percentage_coverage_planned: 9.99
+  percentage_coverage: 9.99
+  parallel: false
+
+two:
+  task_no: 
+  auto_no: MyString
+  p_tsk_01: MyString
+  task_description: MyText
+  project_code: MyString
+  planned_start_date: 2025-05-09
+  planned_end_date: 2025-05-09
+  actual_start_date: 2025-05-09
+  actual_end_date: 2025-05-09
+  planned_task_duration: 1
+  actual_task_duration: 1
+  percentage_coverage_planned: 9.99
+  percentage_coverage: 9.99
+  parallel: false

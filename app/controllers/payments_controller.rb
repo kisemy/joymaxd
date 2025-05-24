@@ -24,39 +24,31 @@ class PaymentsController < ApplicationController
 
   # GET /payments/1 or /payments/1.json
   def show
-  @payment = Payment.find(params[:id])
-   @account_types = AccountType.all
-   
-  # respond_to do |format|
-    #  format.html
-     # format.pdf do
-      #  pdf = Prawn::Document.new
-      #  pdf.text "Hello, this is a PDF document."
-      #  send_data pdf.render, filename: 'document.pdf', type: 'payments/_paymentsttemp', disposition: 'inline'
-     # end
-   # end
-    
-
-   
-    @payments = Payment.all # or whatever query you need
-        respond_to do |format|
-     format.html
-      format.pdf do
-        render pdf: "Payment No. #{@payment.id}",
-        page_size: 'A4',
-        template: "payments/_paymenttemp.html.erb",
-        layout: "pdf.html.erb",
-       orientation: "portrait",
-       lowquality: true,
-        zoom: 1, 
-       dpi: 75
-     end
-    end
-    
-     
-    
   
+     @payment = Payment.find(params[:id]) 
+   @account_types = AccountType.all   
+    @payments = Payment.all # or whatever query you need
+     respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "payment_#{@payment.id}",
+               template: 'payments/show',
+               formats: [:html],
+               disposition: :inline, # Open in browser instead of downloading
+               layout: 'pvpdf.html.erb', # Optional: Use a custom PDF layout
+               disposition: :inline, 
+               page_size: 'A4',
+               margin: { top: 20, bottom: 20, left: 20, right: 20 }
+      end 
+      end
+   
   end
+  
+  
+  
+  
+  
+  
 
   # GET /payments/new
   def new

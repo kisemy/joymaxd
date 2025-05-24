@@ -1,54 +1,286 @@
-<p id="notice"><%= notice %></p>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sales Order</title>
+  <style>
+   body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
 
-<p>
-  <strong>Order no:</strong>
-  <%= @sales_order.order_no %>
-</p>
+    /* Container for the invoice */
+    .invoice-container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
 
-<p>
-  <strong>Customer no:</strong>
-  <%= @sales_order.customer_no %>
-</p>
+    /* Header styles */
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
 
-<p>
-  <strong>Customer name:</strong>
-  <%= @sales_order.customer_name %>
-</p>
+    .header h1 {
+      color: #007bff;
+      margin: 0;
+      font-size: 28px;
+    }
 
-<p>
-  <strong>Contactno:</strong>
-  <%= @sales_order.contactno %>
-</p>
+    .header p {
+      color: #666;
+      margin: 5px 0;
+    }
 
-<p>
-  <strong>Contact name:</strong>
-  <%= @sales_order.contact_name %>
-</p>
+    /* Company and customer details */
+    .details {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
 
-<p>
-  <strong>Address:</strong>
-  <%= @sales_order.address %>
-</p>
+    .details .company, .details .customer {
+      flex: 1;
+    }
 
-<p>
-  <strong>City:</strong>
-  <%= @sales_order.city %>
-</p>
+    .details h2 {
+      font-size: 18px;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
 
-<p>
-  <strong>Order date:</strong>
-  <%= @sales_order.order_date %>
-</p>
+    .details p {
+      margin: 5px 0;
+      color: #555;
+    }
 
-<p>
-  <strong>Sales person code:</strong>
-  <%= @sales_order.sales_person_code %>
-</p>
+    /* Table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
 
-<p>
-  <strong>Sales person name:</strong>
-  <%= @sales_order.sales_person_name %>
-</p>
+    table th, table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
 
-<%= link_to 'Edit', edit_sales_order_path(@sales_order) %> |
-<%= link_to 'Back', sales_orders_path %>
+    table th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    table tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    /* Total section */
+    .total {
+      text-align: right;
+      margin-bottom: 30px;
+    }
+
+    .total p {
+      font-size: 18px;
+      color: #007bff;
+      margin: 5px 0;
+    }
+
+    /* Footer styles */
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+      color: #666;
+    }
+
+    .footer a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Print button styles */
+    .print-button {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .print-button button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .print-button button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Hide the button when printing */
+    @media print {
+      .print-button {
+        display: none;
+      }
+    }
+    
+    
+  <div style="max-width: 800px; margin: 20px auto; padding: 20px; background-color: white; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); border-radius: 8px;">
+  <h1 style="color: #007bff; text-align: center;">Order #<%= @sales_order.order_no %></h1>
+  <p style="color: #666; text-align: center;">Generated on: <%= Time.current.strftime("%B %d, %Y") %></p>
+</div>  
+    
+    
+    
+  </style>
+  
+
+  
+  
+</head>
+<body>
+  <div class="invoice-container">
+    <!-- Header -->
+    <div class="header">
+     <%= image_tag 'safaricomlogo.png', alt: 'Company Logo', class: 'logo' %>
+    
+    
+    
+    
+      <h1>Sales Order #<%= @sales_order.order_no %></h1>
+      <p>Generated on: <%= Time.current.strftime("%B %d, %Y") %></p>
+    </div>
+
+    <!-- Company and Customer Details -->
+    <div class="details">
+      <div class="company">
+        <h2>From:</h2>
+        <p>Your Company Name</p>
+        <p>123 Business Street</p>
+        <p>City, State, ZIP</p>
+        <p>Email: info@brighterp.com</p>
+        <p>Phone: (123) 456-7890</p>
+      </div>
+      <div class="customer">
+        <h2>Bill To:</h2>
+        <p><%= @sales_order.customer_name %></p>
+        <p><%= @sales_order.address %></p>
+        <p>123 Business Street</p>
+        <p>City, State, ZIP</p>
+        <p>Email: info@brighterp.com</p>
+        <p>Phone: (123) 456-7890</p>
+      
+      </div>
+    </div>
+
+    <!-- Sales Order Details Table -->
+  
+    
+     <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+  <thead>
+    <tr>
+      <th style="padding: 8px; border: 1px solid #000; background-color: #007bff; color: white; text-align: left;">Product</th>
+      <th style="padding: 8px; border: 1px solid #000; background-color: #007bff; color: white; text-align: center;">Quantity</th>
+      <th style="padding: 8px; border: 1px solid #000; background-color: #007bff; color: white; text-align: right;">Price</th>
+      <th style="padding: 8px; border: 1px solid #000; background-color: #007bff; color: white; text-align: right;">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @sales_order.salesorder_lines.each do |line| %>
+      <tr>
+        <td style="padding: 8px; border: 1px solid #000; text-align: left;"><%= line.description %></td>
+        <td style="padding: 8px; border: 1px solid #000; text-align: center;"><%= line.quantity %></td>
+        <td style="padding: 8px; border: 1px solid #000; text-align: right;"><%= number_to_currency(line.unit_price) %></td>
+        <td style="padding: 8px; border: 1px solid #000; text-align: right;"><%= number_to_currency(line.amount) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3" style="padding: 8px; border: 1px solid #000; text-align: right; font-weight: bold;">Subtotal</td>
+      <td style="padding: 8px; border: 1px solid #000; text-align: right; font-weight: bold;"></td>
+    </tr>
+    <tr>
+      <td colspan="3" style="padding: 8px; border: 1px solid #000; text-align: right; font-weight: bold;">Tax</td>
+      <td style="padding: 8px; border: 1px solid #000; text-align: right; font-weight: bold;"></td>
+    </tr>
+    <tr>
+      <td colspan="3" style="padding: 8px; border: 1px solid #000; text-align: right; font-weight: bold; background-color: #f9f9f9;">Grand Total</td>
+      <td style="padding: 8px; border: 1px solid #000; text-align: right; font-weight: bold; background-color: #f9f9f9;"></td>
+    </tr>
+  </tfoot>
+</table>
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    <!-- Total Section -->
+    <div class="total">
+      <p><strong>Subtotal: </strong></p>
+      <p><strong>Tax: 
+      <p><strong>Grand Total: </strong></p>
+    </div>
+    
+     <div class="print-button">
+   
+    <%= link_to 'Create Ledger', {:controller => "sales_orders", :action => "insert_into_gledger", :id => @sales_order.order_no}, :method => :post %>
+
+
+   </div>
+    
+    
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>Thank you for your business! | <a href="https://www.brighterp.com">Visit Our Website</a></p>
+    </div>
+
+    <!-- Print to PDF Button -->
+    <div class="print-button">
+      <button onclick="printInvoice()">Print to PDF</button>
+    </div>
+  </div>
+  
+  
+  <br>
+  <br>
+  
+  
+  
+  
+
+  <!-- JavaScript to handle printing -->
+  <script>
+    function printInvoice() {
+      window.print(); // Trigger the browser's print functionality
+    }
+  </script>
+</body>
+</html>

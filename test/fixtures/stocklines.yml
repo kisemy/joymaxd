@@ -1,0 +1,43 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stockin_headers: one
+  code: MyString
+  product_description: MyText
+  quantity: 9.99
+  unit_cost: 9.99
+  unit_price: 9.99
+  amount: 9.99
+  received: false
+  expiry_date: 2025-03-30
+  batch_no: MyString
+  product_category: MyString
+  date: 2025-03-30
+  unit_of_measure: MyString
+  warehouse_code: MyString
+  warehouse_name: MyText
+  quantity_expected: 9.99
+  quality_check: MyString
+  comment: MyText
+  ref_no: MyString
+
+two:
+  stockin_headers: two
+  code: MyString
+  product_description: MyText
+  quantity: 9.99
+  unit_cost: 9.99
+  unit_price: 9.99
+  amount: 9.99
+  received: false
+  expiry_date: 2025-03-30
+  batch_no: MyString
+  product_category: MyString
+  date: 2025-03-30
+  unit_of_measure: MyString
+  warehouse_code: MyString
+  warehouse_name: MyText
+  quantity_expected: 9.99
+  quality_check: MyString
+  comment: MyText
+  ref_no: MyString

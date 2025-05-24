@@ -1,176 +1,85 @@
 
 
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
 
-    <title>PDFs | Ruby on Rails</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns" crossorigin="anonymous">
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
-
-<%= form_for @invoice, url: {controller: 'invoices', action: 'update', id: @invoice  } do |f| %>
-    <% hidden_field_tag(:invoice, :id) %>
-
-
-  <body>
-    <%= render "layouts/shared/header" %>
-    <div class="container mt-3">
-      <%= yield %>
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice</title>
+  <%= stylesheet_link_tag 'invoices', media: 'all' %>
+   <%= wicked_pdf_stylesheet_link_tag "application" %> <!-- Include CSS -->
+  <%= wicked_pdf_javascript_include_tag "application" %> <!-- Include JS (if needed
+ <style>
+  body { font-family: Arial, sans-serif; }
+  h1 { color: #333; }
+  p { margin: 5px 0; }
+  .header { text-align: center; }
+</style>
+  
+  
+  
+</head>
+<body>
+  <div class="a4-container">
+    <!-- Header with Logo -->
+    <div class="header">
+      <%= image_tag 'safaricomlogo.png', alt: 'Company Logo', class: 'logo' %>
+       <%= wicked_pdf_image_tag 'logo.png' %> <!-- Include logo -->
+      <h1>Invoice</h1>
     </div>
-  </body>
-</html>
 
-<div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-8">
-        <h2>Invoice</h2>
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="<%= url_for :controller => 'dashboards', :action => 'dashboard_1' %>">Home</a>
-            </li>
-            <li class="breadcrumb-item">
-                Other Pages
-            </li>
-            <li class="breadcrumb-item active">
-                <strong>Invoice</strong>
-            </li>
-        </ol>
+    <!-- Invoice Details -->
+    <div class="row">
+      <p><strong>Invoice No:</strong> <%= @invoice.id %></p>
+      <p><strong>Due Date:</strong> </p>
     </div>
-    <div class="col-lg-4">
-        <div class="title-action">
-            <a href="#" class="btn btn-white"><i class="fa fa-pencil"></i> Edit </a>
-            <a href="#" class="btn btn-white"><i class="fa fa-check "></i> Save </a>
-            <a href="<%= url_for :controller => 'pages', :action => 'invoice_print' %>" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> Print Invoice </a>
-        </div>
+
+    <!-- Billing and Shipping Information -->
+    <div class="row">
+      <div class="column">
+        <h4>Billing Address</h4>
+         <p><strong><%= @invoice.customer_name %></strong></p>
+      </div>
+     
     </div>
-</div>
-
-<div class="wrapper wrapper-content animated fadeInRight">
 
 
+  <p><strong>Date:</strong> <%= @invoice.date %></p>
 
-<div class="row">
+  
+  <br>
+  <br>
 
-
-    <div class="col-lg-10">
-
-
-
-
-        <div class="ibox-content p-xl">
-
-<div class="d-flex justify-content-center flex-column text-center my-5 navbar-light">
-              <class="navbar-brand d-flex flex-column m-0" style="min-width: 0">
-                  <%= image_tag "joymax.png", :size => "850x100" %>
-                
-              </a>
-           
-            </div>
-
-
-            <div class="row">
-
-
-             
-
-                <div class="col-sm-6">
-                    <h5>From:</h5>
-                    <address>
-                        <strong><%= f.text_area :customer_name, :rows => "1", :cols => "30" %></strong><br/>
-                         <%= f.text_area :address, :rows => "1", :cols => "10" %><br/>
-		        <%= f.text_area :city, :rows => "1", :cols => "10" %>
-                        
-                    </address>
-                </div>
-
-                <div class="col-sm-6 text-right">
-                    <h4>Invoice No.</h4>
-                    <h4 class="text-navy">INV-000567F7-00</h4>
-                    <span>To:</span>
-
-                    
-
-                    <p>
-                        <span><strong>Invoice Date:</strong> Marh 18, 2014</span><br/>
-                        <span><strong>Due Date:</strong> March 24, 2014</span>
-                    </p>
-                </div>
-            </div>
-
-            
-<div class="table-responsive">
-  <div class="col">
-  <table class="table table-bordered">
-      <thead>
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @invoice.invoice_lines.each do |line| %>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Description</th>
-          <th scope="col">Quantity</th>
-          <th scope="col">Unit Price</th>
-          <th scope="col">Amount</th>
-         
+          <td><%= line.description %></td>
+          <td><%= line.quantity %></td>
+          <td><%= line.unit_price %></td>
+          <td><%= line.amount %></td>
+          
         </tr>
-      </thead>
-      <tbody>
-
-        <% @invoice.invoice_lines.each do |invoice_line| %>
-  <tr>
-   <td></td>
-
-    <td><%=invoice_line.description %></td>
-    <td><%=invoice_line.quantity %></td>
-    <td><%=invoice_line.unit_price %></td>
-    <td><%=invoice_line.amount %></td>
-  </tr>
- <% end %>
-
-        
-
-      </tbody>
-
- <% end %>
-    </table>
-  </div>
-</div>
-            </div>
-            <!-- /table-responsive -->
-
-            <table class="table invoice-total">
-                <tbody>
-                <tr>
-                    <td><strong>Sub Total :</strong></td>
-                    <td>$1026.00</td>
-                      <%= @subtotal %>
-
-                </tr>
-                <tr>
-                    <td><strong>TAX :</strong></td>
-                    <td>$235.98</td>
-                </tr>
-                <tr>
-                    <td><strong>TOTAL :</strong></td>
-                    <td>$1261.98</td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="text-right">
-                <button class="btn btn-primary"><i class="fa fa-dollar"></i> Make A Payment</button>
-            </div>
-
-<%= link_to 'post invoice', {:controller => "invoices", :action => "postgl"}, :method=>:post %>
-
-            <div class="well m-t"><strong>Comments</strong>
-                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less
-            </div>
-        </div>
+      <% end %>
+    </tbody>
+  </table>
+<br>
+<br>
+    <!-- Footer -->
+    <div class="footer1">
+      <p>Thank you for your business!</p>
     </div>
-</div>
-</div>
-
+  </div>
+</body>
+</html>

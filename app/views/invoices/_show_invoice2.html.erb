@@ -1,0 +1,124 @@
+
+
+
+<%= link_to 'Download PDF', invoice_path(@invoice, format: :pdf), class: 'btn btn-primary', id: 'pdf-download' %>
+
+<script>
+  document.getElementById('pdf-download').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default link behavior
+    window.open(this.href, '_blank'); // Open PDF in a new tab
+  });
+</script>
+  
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invoice</title>
+  <%= stylesheet_link_tag 'invoices', media: 'all' %>
+</head>
+<body>
+  <div class="a4-container">
+    <!-- Header with Logo -->
+    <div class="header">
+      <%= image_tag 'safaricomlogo.png', alt: 'Company Logo', class: 'logo' %>
+      <h1>Invoice</h1>
+    </div>
+
+    <!-- Invoice Details -->
+    <div class="invoice-details">
+      <p><strong>Invoice Number:</strong> <%= @invoice.id %></p>
+      <p><strong>Date:</strong> </p>
+      <p><strong>Due Date:</strong> </p>
+    </div>
+
+    <!-- Billing and Shipping Information -->
+    <div class="row">
+      <div class="column">
+        <h3>Billing Address</h3>
+       
+      </div>
+      <div class="column">
+        <h3>Shipping Address</h3>
+     
+      </div>
+    </div>
+
+    <h1>Invoice</h1>
+  <p><strong>Invoice Number:</strong> <%= @invoice.id %></p>
+  <p><strong>Date:</strong> <%= @invoice.date %></p>
+  <p><strong>Customer:</strong> <%= @invoice.customer_name %></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @invoice.invoice_lines.each do |line| %>
+        <tr>
+          <td><%= line.description %></td>
+          <td><%= line.quantity %></td>
+          <td><%= line.unit_price %></td>
+          <td><%= line.amount %></td>
+          
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  
+  <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+  <thead>
+    <tr>
+      <th style="padding: 8px; border: 1px solid #000; background-color: #007bff; color: white; text-align: left;">Product</th>
+      <th style="padding: 8px; border: 1px solid #000; background-color: #007bff; color: white; text-align: center;">Quantity</th>
+      <th style="padding: 8px; border: 1px solid #000; background-color: #007bff; color: white; text-align: right;">Price</th>
+      <th style="padding: 8px; border: 1px solid #000; background-color: #007bff; color: white; text-align: right;">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @invoice.invoice_lines.each do |line| %>
+      <tr>
+        <td style="padding: 8px; border: 1px solid #000; text-align: left;"><%= line.description %></td>
+        <td style="padding: 8px; border: 1px solid #000; text-align: center;"><%= line.quantity %></td>
+        <td style="padding: 8px; border: 1px solid #000; text-align: right;"><%= number_to_currency(line.unit_price) %></td>
+        <td style="padding: 8px; border: 1px solid #000; text-align: right;"><%= number_to_currency(line.amount) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3" style="padding: 8px; border: 1px solid #000; text-align: right; font-weight: bold;">Subtotal</td>
+      <td style="padding: 8px; border: 1px solid #000; text-align: right; font-weight: bold;"><%= number_to_currency(@invoice.subtotal) %></td>
+    </tr>
+    <tr>
+      <td colspan="3" style="padding: 8px; border: 1px solid #000; text-align: right; font-weight: bold;">Tax</td>
+      <td style="padding: 8px; border: 1px solid #000; text-align: right; font-weight: bold;"><%= number_to_currency(@invoice.tax) %></td>
+    </tr>
+    <tr>
+      <td colspan="3" style="padding: 8px; border: 1px solid #000; text-align: right; font-weight: bold; background-color: #f9f9f9;">Grand Total</td>
+      <td style="padding: 8px; border: 1px solid #000; text-align: right; font-weight: bold; background-color: #f9f9f9;"><%= number_to_currency(@invoice.total_amount) %></td>
+    </tr>
+  </tfoot>
+</table>
+  
+  
+  
+  
+  
+  
+  
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>Thank you for your business!</p>
+    </div>
+  </div>
+</body>
+</html>

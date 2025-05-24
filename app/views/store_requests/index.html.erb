@@ -1,0 +1,72 @@
+
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+            <!--<%= yield %>-->
+
+
+
+
+
+
+<p id="notice"><%= notice %></p>
+
+<h1>Store Requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Invoice no</th>
+      <th>Request date</th>
+      <th>Destination code</th>
+      <th>Destination name</th>
+      <th>Status</th>
+      <th>Warehouse code</th>
+      <th>Warehouse name</th>
+      <th>Requsted by</th>
+      <th>Request status</th>
+      <th>Delivery place</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @store_requests.each do |store_request| %>
+      <tr>
+        <td><%= store_request.invoice_no %></td>
+        <td><%= store_request.request_date %></td>
+        <td><%= store_request.destination_code %></td>
+        <td><%= store_request.destination_name %></td>
+        <td><%= store_request.status %></td>
+        <td><%= store_request.warehouse_code %></td>
+        <td><%= store_request.Warehouse_name %></td>
+        <td><%= store_request.requsted_by %></td>
+        <td><%= store_request.request_status %></td>
+        <td><%= store_request.delivery_place %></td>
+        <td><%= link_to 'Show', store_request %></td>
+        <td><%= link_to 'Edit', edit_store_request_path(store_request) %></td>
+        <td><%= link_to 'Destroy', store_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Store Request', new_store_request_path %>
+
+</div>
+</div>

@@ -1,0 +1,92 @@
+<%= form_with(model: stockissue_line, local: true) do |form| %>
+  <% if stockissue_line.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(stockissue_line.errors.count, "error") %> prohibited this stockissue_line from being saved:</h2>
+
+      <ul>
+        <% stockissue_line.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :code %>
+    <%= form.text_field :code %>
+  </div>
+
+  <div class="field">
+    <%= form.label :product_description %>
+    <%= form.text_area :product_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :issued_quantity %>
+    <%= form.text_field :issued_quantity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :unit_cost %>
+    <%= form.text_field :unit_cost %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.text_field :amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :issued %>
+    <%= form.check_box :issued %>
+  </div>
+
+  <div class="field">
+    <%= form.label :stock_balance %>
+    <%= form.text_field :stock_balance %>
+  </div>
+
+  <div class="field">
+    <%= form.label :expiry_date %>
+    <%= form.date_select :expiry_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :batch_no %>
+    <%= form.text_field :batch_no %>
+  </div>
+
+  <div class="field">
+    <%= form.label :expired %>
+    <%= form.check_box :expired %>
+  </div>
+
+  <div class="field">
+    <%= form.label :batch_quantity %>
+    <%= form.text_field :batch_quantity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :client_code %>
+    <%= form.text_field :client_code %>
+  </div>
+
+  <div class="field">
+    <%= form.label :latest_expiry %>
+    <%= form.date_select :latest_expiry %>
+  </div>
+
+  <div class="field">
+    <%= form.label :client_name %>
+    <%= form.text_area :client_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :stockout_header_id %>
+    <%= form.text_field :stockout_header_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

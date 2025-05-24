@@ -1,0 +1,43 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+
+
+<%= form_with(model: internal_supply, local: true) do |form| %>
+  <% if internal_supply.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(internal_supply.errors.count, "error") %> prohibited this internal_supply from being saved:</h2>
+
+      <ul>
+        <% internal_supply.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :supplier_name %>
+    <%= form.text_area :supplier_name %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+
+</div>
+</div>

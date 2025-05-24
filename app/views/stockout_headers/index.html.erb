@@ -1,0 +1,79 @@
+
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+            <!--<%= yield %>-->
+
+
+<p id="notice"><%= notice %></p>
+
+<h1>Stockout Headers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stko</th>
+      <th>Request no</th>
+      <th>Client code</th>
+      <th>Client name</th>
+      <th>Address</th>
+      <th>Email</th>
+      <th>Telephone</th>
+      <th>Client category</th>
+      <th>Status</th>
+      <th>Warehouse code</th>
+      <th>Warehouse name</th>
+      <th>Request date</th>
+      <th>Release date</th>
+      <th>Requested by</th>
+      <th>Issued</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stockout_headers.each do |stockout_header| %>
+      <tr>
+        <td><%= stockout_header.stko %></td>
+        <td><%= stockout_header.request_no %></td>
+        <td><%= stockout_header.client_code %></td>
+        <td><%= stockout_header.client_name %></td>
+        <td><%= stockout_header.address %></td>
+        <td><%= stockout_header.email %></td>
+        <td><%= stockout_header.telephone %></td>
+        <td><%= stockout_header.client_category %></td>
+        <td><%= stockout_header.status %></td>
+        <td><%= stockout_header.warehouse_code %></td>
+        <td><%= stockout_header.warehouse_name %></td>
+        <td><%= stockout_header.request_date %></td>
+        <td><%= stockout_header.release_date %></td>
+        <td><%= stockout_header.requested_by %></td>
+        <td><%= stockout_header.issued %></td>
+        <td><%= link_to 'Show', stockout_header %></td>
+        <td><%= link_to 'Edit', edit_stockout_header_path(stockout_header) %></td>
+        <td><%= link_to 'Destroy', stockout_header, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Stockout Header', new_stockout_header_path %>
+
+
+</div>
+</div>

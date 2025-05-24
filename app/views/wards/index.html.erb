@@ -1,0 +1,66 @@
+
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+            <!--<%= yield %>-->
+
+
+
+
+<p id="notice"><%= notice %></p>
+
+<h1>Wards</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ward code</th>
+      <th>Ward name</th>
+      <th>Ward admin pno</th>
+      <th>Ward admin name</th>
+      <th>Ward admin telephone</th>
+      <th>Ward admin email</th>
+      <th>Sub county code</th>
+      <th>Sub county name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @wards.each do |ward| %>
+      <tr>
+        <td><%= ward.ward_code %></td>
+        <td><%= ward.ward_name %></td>
+        <td><%= ward.ward_admin_pno %></td>
+        <td><%= ward.ward_admin_name %></td>
+        <td><%= ward.ward_admin_telephone %></td>
+        <td><%= ward.ward_admin_email %></td>
+        <td><%= ward.sub_county_code %></td>
+        <td><%= ward.sub_county_name %></td>
+        <td><%= link_to 'Show', ward %></td>
+        <td><%= link_to 'Edit', edit_ward_path(ward) %></td>
+        <td><%= link_to 'Destroy', ward, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ward', new_ward_path %>
+
+</div>
+</div>

@@ -1,0 +1,79 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Stko:</strong>
+  <%= @stockout_header.stko %>
+</p>
+
+<p>
+  <strong>Request no:</strong>
+  <%= @stockout_header.request_no %>
+</p>
+
+<p>
+  <strong>Client code:</strong>
+  <%= @stockout_header.client_code %>
+</p>
+
+<p>
+  <strong>Client name:</strong>
+  <%= @stockout_header.client_name %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @stockout_header.address %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @stockout_header.email %>
+</p>
+
+<p>
+  <strong>Telephone:</strong>
+  <%= @stockout_header.telephone %>
+</p>
+
+<p>
+  <strong>Client category:</strong>
+  <%= @stockout_header.client_category %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @stockout_header.status %>
+</p>
+
+<p>
+  <strong>Warehouse code:</strong>
+  <%= @stockout_header.warehouse_code %>
+</p>
+
+<p>
+  <strong>Warehouse name:</strong>
+  <%= @stockout_header.warehouse_name %>
+</p>
+
+<p>
+  <strong>Request date:</strong>
+  <%= @stockout_header.request_date %>
+</p>
+
+<p>
+  <strong>Release date:</strong>
+  <%= @stockout_header.release_date %>
+</p>
+
+<p>
+  <strong>Requested by:</strong>
+  <%= @stockout_header.requested_by %>
+</p>
+
+<p>
+  <strong>Issued:</strong>
+  <%= @stockout_header.issued %>
+</p>
+
+<%= link_to 'Edit', edit_stockout_header_path(@stockout_header) %> |
+<%= link_to 'Back', stockout_headers_path %>

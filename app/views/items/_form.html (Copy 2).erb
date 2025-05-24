@@ -1,0 +1,65 @@
+<%= form_with(model: item, local: true, html: { class: 'needs-validation', novalidate: true }) do |f| %>
+<!-- app/views/your_model/_form.html.erb -->
+
+  <div class="card">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs" id="formTabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab">Basic Info</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="details-tab" data-toggle="tab" href="#details" role="tab">Details</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="advanced-tab" data-toggle="tab" href="#advanced" role="tab">Advanced</a>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="card-body tab-content" id="formTabsContent">
+      <!-- Basic Tab -->
+      <div class="tab-pane fade show active" id="basic" role="tabpanel">
+        <div class="form-group">
+          <%= f.label :name, class: 'form-label' %>
+          <%= f.text_field :name, class: 'form-control', placeholder: 'Enter name' %>
+        </div>
+        
+        <div class="form-group">
+          <%= f.label :email, class: 'form-label' %>
+          <%= f.email_field :email, class: 'form-control', placeholder: 'user@example.com' %>
+        </div>
+      </div>
+      
+      <!-- Details Tab -->
+      <div class="tab-pane fade" id="details" role="tabpanel">
+        <div class="form-group">
+          <%= f.label :bio, class: 'form-label' %>
+          <%= f.text_area :bio, class: 'form-control', rows: 4 %>
+        </div>
+        
+        <div class="form-group">
+          <%= f.label :avatar, class: 'form-label' %>
+          <%= f.file_field :avatar, class: 'form-control-file' %>
+        </div>
+      </div>
+      
+      <!-- Advanced Tab -->
+      <div class="tab-pane fade" id="advanced" role="tabpanel">
+        <div class="form-group">
+          <%= f.label :preferences, class: 'form-label' %>
+          <%= f.select :preferences, options_for_select(['Option 1', 'Option 2']), {}, class: 'form-select' %>
+        </div>
+        
+        <div class="form-check form-switch">
+          <%= f.check_box :notifications, class: 'form-check-input' %>
+          <%= f.label :notifications, 'Enable notifications', class: 'form-check-label' %>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card-footer text-end">
+      <%= f.submit 'Save', class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>
+

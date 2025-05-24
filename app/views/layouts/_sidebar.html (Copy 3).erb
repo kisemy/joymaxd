@@ -1,0 +1,291 @@
+<script>
+document.addEventListener('DOMContentLoaded', initSidebar);
+document.addEventListener('turbolinks:load', initSidebar);
+
+function initSidebar() {
+  // Initialize all menu items with children
+  const menuToggles = document.querySelectorAll('.menu-item.has-children > .toggle-submenu');
+  
+  menuToggles.forEach(toggle => {
+    // Remove existing click handler to prevent duplicates
+    toggle.removeEventListener('click', handleMenuToggle);
+    
+    // Add new click handler
+    toggle.addEventListener('click', handleMenuToggle);
+  });
+}
+
+function handleMenuToggle(e) {
+  // Only prevent default for toggle links
+  if (this.getAttribute('href') === '#') {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  
+  // Find the parent menu item
+  const parentItem = this.closest('.menu-item.has-children');
+  if (!parentItem) return;
+  
+  // Toggle the submenu
+  toggleSubmenu(parentItem);
+}
+
+function toggleSubmenu(menuItem) {
+  const isOpen = menuItem.classList.contains('open');
+  
+  // Close all other open menus first
+  if (!isOpen) {
+    document.querySelectorAll('.menu-item.has-children.open').forEach(item => {
+      if (item !== menuItem) {
+        closeSubmenu(item);
+      }
+    });
+  }
+  
+  // Toggle current menu
+  if (isOpen) {
+    closeSubmenu(menuItem);
+  } else {
+    openSubmenu(menuItem);
+  }
+}
+
+function openSubmenu(menuItem) {
+  menuItem.classList.add('open');
+  const submenu = menuItem.querySelector('.submenu');
+  if (submenu) {
+    submenu.classList.add('show');
+  }
+}
+
+function closeSubmenu(menuItem) {
+  menuItem.classList.remove('open');
+  const submenu = menuItem.querySelector('.submenu');
+  if (submenu) {
+    submenu.classList.remove('show');
+  }
+}
+
+// Close submenus when clicking outside
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.sidebar')) {
+    document.querySelectorAll('.menu-item.has-children.open').forEach(item => {
+      closeSubmenu(item);
+    });
+  }
+});
+</script>
+<style>
+/* Sidebar Styles */
+body {
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.page-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: linear-gradient(135deg, #2c3e50 0%, #1a1a2e 100%);
+  width: 250px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  padding: 20px 0;
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow-y: auto;
+  flex: 0 0 250px;
+}
+
+.sidebar-brand {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 0 20px 20px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  position: relative;
+}
+
+.menu-link {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  transition: all 0.3s ease;
+  font-weight: 300;
+  position: relative;
+}
+
+.menu-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-link i:first-child {
+  margin-right: 10px;
+  font-size: 1.1rem;
+  width: 20px;
+  text-align: center;
+}
+
+.dropdown-icon {
+  margin-left: auto;
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.menu-item.active > .menu-link {
+  background: rgba(255, 255, 255, 0.1);
+  font-weight: 500;
+}
+
+/* Submenu Styles */
+.submenu {
+  list-style: none;
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.2s ease;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+}
+
+.submenu.show {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.submenu .menu-item a {
+  display: block;
+  padding: 10px 20px 10px 50px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.2s ease;
+}
+
+.submenu .menu-item a:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.submenu .menu-item a:before {
+  content: '';
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  background: white;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.menu-item.has-children.open .dropdown-icon {
+  transform: rotate(180deg);
+}
+
+/* Page Content */
+.page-content {
+  flex: 1;
+  padding: 20px;
+  background: #f5f7fa;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+    flex: 0 0 60px;
+  }
+  
+  .sidebar-brand, 
+  .menu-link > span {
+    display: none;
+  }
+  
+  .menu-link {
+    justify-content: center;
+    padding: 12px 0;
+  }
+  
+  .menu-link i:first-child {
+    margin-right: 0;
+    font-size: 1.3rem;
+  }
+  
+  .dropdown-icon {
+    display: none;
+  }
+  
+  .submenu {
+    position: absolute;
+    left: 60px;
+    width: 200px;
+    top: 0;
+    display: none;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .submenu.show {
+    display: block;
+    max-height: unset;
+  }
+}
+</style>
+
+<div class="page-wrapper">
+  <nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+      <div class="sidebar">
+        <div class="sidebar-brand">
+          <%= Rails.application.class.module_parent_name %>
+        </div>
+        
+        <ul class="menu">
+          <li class="menu-item <%= 'active' if current_page?(projects_path) %>">
+            <%= link_to projects_path, class: 'menu-link' do %>
+              <i class="fas fa-tachometer-alt"></i>
+              <span>Dashboard</span>
+            <% end %>
+          </li>
+          
+          <li class="menu-item has-children <%= 'active' if controller_name == 'departments' %>">
+            <%= link_to '#', class: 'menu-link toggle-submenu' do %>
+              <i class="fas fa-box-open"></i>
+              <span>Departments</span>
+              <i class="fas fa-chevron-down dropdown-icon"></i>
+            <% end %>
+            <ul class="submenu">
+              <li class="menu-item <%= 'active' if current_page?(departments_path) %>">
+                <%= link_to departments_path do %>
+                  <span>All Departments</span>
+                <% end %>
+              </li>
+              <li class="menu-item <%= 'active' if current_page?(new_department_path) %>">
+                <%= link_to new_department_path do %>
+                  <span>Add New</span>
+                <% end %>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="page-content">
+    <!-- Your main content goes here -->
+  </div>
+</div>

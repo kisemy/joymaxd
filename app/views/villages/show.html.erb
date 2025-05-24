@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Village code:</strong>
+  <%= @village.village_code %>
+</p>
+
+<p>
+  <strong>Village name:</strong>
+  <%= @village.village_name %>
+</p>
+
+<p>
+  <strong>Sub county code:</strong>
+  <%= @village.sub_county_code %>
+</p>
+
+<p>
+  <strong>Sub county name:</strong>
+  <%= @village.sub_county_name %>
+</p>
+
+<p>
+  <strong>Ward code:</strong>
+  <%= @village.ward_code %>
+</p>
+
+<p>
+  <strong>Ward name:</strong>
+  <%= @village.ward_name %>
+</p>
+
+<p>
+  <strong>Village admin pno:</strong>
+  <%= @village.village_admin_pno %>
+</p>
+
+<p>
+  <strong>Village admin name:</strong>
+  <%= @village.village_admin_name %>
+</p>
+
+<p>
+  <strong>Village admin telephone:</strong>
+  <%= @village.village_admin_telephone %>
+</p>
+
+<p>
+  <strong>Village admin email:</strong>
+  <%= @village.village_admin_email %>
+</p>
+
+<%= link_to 'Edit', edit_village_path(@village) %> |
+<%= link_to 'Back', villages_path %>

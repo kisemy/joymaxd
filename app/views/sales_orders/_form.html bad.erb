@@ -1,0 +1,371 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+
+
+
+
+
+
+<!-- app/views/sales_orders/new.html.erb -->
+<%= form_with model: @sales_order, local: true do |form| %>
+
+<div class="form-container">
+
+
+
+   <div class="main-form">
+   <br>
+
+ <div>
+    <%= form.label :order_no %>
+    <%= form.text_field :order_no, id: "td1" %>
+  </div>
+
+
+ <br>
+  
+  <%= form.label :customer_name %><br>
+<%= form.select :customer_name, Customer.pluck(:customer_name), {}, id: 'customer_name', class: 'select2', class: 'styled-textarea'  %>
+  
+  
+
+  <div>
+    <%= form.label :customer_no %>
+    <%= form.text_field :customer_no, id: 'customer_no', readonly: true, class: 'styled-textarea'  %>
+  </div>
+
+  <div>
+    <%= form.label :contactno %>
+    <%= form.text_field :contactno, id: 'contactno', readonly: true , class: 'styled-textarea' %>
+  </div>
+
+  <div>
+    <%= form.label :contact_name %>
+    <%= form.text_field :contact_name, id: 'contact_name', readonly: true, class: 'styled-textarea'  %>
+  </div>
+
+  <div>
+    <%= form.label :address %>
+    <%= form.text_field :address, id: 'address', readonly: true, class: 'styled-textarea'  %>
+  </div>
+
+  <div>
+    <%= form.label :city %>
+    <%= form.text_field :city, id: 'city', readonly: true, class: 'styled-textarea'  %>
+  </div>
+
+  <div>
+    <%= form.label :salesorder_date %>
+    <%= form.date_field :order_date %>
+  </div>
+
+  <div>
+    <%= form.label :sales_person_code %>
+    <%= form.text_field :sales_person_code, class: 'styled-textarea'  %>
+  </div>
+
+  <div>
+    <%= form.label :sales_person_name %>
+    <%= form.text_field :sales_person_name, class: 'styled-textarea'  %>
+  </div>
+
+
+
+  <!-- Your form and other content -->
+     <h3>sales Lines</h3>
+  <div class="form-container">
+ 
+    <div class="table-responsive">
+      <table id="salesorder_lines" class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Units of Measure</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Amount</th>
+             <th>Item No</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Existing salesorder_lines will be rendered here -->
+        </tbody>
+      </table>
+    </div>
+   
+  </div>
+  
+<button type="button" id="add_salesorder_line" class="btn btn-primary">Add Salesorder Line</button>
+  
+<script type="text/template" id="salesorder_lines_template">
+  <tr class="salesorder_line">
+    <td>
+      <select class="item_select">
+        <option value="">Select an item</option>
+        <% @items.each do |item| %>
+          <option value="<%= item.description %>"><%= item.description %></option>
+        <% end %>
+      </select>
+    </td>
+    
+    <td><input type="text" class="unit_of_measure" name="sales_order[salesorder_lines_attributes][NEW_RECORD][unit_of_measure]" /></td>
+    <td><input type="number" class="quantity" name="sales_order[salesorder_lines_attributes][NEW_RECORD][quantity]" /></td>
+     <td><input type="number" class="unit_price" name="sales_order[salesorder_lines_attributes][NEW_RECORD][unit_price]" step="any" /></td>
+    <td><input type="number" class="amount" name="sales_order[salesorder_lines_attributes][NEW_RECORD][amount]" readonly /></td>
+   
+
+
+    
+    
+    <td><input type="text" class="item_no" name="sales_order[salesorder_lines_attributes][NEW_RECORD][item_no]" /></td>
+    
+     <td class="hidden-row"><input type="text" class="order_no" name="sales_order[salesorder_lines_attributes][NEW_RECORD][order_no]" /></td>
+     
+    <td class="hidden-row"> <input type="text" class="description" name="sales_order[salesorder_lines_attributes][NEW_RECORD][description]" /></td>
+     
+     
+     
+     
+    <td><button type="button" class="remove_salesorder_line btn btn-danger">Remove Line</button></td>
+
+  </tr>
+
+</script>
+    
+    
+    
+ 
+
+
+
+  
+ 
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Add new invoice line
+  document.getElementById('add_salesorder_line').addEventListener('click', function() {
+    const template = document.getElementById('salesorder_lines_template').innerHTML;
+    const tbody = document.querySelector('#salesorder_lines tbody');
+    const newRow = document.createElement('tr');
+    newRow.innerHTML = template.replace(/NEW_RECORD/g, new Date().getTime()); // Ensure unique IDs
+    tbody.appendChild(newRow);
+
+    // Attach event listener to the new item select dropdown
+    const newItemSelect = newRow.querySelector('.item_select');
+    newItemSelect.addEventListener('change', function() {
+      const description = this.value; // Get the selected item's description
+      console.log('Fetching item data for description:', description); // Debugging
+
+      // Fetch item data from the server
+      fetch(`/items/find_by_description.json?description=${encodeURIComponent(description)}`)
+        .then(response => {
+          console.log('Response status:', response.status); // Debugging
+          if (!response.ok) {
+            throw new Error('Item not found');
+          }
+          return response.json();
+        })
+        .then(item => {
+          console.log('Item data fetched:', item); // Debugging
+
+          // Update all fields in the current row
+          const row = this.closest('tr');
+          row.querySelector('.description').value = item.description || '';
+          row.querySelector('.item_no').value = item.item_no || '';
+          row.querySelector('.quantity').value = item.quantity || '';
+          row.querySelector('.unit_of_measure').value = item.unit_of_measure || '';
+          row.querySelector('.unit_price').value = item.unit_price || '';
+          row.querySelector('.amount').value = item.amount || '';
+        })
+        .catch(error => {
+          console.error('Error fetching item data:', error);
+          alert('Item not found. Please check the description and try again.');
+        });
+    });
+  });
+
+  // Remove salesorder line
+  document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('remove_salesorder_line')) {
+      event.preventDefault();
+      const row = event.target.closest('tr');
+      row.remove();
+    }
+  });
+});
+row.querySelector('.quantity').addEventListener('input', updateAmount);
+row.querySelector('.unit_price').addEventListener('input', updateAmount);
+
+function updateAmount() {
+  const row = this.closest('tr');
+  const quantity = parseFloat(row.querySelector('.quantity').value) || 0;
+  const unitPrice = parseFloat(row.querySelector('.unit_price').value) || 0;
+  const amount = quantity * unitPrice;
+  row.querySelector('.amount').value = amount.toFixed(2);
+}
+
+
+
+</script>
+
+
+
+
+  
+ 
+
+
+
+
+
+
+
+
+<style>
+#salesorder-lines {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#salesorder-lines th, #salesorder-lines td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#salesorder-lines th {
+  background-color: #f2f2f2;
+}
+
+.nested-fields {
+  background-color: #f9f9f9;
+}
+
+
+.hidden-row {
+  display: none;
+}
+
+</style>
+
+
+
+
+
+
+
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+</div>
+
+
+
+
+  
+ <div class="stats-container">
+    <h3>Customer Statistics</h3>
+    
+    <div class="customer-stats">
+  <div class="stat-card">
+    <h4>Total Customers</h4>
+    <p>1,250</p>
+  </div>
+  <div class="stat-card">
+    <h4>Average Order Value</h4>
+    <p>$45.60</p>
+  </div>
+  <div class="stat-card">
+    <h4>Repeat Purchase Rate</h4>
+    <p>35%</p>
+  </div>
+  <div class="stat-card">
+    <h4>Customer Satisfaction</h4>
+    <p>4.7/5</p>
+  </div>
+</div>
+</div>
+</div>
+    
+
+
+   
+    
+    
+    
+  
+
+ 
+ 
+<style>
+.form-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px; /* Adds space between the form and stats container */
+}
+
+.main-form {
+  width: 95%; /* Main form takes up 75% of the width */
+}
+
+.stats-container {
+  width: 50%; /* Stats container takes up 20% of the width */
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.stats-container h3 {
+  margin-top: 0;
+}
+
+.stats-container p {
+  margin: 10px 0;
+}
+</style>
+
+
+
+
+
+
+
+<script>
+ document.getElementById('customer_name').addEventListener('change', function() {
+  var customerName = this.value;
+  fetch(`/sales_orders/get_customer_details?customer_name=${encodeURIComponent(customerName)}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        alert(data.error);
+      } else {
+        #document.getElementById('customer_no').value = data.customer_no;
+        document.getElementById('contactno').value = data.contactno;
+        document.getElementById('contact_name').value = data.contact_name;
+        document.getElementById('address').value = data.address;
+        document.getElementById('city').value = data.city;
+      }
+    })
+    .catch(error => console.error('Error fetching customer details:', error));
+});
+</script>

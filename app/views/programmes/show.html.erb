@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Programme code:</strong>
+  <%= @programme.programme_code %>
+</p>
+
+<p>
+  <strong>Programme name:</strong>
+  <%= @programme.programme_name %>
+</p>
+
+<p>
+  <strong>Department code:</strong>
+  <%= @programme.department_code %>
+</p>
+
+<p>
+  <strong>Department name:</strong>
+  <%= @programme.department_name %>
+</p>
+
+<p>
+  <strong>Current co pno:</strong>
+  <%= @programme.current_co_pno %>
+</p>
+
+<p>
+  <strong>Current co telephone:</strong>
+  <%= @programme.current_co_telephone %>
+</p>
+
+<p>
+  <strong>Current co email:</strong>
+  <%= @programme.current_co_email %>
+</p>
+
+<p>
+  <strong>General programme email:</strong>
+  <%= @programme.general_programme_email %>
+</p>
+
+<p>
+  <strong>Complete projects:</strong>
+  <%= @programme.complete_projects %>
+</p>
+
+<p>
+  <strong>Projects in progress:</strong>
+  <%= @programme.projects_in_progress %>
+</p>
+
+<%= link_to 'Edit', edit_programme_path(@programme) %> |
+<%= link_to 'Back', programmes_path %>

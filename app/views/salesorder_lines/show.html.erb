@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Charge type:</strong>
+  <%= @salesorder_line.charge_type %>
+</p>
+
+<p>
+  <strong>Item no:</strong>
+  <%= @salesorder_line.item_no %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @salesorder_line.description %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @salesorder_line.quantity %>
+</p>
+
+<p>
+  <strong>Unit of measure:</strong>
+  <%= @salesorder_line.unit_of_measure %>
+</p>
+
+<p>
+  <strong>Unit price:</strong>
+  <%= @salesorder_line.unit_price %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @salesorder_line.amount %>
+</p>
+
+<%= link_to 'Edit', edit_salesorder_line_path(@salesorder_line) %> |
+<%= link_to 'Back', salesorder_lines_path %>

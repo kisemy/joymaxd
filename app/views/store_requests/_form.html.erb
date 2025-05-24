@@ -1,0 +1,494 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+
+
+
+<style>
+.styled-textarea {
+  width: 1000px;   /* Adjust width */
+  
+  resize: none;   /* Optional: Disable resizing */
+}
+/* Add this to make the card smaller */
+.smaller-card {
+  max-width: 1300px;  /* Adjust this value as needed */
+  margin: 0 auto;    /* Centers the card */
+}
+
+</style>
+
+
+
+<%= form_with(model: store_request, local: true) do |form| %>
+  <% if store_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(store_request.errors.count, "error") %> prohibited this store_request from being saved:</h2>
+
+      <ul>
+        <% store_request.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="card smaller-card">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs" id="formTabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab">Basic Info</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="details-tab" data-toggle="tab" href="#details" role="tab">Details</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="advanced-tab" data-toggle="tab" href="#advanced" role="tab">Advanced</a>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="card-body tab-content" id="formTabsContent">
+      <!-- Basic Tab -->
+      <div class="tab-pane fade show active" id="basic" role="tabpanel">
+         
+<div class="field">
+  <%= form.label :destination_type %>
+  <%= form.select :destination_type, 
+                  options_for_select([['Internal', 'internal'], ['Customer', 'customer']], 
+                  store_request.destination_type),
+                  { include_blank: 'Select Destination Type' },
+                  id: 'destination-type-select',
+                  class: 'destination-type-select' %>
+</div>
+
+<div id="internal-request-fields" style="display: <%= store_request.destination_type == 'internal' ? 'block' : 'none' %>;">
+  <div class="field">
+    <%= form.label :internal_supply_id, "Internal Supply" %>
+    <%= form.collection_select :internal_supply_id, 
+                              InternalSupply.all, 
+                              :id, 
+                              :supplier_name, 
+                              { selected: store_request.internal_supply_id, include_blank: 'Select Internal Supply' },
+                              class: 'form-control internal-supply-select' %>
+  </div>
+</div>
+
+<div id="customer-fields" style="display: <%= store_request.destination_type == 'customer' ? 'block' : 'none' %>;">
+  <div class="field">
+    <%= form.label :customer_clientcode, "Customer" %>
+    <%= form.collection_select :customer_clientcode, 
+                              Customer.all, 
+                              :clientcode, 
+                              :customer_name, 
+                              { selected: store_request.customer_clientcode, include_blank: 'Select Customer' },
+                              class: 'form-control customer-select' %>
+  </div>
+</div>
+
+
+
+
+
+<div class="field">
+    <%= form.label :status %><br>
+    <%= form.text_field :status, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :warehouse_code %><br>
+    <%= form.text_area :warehouse_code, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Warehouse_name %><br>
+    <%= form.text_area :Warehouse_name, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :requsted_by %><br>
+    <%= form.text_area :requsted_by, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :request_status %><br>
+    <%= form.text_area :request_status , class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :delivery_place %><br>
+    <%= form.text_area :delivery_place, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+
+
+
+<%= form.hidden_field :destination_name %>
+<%= form.hidden_field :destination_code %>
+
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Get all relevant elements
+  const destinationTypeSelect = document.getElementById('destination-type-select');
+  const internalFields = document.getElementById('internal-request-fields');
+  const customerFields = document.getElementById('customer-fields');
+  const internalSupplySelect = document.querySelector('.internal-supply-select');
+  const customerSelect = document.querySelector('.customer-select');
+  const destinationNameField = document.querySelector('#store_request_destination_name');
+  const destinationCodeField = document.querySelector('#store_request_destination_code');
+
+  // Function to toggle fields based on destination type
+  function toggleDestinationFields() {
+    if (!destinationTypeSelect) return;
+
+    const selectedType = destinationTypeSelect.value;
+    
+    if (selectedType === 'internal') {
+      internalFields.style.display = 'block';
+      customerFields.style.display = 'none';
+      // Clear customer selection when switching to internal
+      if (customerSelect) customerSelect.value = '';
+    } 
+    else if (selectedType === 'customer') {
+      internalFields.style.display = 'none';
+      customerFields.style.display = 'block';
+      // Clear internal selection when switching to customer
+      if (internalSupplySelect) internalSupplySelect.value = '';
+    } 
+    else {
+      internalFields.style.display = 'none';
+      customerFields.style.display = 'none';
+      // Clear both selections when no type is selected
+      if (internalSupplySelect) internalSupplySelect.value = '';
+      if (customerSelect) customerSelect.value = '';
+    }
+    
+    // Clear destination fields when type changes
+    destinationNameField.value = '';
+    destinationCodeField.value = '';
+  }
+
+  // Update destination fields when internal supply is selected
+  if (internalSupplySelect) {
+    internalSupplySelect.addEventListener('change', function() {
+      if (this.value) {
+        const selectedOption = this.options[this.selectedIndex];
+        destinationNameField.value = selectedOption.text;
+        destinationCodeField.value = this.value;
+      } else {
+        destinationNameField.value = '';
+        destinationCodeField.value = '';
+      }
+    });
+  }
+
+  // Update destination fields when customer is selected
+  if (customerSelect) {
+    customerSelect.addEventListener('change', function() {
+      if (this.value) {
+        const selectedOption = this.options[this.selectedIndex];
+        destinationNameField.value = selectedOption.text;
+        destinationCodeField.value = this.value;
+      } else {
+        destinationNameField.value = '';
+        destinationCodeField.value = '';
+      }
+    });
+  }
+
+  // Initialize fields on page load
+  toggleDestinationFields();
+  
+  // Set up event listener for destination type changes
+  if (destinationTypeSelect) {
+    destinationTypeSelect.addEventListener('change', toggleDestinationFields);
+    
+    // Also initialize destination fields if values are already selected
+    if (destinationTypeSelect.value === 'internal' && internalSupplySelect && internalSupplySelect.value) {
+      const selectedOption = internalSupplySelect.options[internalSupplySelect.selectedIndex];
+      destinationNameField.value = selectedOption.text;
+      destinationCodeField.value = internalSupplySelect.value;
+    } 
+    else if (destinationTypeSelect.value === 'customer' && customerSelect && customerSelect.value) {
+      const selectedOption = customerSelect.options[customerSelect.selectedIndex];
+      destinationNameField.value = selectedOption.text;
+      destinationCodeField.value = customerSelect.value;
+    }
+  }
+});
+</script>
+
+  
+ 
+<style>
+#salesorder-lines {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#salesorder-lines th, #salesorder-lines td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#salesorder-lines th {
+  background-color: #f2f2f2;
+}
+
+.nested-fields {
+  background-color: #f9f9f9;
+}
+
+
+.hidden-row {
+  display: none;
+}
+
+</style>
+ </div>
+ 
+ 
+
+  <!-- Your form and other content -->
+ 
+  <div class="form-container">
+
+
+   
+ 
+ 
+ <div class="card smaller-card">
+ <h3>sales lines</h3>
+    <div class="table-responsive">
+      <table id="store_requestlines" class="table table-bordered" style="color: blue; border-color: blue;"
+        <thead>
+          <tr>
+           <th>Code</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Unit Cost</th>
+            <th>Received</th>
+             <th>Expiry Date</th>
+             <th>Batch_No</th>
+             <th>Stock Balance</th>
+             
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Existing salesorder_lines will be rendered here -->
+        </tbody>
+      </table>
+    </div>
+   
+  </div>
+  
+<button type="button" id="add_store_requestline" class="btn btn-primary">Add store_requestline</button>
+  
+<script type="text/template" id="store_requestlines_template">
+  <tr class="store_requestline">
+   
+   
+    <td>
+      <select class="item_select">
+        <option value="">Select an item</option>
+        <% @items.each do |item| %>
+          <option value="<%= item.cost_account %>" 
+                  data-description="<%= item.description %>"
+                  data-unit-of-measure="<%= item.units_of_measure %>"
+                  data-inventory-account="<%= item.purchase_account %>" 
+                  data-unit-price="<%= item.unit_price %>">
+            <%= item.description %>
+          </option>
+        <% end %>
+      </select>
+    </td>
+    
+
+    
+    
+    <td><input type="number" class="quantity" name="store_request[store_requestlines_attributes][NEW_RECORD][quantity]" /></td>
+    <td><input type="number" class="unit_price" name="store_request[store_requestlines_attributes][NEW_RECORD][unit_price]" step="any" /></td>
+    <td><input type="number" class="amount" name="store_request[store_requestlines_attributes][NEW_RECORD][amount]" readonly /></td>
+    <td><input type="text" class="item_no" name="store_request[store_requestlines_attributes][NEW_RECORD][batch_no]" /></td>
+    <td><input type="text" class="inventory_account" name="store_request[store_requestlines_attributes][NEW_RECORD][inventory_account]" /></td>
+    <td><input type="text" class="product_description" name="store_request[store_requestlines_attributes][NEW_RECORD][product_description]" /></td>
+    <td class="hidden-row"><input type="text" class="order_no" name="store_request[store_requestlines_attributes][NEW_RECORD][stk_no]" /></td>
+    <td><button type="button" class="remove_stockline btn btn-danger">Remove Line</button></td>
+  </tr>
+</script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // Use event delegation to handle dynamically added rows
+    $(document).on('input', '.quantity, .unit_price', function() {
+      // Find the closest row
+      const row = $(this).closest('tr');
+      
+      // Get the quantity and unit_price values from the current row
+      const quantity = parseFloat(row.find('.quantity').val()) || 0;
+      const unitPrice = parseFloat(row.find('.unit_price').val()) || 0;
+      
+      // Calculate the amount
+      const amount = quantity * unitPrice;
+      
+      // Update the amount field in the current row
+      row.find('.amount').val(amount.toFixed(2));
+    });`
+
+    // Initial calculation for pre-filled rows
+    $('.stockline').each(function() {
+      const row = $(this);
+      const quantity = parseFloat(row.find('.quantity').val()) || 0;
+      const unitPrice = parseFloat(row.find('.unit_price').val()) || 0;
+      const amount = quantity * unitPrice;
+      row.find('.amount').val(amount.toFixed(2));
+    });
+  });
+</script>
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    // Add new stock line
+    $('#add_store_requestline').click(function() {
+      const template = $('#store_requestlines_template').html(); // Fixed ID
+      const newRow = $(template.replace(/NEW_RECORD/g, new Date().getTime()));
+      $('#store_requestlines tbody').append(newRow);
+    });
+
+    // Handle item selection change
+    $(document).on('change', '.item_select', function() {
+      const selectedOption = $(this).find('option:selected');
+      const row = $(this).closest('tr');
+      
+      // Populate fields from data attributes
+      row.find('.product_description').val(selectedOption.data('description'));
+      row.find('.unit_price').val(selectedOption.data('unit-price'));
+      row.find('.inventory_account').val(selectedOption.data('inventory-account'));
+      
+      // Trigger amount calculation
+      row.find('.quantity').trigger('input');
+    });
+
+    // Calculate amount when quantity or price changes
+    $(document).on('input', '.quantity, .unit_price', function() {
+      const row = $(this).closest('tr');
+      const quantity = parseFloat(row.find('.quantity').val()) || 0;
+      const unitPrice = parseFloat(row.find('.unit_price').val()) || 0;
+      const amount = quantity * unitPrice;
+      row.find('.amount').val(amount.toFixed(2));
+    });
+
+    // Remove stock line
+    $(document).on('click', '.remove_stockline', function() {
+      $(this).closest('tr').remove();
+    });
+  });
+</script>
+  
+ 
+
+
+
+
+
+
+
+
+<style>
+#salesorder-lines {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#salesorder-lines th, #salesorder-lines td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#salesorder-lines th {
+  background-color: #f2f2f2;
+}
+
+.nested-fields {
+  background-color: #f9f9f9;
+}
+
+
+.hidden-row {
+  display: none;
+}
+
+</style>
+
+
+
+
+
+
+
+
+  <div>
+  
+ <div>
+  
+  
+ 
+ <div class="card-footer text-end">
+      <%= form.submit 'Save', class: 'btn btn-primary' %>
+    </div>
+  </div>  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+  
+<% end %>
+
+</div>
+</div>

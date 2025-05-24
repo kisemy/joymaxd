@@ -1,0 +1,100 @@
+<!-- app/views/stockin_headers/_form.html.erb -->
+<%= form_with(model: stockin_header) do |form| %>
+  <!-- other fields -->
+  <div class="field">
+  <%= form.label :supplier_name %>
+  <%= form.collection_select :supplier_name, 
+        Supplier.order(:supplier_name).all, 
+        :supplier_name, :supplier_name,
+        { include_blank: '-- Select Supplier --' },
+        { id: 'supplier-select', class: 'form-control' } %>
+</div>
+
+<div class="field">
+  <%= form.label :supplier_code %>
+  <%= form.text_field :supplier_code, id: 'supplier-code', readonly: true %>
+</div>
+
+<div class="field">
+  <%= form.label :supplier_name %>
+  <%= form.text_field :supplier_name, id: 'supplier-name', readonly: true %>
+</div>
+
+<div class="field">
+  <%= form.label :supplier_address %>
+  <%= form.text_area :supplier_address, id: 'supplier-address', readonly: true %>
+</div>
+
+<div class="field">
+  <%= form.label :telephone %>
+  <%= form.text_field :telephone, id: 'supplier-telephone', readonly: true %>
+</div>
+
+<div class="field">
+  <%= form.label :supplier_email  %>
+
+<% end %>
+<script>
+// app/javascript/packs/application.js (or in your view)
+document.addEventListener('DOMContentLoaded', function() {
+  const supplierSelect = document.getElementById('supplier-select');
+  
+  if (!supplierSelect) return;
+
+  supplierSelect.addEventListener('change', function() {
+    const supplierName = this.value.trim();
+    
+    if (!supplierName) {
+      resetSupplierFields();
+      return;
+    }
+
+    fetchSupplierData(supplierName);
+  });
+
+  async function fetchSupplierData(supplierName) {
+    try {
+      const response = await fetch(
+        `/stockin_headers/get_supplier?supplier_name=${encodeURIComponent(supplierName)}`
+      );
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        console.error('Error:', data.error);
+        alert(data.error || 'Failed to fetch supplier data');
+        resetSupplierFields();
+        return;
+      }
+      
+      updateSupplierFields(data);
+    } catch (error) {
+      console.error('Network error:', error);
+      alert('Network error - please check console');
+      resetSupplierFields();
+    }
+  }
+
+  function updateSupplierFields(data) {
+    setFieldValue('supplier-code', data.supplier_code);
+    setFieldValue('supplier-name', data.supplier_name);
+    setFieldValue('supplier-address', data.supplier_address);
+    setFieldValue('supplier-telephone', data.telephone);
+    setFieldValue('supplier-email', data.supplier_email);
+  }
+
+  function resetSupplierFields() {
+    setFieldValue('supplier-code', '');
+    setFieldValue('supplier-name', '');
+    setFieldValue('supplier-address', '');
+    setFieldValue('supplier-telephone', '');
+    setFieldValue('supplier-email', '');
+  }
+
+  function setFieldValue(id, value) {
+    const field = document.getElementById(id);
+    if (field) field.value = value || '';
+  }
+});
+
+</script>

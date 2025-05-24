@@ -1,0 +1,14 @@
+<%# app/views/stockin_headers/show.html.erb %>
+<div class="details">
+  <div class="company">
+    <h2>Received From:</h2>
+    <% if @stockin_header %>
+      <p><%= @stockin_header.supplier_code.presence || 'N/A' %></p>
+      <p><%= @stockin_header.supplier_name.presence || 'N/A' %></p>
+      <p><%= @stockin_header.supplier_address.presence || 'N/A' %></p>
+      <p><%= @stockin_header.supplier_email.presence || 'N/A' %></p>
+    <% else %>
+      <p class="text-danger">No record found</p>
+    <% end %>
+  </div>
+</div>

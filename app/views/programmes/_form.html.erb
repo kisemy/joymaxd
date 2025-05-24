@@ -1,0 +1,67 @@
+<%= form_with(model: programme, local: true) do |form| %>
+  <% if programme.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(programme.errors.count, "error") %> prohibited this programme from being saved:</h2>
+
+      <ul>
+        <% programme.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :programme_code %>
+    <%= form.text_field :programme_code %>
+  </div>
+
+  <div class="field">
+    <%= form.label :programme_name %>
+    <%= form.text_area :programme_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :department_code %>
+    <%= form.text_field :department_code %>
+  </div>
+
+  <div class="field">
+    <%= form.label :department_name %>
+    <%= form.text_area :department_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :current_co_pno %>
+    <%= form.text_field :current_co_pno %>
+  </div>
+
+  <div class="field">
+    <%= form.label :current_co_telephone %>
+    <%= form.text_field :current_co_telephone %>
+  </div>
+
+  <div class="field">
+    <%= form.label :current_co_email %>
+    <%= form.text_area :current_co_email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :general_programme_email %>
+    <%= form.text_area :general_programme_email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :complete_projects %>
+    <%= form.text_field :complete_projects %>
+  </div>
+
+  <div class="field">
+    <%= form.label :projects_in_progress %>
+    <%= form.text_field :projects_in_progress %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

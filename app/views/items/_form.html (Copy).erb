@@ -1,0 +1,52 @@
+<%= form_with(model: item, local: true) do |form| %>
+  <% if item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+        <% item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :units_of_measure %>
+    <%= form.text_area :units_of_measure %>
+  </div>
+
+  <div class="field">
+    <%= form.label :unit_cost %>
+    <%= form.text_field :unit_cost %>
+  </div>
+
+  <div class="field">
+    <%= form.label :unit_price %>
+    <%= form.text_area :unit_price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :inventory %>
+    <%= form.text_field :inventory %>
+  </div>
+
+  <div class="field">
+    <%= form.label :shelf_no %>
+    <%= form.text_area :shelf_no %>
+  </div>
+
+  <div class="field">
+    <%= form.label :item_category %>
+    <%= form.text_area :item_category %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

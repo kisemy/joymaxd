@@ -1,0 +1,663 @@
+<script>
+document.addEventListener('DOMContentLoaded', initSidebar);
+document.addEventListener('turbolinks:load', initSidebar);
+
+function initSidebar() {
+  // Initialize all menu items with children
+  const menuToggles = document.querySelectorAll('.menu-item.has-children > .toggle-submenu');
+  
+  menuToggles.forEach(toggle => {
+    // Remove existing click handler to prevent duplicates
+    toggle.removeEventListener('click', handleMenuToggle);
+    
+    // Add new click handler
+    toggle.addEventListener('click', handleMenuToggle);
+  });
+}
+
+function handleMenuToggle(e) {
+  // Only prevent default for toggle links
+  if (this.getAttribute('href') === '#') {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+  
+  // Find the parent menu item
+  const parentItem = this.closest('.menu-item.has-children');
+  if (!parentItem) return;
+  
+  // Toggle the submenu
+  toggleSubmenu(parentItem);
+}
+
+function toggleSubmenu(menuItem) {
+  const isOpen = menuItem.classList.contains('open');
+  
+  // Close all other open menus first
+  if (!isOpen) {
+    document.querySelectorAll('.menu-item.has-children.open').forEach(item => {
+      if (item !== menuItem) {
+        closeSubmenu(item);
+      }
+    });
+  }
+  
+  // Toggle current menu
+  if (isOpen) {
+    closeSubmenu(menuItem);
+  } else {
+    openSubmenu(menuItem);
+  }
+}
+
+function openSubmenu(menuItem) {
+  menuItem.classList.add('open');
+  const submenu = menuItem.querySelector('.submenu');
+  if (submenu) {
+    submenu.classList.add('show');
+  }
+}
+
+function closeSubmenu(menuItem) {
+  menuItem.classList.remove('open');
+  const submenu = menuItem.querySelector('.submenu');
+  if (submenu) {
+    submenu.classList.remove('show');
+  }
+}
+
+// Close submenus when clicking outside
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.sidebar')) {
+    document.querySelectorAll('.menu-item.has-children.open').forEach(item => {
+      closeSubmenu(item);
+    });
+  }
+});
+</script>
+<style>
+/* Sidebar Styles */
+body {
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ 
+  
+}
+
+.page-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: linear-gradient(135deg, #2c3e50 0%, #1a1a2e 100%);
+  width: 225px;
+  height: 130vh;
+  position: sticky;
+  top: 0;
+  
+  box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  overflow-y: auto;
+  flex: 0 0 250px;
+}
+
+.sidebar-brand {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700; /* Bolder brand text */
+  padding: 0 20px 20px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-item {
+  position: relative;
+}
+
+.menu-link {
+  color: white;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 14px 20px; /* Slightly more padding */
+  transition: all 0.3s ease;
+  font-weight: 600; /* Bold menu items */
+  font-size: 1.05rem; /* Larger font size */
+  position: relative;
+}
+
+.menu-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-link i:first-child {
+  margin-right: 12px; /* More spacing for icons */
+  font-size: 1.2rem; /* Larger icons */
+  width: 24px; /* More icon space */
+  text-align: center;
+}
+
+.dropdown-icon {
+  margin-left: auto;
+  font-size: 0.9rem; /* Slightly larger dropdown icon */
+  transition: transform 0.3s ease;
+}
+
+.menu-item.active > .menu-link {
+  background: rgba(255, 255, 255, 0.1);
+  font-weight: 700; /* Even bolder for active items */
+}
+
+/* Enhanced Submenu Styles */
+.submenu {
+  list-style: none;
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.2s ease;
+  background: rgba(0, 0, 0, 0.2);
+  opacity: 0;
+}
+
+.submenu.show {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.submenu .menu-item a {
+  display: block;
+  padding: 12px 20px 12px 55px; /* More vertical padding */
+  font-size: 1rem; /* Larger submenu font */
+  font-weight: 500; /* Bold submenu items */
+  color: rgba(255, 255, 255, 0.9); /* Slightly brighter */
+  transition: all 0.2s ease;
+}
+
+.submenu .menu-item a:hover {
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.submenu .menu-item a:before {
+  content: '';
+  display: inline-block;
+  width: 6px; /* Slightly larger dot */
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  margin-right: 12px; /* More spacing */
+  position: relative;
+  top: -2px;
+}
+
+.menu-item.has-children.open .dropdown-icon {
+  transform: rotate(180deg);
+}
+
+/* Page Content */
+.page-content {
+  flex: 1;
+  padding: 20px;
+  background: #f5f7fa;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 70px; /* Slightly wider for mobile */
+    flex: 0 0 70px;
+  }
+  
+  .sidebar-brand, 
+  .menu-link > span {
+    display: none;
+  }
+  
+  .menu-link {
+    justify-content: center;
+    padding: 16px 0; /* More padding for mobile */
+    font-size: 1.1rem; /* Larger font for mobile */
+  }
+  
+  .menu-link i:first-child {
+    margin-right: 0;
+    font-size: 1.4rem; /* Larger icons for mobile */
+  }
+  
+  .dropdown-icon {
+    display: none;
+  }
+  
+  .submenu {
+    position: absolute;
+    left: 70px;
+    width: 220px; /* Wider submenu for mobile */
+    top: 0;
+    display: none;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3); /* Stronger shadow */
+  }
+  
+  .submenu.show {
+    display: block;
+    max-height: unset;
+  }
+  
+  .submenu .menu-item a {
+    padding: 14px 20px 14px 25px; /* Adjusted padding */
+    font-size: 1.05rem; /* Slightly larger for mobile */
+  }
+}
+</style>
+
+
+
+<div class="page-wrapper">
+  <nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+      <div class="sidebar">
+        <div class="sidebar-brand">
+          <%= Rails.application.class.module_parent_name %>
+        </div>
+        
+        <ul class="menu">
+          <li class="menu-item <%= 'active' if current_page?(projects_path) %>">
+            <%= link_to projects_path, class: 'menu-link' do %>
+              <i class="fas fa-tachometer-alt"></i>
+              <span>Dashboard</span>
+            <% end %>
+          </li>
+          <br>
+          <li class="menu-item has-children <%= 'active' if controller_name == 'projects' %>">
+            <%= link_to '#', class: 'menu-link toggle-submenu' do %>
+              <i class="fas fa-box-open"></i>
+              <span>Projects</span>
+              <i class="fas fa-chevron-down dropdown-icon"></i>
+            <% end %>
+            <br>
+            <ul class="submenu">
+              <li class="menu-item <%= 'active' if current_page?(projects_path) %>">
+                <%= link_to projects_path do %>
+                  <span>All Projects</span>
+                <% end %>
+              </li>
+              
+             
+              <li class="menu-item <%= 'active' if current_page?(project_tasks_path) %>">
+                <%= link_to project_tasks_path do %>
+                  <span>Project Tasks</span>
+                <% end %>
+              </li>
+              
+              
+              
+              
+              <li class="menu-item <%= 'active' if current_page?(new_department_path) %>">
+                <%= link_to new_department_path do %>
+                  <span>Add New</span>
+                <% end %>
+              </li>
+            </ul>
+          </li>
+          
+          <li class="menu-item has-children <%= 'active' if controller_name == 'departments' %>">
+            <%= link_to '#', class: 'menu-link toggle-submenu' do %>
+              <i class="fas fa-box-open"></i>
+              <span>programmes</span>
+              <i class="fas fa-chevron-down dropdown-icon"></i>
+            <% end %>
+            <ul class="submenu">
+              <li class="menu-item <%= 'active' if current_page?(programmes_path) %>">
+                <%= link_to programmes_path do %>
+                  <span>All Programmes</span>
+                <% end %>
+              </li>
+              <li class="menu-item <%= 'active' if current_page?(new_department_path) %>">
+                <%= link_to new_department_path do %>
+                  <span>Add New</span>
+                <% end %>
+              </li>
+            </ul>
+          </li>
+          
+          
+          
+           <li class="menu-item has-children <%= 'active' if controller_name == 'departments' %>">
+            <%= link_to '#', class: 'menu-link toggle-submenu' do %>
+              <i class="fas fa-box-open"></i>
+              <span></span>
+              <i class="fas fa-chevron-down dropdown-icon"></i>
+            <% end %>
+            <ul class="submenu">
+              <li class="menu-item <%= 'active' if current_page?(departments_path) %>">
+                <%= link_to departments_path do %>
+                  <span>All Departments</span>
+                <% end %>
+              </li>
+              <li class="menu-item <%= 'active' if current_page?(new_department_path) %>">
+                <%= link_to new_department_path do %>
+                  <span>Add New</span>
+                <% end %>
+              </li>
+              
+		       </li>
+	    <li class="menu-item <%= 'active' if current_page?(programmes_path) %>">
+	      <%= link_to programmes_path do %>
+		<span>Programme Types</span>
+	      <% end %>
+	    </li>
+              
+              
+            </ul>
+          </li>
+          
+          
+          <ul class="menu">
+          <li class="menu-item <%= 'active' if current_page?(projects_path) %>">
+            <%= link_to projects_path, class: 'menu-link' do %>
+              <i class="fas fa-tachometer-alt"></i>
+              <span>Departments</span>
+            <% end %>
+         
+        </li>
+           </ul> 
+          
+          
+         <li class="menu-item has-children <%= 'active' if controller_name == 'departments' %>">
+  <%= link_to '#', class: 'menu-link toggle-submenu' do %>
+    <i class="fas fa-box-open"></i>
+    <span>Education & Vocational Training </span>
+    <i class="fas fa-chevron-down dropdown-icon"></i>
+  <% end %>
+  
+  
+  
+  <ul class="submenu">
+    <li class="menu-item <%= 'active' if current_page?(departments_path) %>">
+      <%= link_to departments_path do %>
+        <span>All Departments</span>
+      <% end %>
+    </li>
+    
+  
+    <li class="menu-item <%= 'active' if current_page?(new_department_path) %>">
+      <%= link_to new_department_path do %>
+        <span>Add New</span>
+      <% end %>
+    </li>
+    <li class="menu-item <%= 'active' if current_page?(programmes_path) %>">
+      <%= link_to programmes_path do %>
+        <span>Programme Types</span>
+      <% end %>
+    </li>
+    
+     </ul>
+</li>
+  
+     
+    
+      <li class="menu-item has-children <%= 'active' if controller_name == 'departments' %>">
+  <%= link_to '#', class: 'menu-link toggle-submenu' do %>
+    <i class="fas fa-box-open"></i>
+    <span>Medical Services, Public Health & Sanitation </span>
+    <i class="fas fa-chevron-down dropdown-icon"></i>
+  <% end %>
+  
+  
+  <ul class="submenu">
+    <li class="menu-item <%= 'active' if current_page?(departments_path) %>">
+      <%= link_to departments_path do %>
+        <span>All Departments</span>
+      <% end %>
+    </li>
+    
+  
+    <li class="menu-item <%= 'active' if current_page?(new_department_path) %>">
+      <%= link_to new_department_path do %>
+        <span>Add New</span>
+      <% end %>
+    </li>
+    <li class="menu-item <%= 'active' if current_page?(programmes_path) %>">
+      <%= link_to programmes_path do %>
+        <span>Programme Types</span>
+      <% end %>
+    </li>
+     
+    
+  </ul>
+</li> 
+
+
+ 
+      <li class="menu-item has-children <%= 'active' if controller_name == 'departments' %>">
+  <%= link_to '#', class: 'menu-link toggle-submenu' do %>
+    <i class="fas fa-box-open"></i>
+    <span>Roads, Transport & Public Works </span>
+    <i class="fas fa-chevron-down dropdown-icon"></i>
+  <% end %>
+  
+  
+  <ul class="submenu">
+    <li class="menu-item <%= 'active' if current_page?(departments_path) %>">
+      <%= link_to departments_path do %>
+        <span>All Departments</span>
+      <% end %>
+    </li>
+    
+  
+    <li class="menu-item <%= 'active' if current_page?(new_department_path) %>">
+      <%= link_to new_department_path do %>
+        <span>Add New</span>
+      <% end %>
+    </li>
+    <li class="menu-item <%= 'active' if current_page?(programmes_path) %>">
+      <%= link_to programmes_path do %>
+        <span>Programme Types</span>
+      <% end %>
+    </li>
+     
+    
+  </ul>
+</li> 
+
+
+
+ <li class="menu-item has-children <%= 'active' if controller_name == 'departments' %>">
+  <%= link_to '#', class: 'menu-link toggle-submenu' do %>
+    <i class="fas fa-box-open"></i>
+    <span>Land, Housing, Physical Planning & Urban </span>
+    <i class="fas fa-chevron-down dropdown-icon"></i>
+  <% end %>
+  
+  
+  <ul class="submenu">
+    <li class="menu-item <%= 'active' if current_page?(departments_path) %>">
+      <%= link_to departments_path do %>
+        <span>All Departments</span>
+      <% end %>
+    </li>
+    
+  
+    <li class="menu-item <%= 'active' if current_page?(new_department_path) %>">
+      <%= link_to new_department_path do %>
+        <span>Add New</span>
+      <% end %>
+    </li>
+    <li class="menu-item <%= 'active' if current_page?(programmes_path) %>">
+      <%= link_to programmes_path do %>
+        <span>Programme Types</span>
+      <% end %>
+    </li>
+     
+    
+  </ul>
+</li> 
+
+
+
+ <li class="menu-item has-children <%= 'active' if controller_name == 'departments' %>">
+  <%= link_to '#', class: 'menu-link toggle-submenu' do %>
+    <i class="fas fa-box-open"></i>
+    <span>Tourism, Trade, Enterprise Dev. & Co-operatives </span>
+    <i class="fas fa-chevron-down dropdown-icon"></i>
+  <% end %>
+  
+  
+  <ul class="submenu">
+    <li class="menu-item <%= 'active' if current_page?(departments_path) %>">
+      <%= link_to departments_path do %>
+        <span>All Departments</span>
+      <% end %>
+    </li>
+    
+  
+    <li class="menu-item <%= 'active' if current_page?(new_department_path) %>">
+      <%= link_to new_department_path do %>
+        <span>Add New</span>
+      <% end %>
+    </li>
+    <li class="menu-item <%= 'active' if current_page?(programmes_path) %>">
+      <%= link_to programmes_path do %>
+        <span>Programme Types</span>
+      <% end %>
+    </li>
+     
+    
+  </ul>
+</li> 
+
+
+
+
+<li class="menu-item has-children <%= 'active' if controller_name == 'departments' %>">
+  <%= link_to '#', class: 'menu-link toggle-submenu' do %>
+    <i class="fas fa-box-open"></i>
+    <span>Finance, Economic Planning & ICT </span>
+    <i class="fas fa-chevron-down dropdown-icon"></i>
+  <% end %>
+  
+  
+  <ul class="submenu">
+    <li class="menu-item <%= 'active' if current_page?(departments_path) %>">
+      <%= link_to departments_path do %>
+        <span>All Departments</span>
+      <% end %>
+    </li>
+    
+  
+    <li class="menu-item <%= 'active' if current_page?(new_department_path) %>">
+      <%= link_to new_department_path do %>
+        <span>Add New</span>
+      <% end %>
+    </li>
+    <li class="menu-item <%= 'active' if current_page?(programmes_path) %>">
+      <%= link_to programmes_path do %>
+        <span>Programme Types</span>
+      <% end %>
+    </li>
+     
+    
+  </ul>
+</li> 
+
+
+<li class="menu-item has-children <%= 'active' if controller_name == 'departments' %>">
+  <%= link_to '#', class: 'menu-link toggle-submenu' do %>
+    <i class="fas fa-box-open"></i>
+    <span>Culture, Social Services, Youth & Sports </span>
+    <i class="fas fa-chevron-down dropdown-icon"></i>
+  <% end %>
+  
+  
+  <ul class="submenu">
+    <li class="menu-item <%= 'active' if current_page?(departments_path) %>">
+      <%= link_to departments_path do %>
+        <span>All Departments</span>
+      <% end %>
+    </li>
+    
+  
+    <li class="menu-item <%= 'active' if current_page?(new_department_path) %>">
+      <%= link_to new_department_path do %>
+        <span>Add New</span>
+      <% end %>
+    </li>
+    <li class="menu-item <%= 'active' if current_page?(programmes_path) %>">
+      <%= link_to programmes_path do %>
+        <span>Programme Types</span>
+      <% end %>
+    </li>
+     
+    
+  </ul>
+</li> 
+
+          
+ 
+<li class="menu-item has-children <%= 'active' if controller_name == 'departments' %>">
+  <%= link_to '#', class: 'menu-link toggle-submenu' do %>
+    <i class="fas fa-box-open"></i>
+    <span>Agriculture, Livestock & Fisheries </span>
+    <i class="fas fa-chevron-down dropdown-icon"></i>
+  <% end %>
+  
+  
+  <ul class="submenu">
+    <li class="menu-item <%= 'active' if current_page?(departments_path) %>">
+      <%= link_to departments_path do %>
+        <span>All Departments</span>
+      <% end %>
+    </li>
+    
+  
+    <li class="menu-item <%= 'active' if current_page?(new_department_path) %>">
+      <%= link_to new_department_path do %>
+        <span>Add New</span>
+      <% end %>
+    </li>
+    <li class="menu-item <%= 'active' if current_page?(programmes_path) %>">
+      <%= link_to programmes_path do %>
+        <span>Programme Types</span>
+      <% end %>
+    </li>
+     
+    
+  </ul>
+</li> 
+ 
+ 
+          
+          
+          
+          
+          
+  
+          
+          
+        </ul>
+        
+        
+        
+        
+        
+        
+        
+      </div>
+    </div>
+    
+    
+    
+    
+    
+    
+  </nav>
+  
+
+</div>

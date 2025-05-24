@@ -1,0 +1,170 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+
+
+
+<style>
+.styled-textarea {
+  width: 1000px;   /* Adjust width */
+  
+  resize: none;   /* Optional: Disable resizing */
+}
+/* Add this to make the card smaller */
+.smaller-card {
+  max-width: 1300px;  /* Adjust this value as needed */
+  margin: 0 auto;    /* Centers the card */
+}
+
+</style>
+
+
+
+<%= form_with(model: store_request, local: true) do |form| %>
+  <% if store_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(store_request.errors.count, "error") %> prohibited this store_request from being saved:</h2>
+
+      <ul>
+        <% store_request.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="card smaller-card">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs" id="formTabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab">Basic Info</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="details-tab" data-toggle="tab" href="#details" role="tab">Details</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="advanced-tab" data-toggle="tab" href="#advanced" role="tab">Advanced</a>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="card-body tab-content" id="formTabsContent">
+      <!-- Basic Tab -->
+      <div class="tab-pane fade show active" id="basic" role="tabpanel">
+         
+  
+
+
+  <div class="field">
+    <%= form.label :invoice_no %><br>
+    <%= form.text_field :invoice_no, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :request_date %><br>
+    <%= form.date_select :request_date, class: 'styled-textarea'  %>
+  </div>
+  
+
+<div class="field"><br>
+ <%= form.label :destination_type %><br>
+  <%= form.select :destination_type, 
+      StoreRequest.destination_types.keys.map { |k| [k.titleize, k] },
+      { selected: form.object.destination_type },
+      { class: 'styled-textarea' } %>
+</div>
+  
+
+  <div class="field">
+    <%= form.label :destination_code %><br>
+    <%= form.text_area :destination_code, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :destination_name %><br>
+    <%= form.text_area :destination_name, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %><br>
+    <%= form.text_field :status, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :warehouse_code %><br>
+    <%= form.text_area :warehouse_code, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :Warehouse_name %><br>
+    <%= form.text_area :Warehouse_name, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :requsted_by %><br>
+    <%= form.text_area :requsted_by, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :request_status %><br>
+    <%= form.text_area :request_status , class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :delivery_place %><br>
+    <%= form.text_area :delivery_place, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+  
+  
+ 
+<style>
+#salesorder-lines {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#salesorder-lines th, #salesorder-lines td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#salesorder-lines th {
+  background-color: #f2f2f2;
+}
+
+.nested-fields {
+  background-color: #f9f9f9;
+}
+
+
+.hidden-row {
+  display: none;
+}
+
+</style>
+ </div>
+</div>
+</div>
+  
+<% end %>
+
+
+</div>
+</div>

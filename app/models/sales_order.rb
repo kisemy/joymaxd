@@ -1,7 +1,15 @@
 class SalesOrder < ApplicationRecord
  self.primary_key = 'order_no'
-belongs_to :customer, foreign_key: 'customer_no', primary_key: 'clientcode'
+#belongs_to :customer, foreign_key: 'customer_no', primary_key: 'clientcode'
   before_create :generate_order_no
+
+
+  has_many :salesorder_lines, foreign_key: :order_no, dependent: :destroy
+  accepts_nested_attributes_for :salesorder_lines, allow_destroy: true
+ #  has_many :salesorder_lines, dependent: :destroy
+ # accepts_nested_attributes_for :salesorder_lines, allow_destroy: true
+  
+    validates :order_no, presence: true
 
   private
 

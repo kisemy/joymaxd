@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ward_code: MyString
+  ward_name: MyText
+  ward_admin_pno: MyString
+  ward_admin_name: MyText
+  ward_admin_telephone: MyString
+  ward_admin_email: MyText
+  sub_county_code: MyString
+  sub_county_name: MyText
+
+two:
+  ward_code: MyString
+  ward_name: MyText
+  ward_admin_pno: MyString
+  ward_admin_name: MyText
+  ward_admin_telephone: MyString
+  ward_admin_email: MyText
+  sub_county_code: MyString
+  sub_county_name: MyText

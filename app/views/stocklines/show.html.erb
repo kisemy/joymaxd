@@ -1,0 +1,99 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Stockin headers:</strong>
+  <%= @stockline.stockin_headers_id %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @stockline.code %>
+</p>
+
+<p>
+  <strong>Product description:</strong>
+  <%= @stockline.product_description %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @stockline.quantity %>
+</p>
+
+<p>
+  <strong>Unit cost:</strong>
+  <%= @stockline.unit_cost %>
+</p>
+
+<p>
+  <strong>Unit price:</strong>
+  <%= @stockline.unit_price %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @stockline.amount %>
+</p>
+
+<p>
+  <strong>Received:</strong>
+  <%= @stockline.received %>
+</p>
+
+<p>
+  <strong>Expiry date:</strong>
+  <%= @stockline.expiry_date %>
+</p>
+
+<p>
+  <strong>Batch no:</strong>
+  <%= @stockline.batch_no %>
+</p>
+
+<p>
+  <strong>Product category:</strong>
+  <%= @stockline.product_category %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @stockline.date %>
+</p>
+
+<p>
+  <strong>Unit of measure:</strong>
+  <%= @stockline.unit_of_measure %>
+</p>
+
+<p>
+  <strong>Warehouse code:</strong>
+  <%= @stockline.warehouse_code %>
+</p>
+
+<p>
+  <strong>Warehouse name:</strong>
+  <%= @stockline.warehouse_name %>
+</p>
+
+<p>
+  <strong>Quantity expected:</strong>
+  <%= @stockline.quantity_expected %>
+</p>
+
+<p>
+  <strong>Quality check:</strong>
+  <%= @stockline.quality_check %>
+</p>
+
+<p>
+  <strong>Comment:</strong>
+  <%= @stockline.comment %>
+</p>
+
+<p>
+  <strong>Ref no:</strong>
+  <%= @stockline.ref_no %>
+</p>
+
+<%= link_to 'Edit', edit_stockline_path(@stockline) %> |
+<%= link_to 'Back', stocklines_path %>

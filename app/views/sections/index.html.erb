@@ -1,0 +1,71 @@
+
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+            <!--<%= yield %>-->
+
+
+
+
+
+<p id="notice"><%= notice %></p>
+
+<h1>Sections</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Section code</th>
+      <th>Section name</th>
+      <th>Current co name</th>
+      <th>Current co telephone</th>
+      <th>Current co email</th>
+      <th>General section email</th>
+      <th>Department code</th>
+      <th>Department name</th>
+      <th>Complete projects</th>
+      <th>Projects in progress</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sections.each do |section| %>
+      <tr>
+        <td><%= section.section_code %></td>
+        <td><%= section.section_name %></td>
+        <td><%= section.current_co_name %></td>
+        <td><%= section.current_co_telephone %></td>
+        <td><%= section.current_co_email %></td>
+        <td><%= section.general_section_email %></td>
+        <td><%= section.department_code %></td>
+        <td><%= section.department_name %></td>
+        <td><%= section.complete_projects %></td>
+        <td><%= section.projects_in_progress %></td>
+        <td><%= link_to 'Show', section %></td>
+        <td><%= link_to 'Edit', edit_section_path(section) %></td>
+        <td><%= link_to 'Destroy', section, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Section', new_section_path %>
+
+</div>
+</div>

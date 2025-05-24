@@ -1,0 +1,89 @@
+<p id="notice"><%= notice %></p>
+
+
+
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+            <!--<%= yield %>-->
+
+
+
+
+
+<h1>Stocklines</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stockin headers</th>
+      <th>Code</th>
+      <th>Product description</th>
+      <th>Quantity</th>
+      <th>Unit cost</th>
+      <th>Unit price</th>
+      <th>Amount</th>
+      <th>Received</th>
+      <th>Expiry date</th>
+      <th>Batch no</th>
+      <th>Product category</th>
+      <th>Date</th>
+      <th>Unit of measure</th>
+      <th>Warehouse code</th>
+      <th>Warehouse name</th>
+      <th>Quantity expected</th>
+      <th>Quality check</th>
+      <th>Comment</th>
+      <th>Ref no</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stocklines.each do |stockline| %>
+      <tr>
+        <td><%= stockline.stk_no %></td>
+        <td><%= stockline.code %></td>
+        <td><%= stockline.product_description %></td>
+        <td><%= stockline.quantity %></td>
+        <td><%= stockline.unit_cost %></td>
+        <td><%= stockline.unit_price %></td>
+        <td><%= stockline.amount %></td>
+        <td><%= stockline.received %></td>
+        <td><%= stockline.expiry_date %></td>
+        <td><%= stockline.batch_no %></td>
+        <td><%= stockline.product_category %></td>
+        <td><%= stockline.date %></td>
+        <td><%= stockline.unit_of_measure %></td>
+        <td><%= stockline.warehouse_code %></td>
+        <td><%= stockline.warehouse_name %></td>
+        <td><%= stockline.quantity_expected %></td>
+        <td><%= stockline.quality_check %></td>
+        <td><%= stockline.comment %></td>
+        <td><%= stockline.ref_no %></td>
+        <td><%= link_to 'Show', stockline %></td>
+        <td><%= link_to 'Edit', edit_stockline_path(stockline) %></td>
+        <td><%= link_to 'Destroy', stockline, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Stockline', new_stockline_path %>
+</div>
+</div>

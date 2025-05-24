@@ -1,0 +1,109 @@
+<%= form_with(model: stockline, local: true) do |form| %>
+  <% if stockline.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(stockline.errors.count, "error") %> prohibited this stockline from being saved:</h2>
+
+      <ul>
+        <% stockline.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+ 
+
+  <div class="field">
+    <%= form.label :code %>
+    <%= form.text_field :code %>
+  </div>
+
+  <div class="field">
+    <%= form.label :product_description %>
+    <%= form.text_area :product_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity %>
+    <%= form.text_field :quantity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :unit_cost %>
+    <%= form.text_field :unit_cost %>
+  </div>
+
+  <div class="field">
+    <%= form.label :unit_price %>
+    <%= form.text_field :unit_price %>
+  </div>
+
+  <div class="field">
+    <%= form.label :amount %>
+    <%= form.text_field :amount %>
+  </div>
+
+  <div class="field">
+    <%= form.label :received %>
+    <%= form.check_box :received %>
+  </div>
+
+  <div class="field">
+    <%= form.label :expiry_date %>
+    <%= form.date_select :expiry_date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :batch_no %>
+    <%= form.text_field :batch_no %>
+  </div>
+
+  <div class="field">
+    <%= form.label :product_category %>
+    <%= form.text_field :product_category %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.date_select :date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :unit_of_measure %>
+    <%= form.text_field :unit_of_measure %>
+  </div>
+
+  <div class="field">
+    <%= form.label :warehouse_code %>
+    <%= form.text_field :warehouse_code %>
+  </div>
+
+  <div class="field">
+    <%= form.label :warehouse_name %>
+    <%= form.text_area :warehouse_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity_expected %>
+    <%= form.text_field :quantity_expected %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quality_check %>
+    <%= form.text_field :quality_check %>
+  </div>
+
+  <div class="field">
+    <%= form.label :comment %>
+    <%= form.text_area :comment %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ref_no %>
+    <%= form.text_field :ref_no %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

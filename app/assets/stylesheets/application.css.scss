@@ -1,3 +1,6 @@
+
+
+
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -14,8 +17,138 @@
  *= require_self
  *= require animate/animate.css
  *= require style
+  *= require invoices
+ 
  *= require font-awesome
+ 
+ *require datatables
+ 
+ * require dataTables/jquery.dataTables
+ * require dataTables/bootstrap/3/jquery.dataTables.bootstrap
+ 
+
+ * require datatables.net-dt
+ * require dataTables.bootstrap4 // if using Bootstrap
+
+  * require datatables.net-bs4
+  
+  // require datatables.net-buttons
+// require datatables.net-buttons-bs4
+//require datatables.net-responsive
+// require datatables.net-responsive-bs4
+  
+  
+ // require datatables.net-bs4
+ // require datatables.net-buttons-bs4
+ // require datatables.net-responsive-bs4
+
+   *= dataTables.bootstrap4.css
+
+    *= buttons.bootstrap4.css
+
+    *= responsive.bootstrap4.css
+ 
+ 
  */
+
+/* DataTables styling */
+.dataTables_wrapper .dataTables_filter {
+  float: right;
+  text-align: right;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+  margin-left: 0.5em;
+}
+
+.column-search {
+  width: 100%;
+  padding: 3px;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.datatable thead th {
+  position: relative;
+  vertical-align: top;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* After all other imports */
+
+/* DataTables styling */
+.dataTables_wrapper .dataTables_filter {
+  float: right;
+  text-align: right;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+  margin-left: 0.5em;
+}
+
+.column-search {
+  width: 100%;
+  padding: 3px;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.datatable thead th {
+  position: relative;
+  vertical-align: top;
+}
+
+
+
+
+
+
+
+
+
+
+/* Style for DataTables search inputs */
+.datatable thead th {
+  position: relative;
+}
+.datatable thead input, 
+.datatable thead select {
+  width: 100%;
+  margin-top: 5px;
+}
+.datatable .numeric-search {
+  display: flex;
+  gap: 5px;
+}
+.datatable .numeric-search input {
+  width: 50%;
+}
+
+
+
+
+
+
+
 
 .containerpv {
   display: flex;
@@ -92,4 +225,6 @@
   background-color: #f9f9f9;
   color: #333;
 }
+
+
 

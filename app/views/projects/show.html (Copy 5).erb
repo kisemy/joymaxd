@@ -1,0 +1,504 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+<!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+    <!-- Navigation -->
+    <%= render 'layouts/navigation' %>
+
+    <!-- Page wraper -->
+    <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+        <!-- Page wrapper -->
+        <%= render 'layouts/topnavbar' %>
+
+        <!-- Main view  -->
+        <!--<%= yield %>-->
+
+
+
+
+
+
+
+<!-- app/views/projects/show.html.erb -->
+<div class="project-container">
+  <div class="project-header">
+    <h1><%= @project.project_name %></h1>
+    <p class="project-meta">
+      <strong>Project Number:</strong> <%= @project.project_no %><br>
+   
+    </p>
+  </div>
+
+  <div class="project-content">
+    <!-- Project Details -->
+    <div class="project-details card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Project Details</h5>
+        <p><%= @project_name %></p>
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong>Start Date:</strong> <%= @project.start_date.strftime("%B %d, %Y") if @project.start_date %></p>
+            <p><strong>End Date:</strong> <%= @project.end_date.strftime("%B %d, %Y") if @project.end_date %></p>
+            <p><strong>Total Tasks:</strong>  <%= @project_tasks.count %></p>
+          </div>
+          
+        </div>
+      </div>
+      
+     
+      
+      
+      
+      
+    </div>
+
+    <!-- Gantt Chart Section -->
+   
+    <div class="gantt-section card mb-4">
+      <div class="card-header">
+        <h5 class="card-title">Project Timeline</h5>
+      </div>
+      <div class="card-body">
+        <% if @project_tasks.any? %>
+          <div id="gantt-container"></div>
+        <% else %>
+          <div class="alert alert-info">No tasks found for this project.</div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Tasks List (Optional) -->
+    <div class="tasks-list card">
+      <div class="card-header">
+        <h5 class="card-title">Project Tasks</h5>
+      </div>
+      <div class="card-body">
+        <% if @project_tasks.any? %>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Task #</th>
+                <th>Description</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Progress</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @project_tasks.each do |task| %>
+                <tr>
+                  <td><%= task.task_no %></td>
+                  <td><%= task.task_description %></td>
+                  <td><%= task.planned_start_date.strftime("%b %d, %Y") if task.planned_start_date %></td>
+                  <td><%= task.planned_end_date.strftime("%b %d, %Y") if task.planned_end_date %></td>
+                   <td>
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar" style="width: <%= task.percentage_coverage %>%" 
+                           aria-valuenow="<%= task.percentage_coverage %>" aria-valuemin="0" aria-valuemax="100">
+                        <%= task.percentage_coverage %>%
+                      </div>
+                    </div>
+                  </td>
+                  
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p class="text-muted">No tasks have been added to this project yet.</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Gantt Chart Implementation -->
+<% if @project_tasks.any? %>
+  <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/frappe-gantt@0.6.1/dist/frappe-gantt.min.js" %>
+  <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/frappe-gantt@0.6.1/dist/frappe-gantt.css" %>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Prepare tasks data
+    const tasks = [
+      <% @project_tasks.each do |task| %>
+        {
+          id: '<%= task.task_no %>',
+          name: '<%= j(task.task_description) %>',
+          start: '<%= task.planned_start_date.strftime("%Y-%m-%d") if task.planned_start_date %>',
+          end: '<%= task.planned_end_date.strftime("%Y-%m-%d") if task.planned_end_date %>',
+          progress: <%= task.percentage_coverage || 0 %>,
+          dependencies: '',
+          custom_class: ''
+        },
+      <% end %>
+    ].filter(task => task.start && task.end); // Only include tasks with valid dates
+
+    // Initialize Gantt chart if we have valid tasks
+    if (tasks.length > 0) {
+      const gantt = new Gantt("#gantt-container", tasks, {
+        header_height: 50,
+        column_width: 1130,
+        step: 24,
+        view_modes: ['Day', 'Week', 'Month'],
+        bar_height: 40,
+        bar_corner_radius: 3,
+        arrow_curve: 5,
+        padding: 18,
+        view_mode: 'Month',
+        date_format: 'YYYY-MM-DD',
+        custom_popup_html: function(task) {
+          return `
+            <div class="details-container">
+              <h5>${task.name}</h5>
+              <p>Task ID: ${task.id}</p>
+              <p>From ${task.start} to ${task.end}</p>
+              <p>Progress: ${task.percentage_coverage}%</p>
+            </div>
+          `;
+        }
+      });
+    } else {
+      document.querySelector('#gantt-container').innerHTML = 
+        '<div class="alert alert-warning">No tasks with valid dates available for Gantt chart</div>';
+    }
+  });
+  </script>
+
+  <style>
+    #gantt-container {
+      width: 100%;
+      height: 600px;
+      margin: 20px 0;
+      overflow-x: auto;
+    }
+    .gantt .bar-progress {
+      fill: #4CAF50;
+    }
+    .gantt .bar-wrapper:hover .bar {
+      fill: #3a9b3f;
+    }
+    .gantt .bar.completed {
+      fill: #8BC34A;
+    }
+    .gantt .bar.delayed {
+      fill: #F44336;
+    }
+  </style>
+<% end %>
+
+
+<style>
+
+chart-container {
+  margin: 20px 0;
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+gantt_chart {
+  font-family: Arial, sans-serif;
+}
+
+/* app/assets/stylesheets/projects.css */
+.gantt-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.chart-tooltip {
+  padding: 10px;
+  min-width: 200px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.chart-tooltip h4 {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.chart-tooltip p {
+  margin: 5px 0;
+  font-size: 13px;
+  color: #666;
+}
+
+.google-visualization-tooltip {
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  border-radius: 4px !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .gantt-container {
+    padding: 10px;
+  }
+  
+  #gantt_chart {
+    height: 600px !important; /* Fixed height for mobile */
+  }
+}
+
+
+.gantt-container {
+  width: 100%;
+  overflow-x: auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#gantt_chart {
+  width: 100%;
+  min-width: <%= [@project_tasks.count * 100, 1000].max %>px; /* Ensure minimum width */
+}
+
+@media print {
+  .gantt-container {
+    width: 100% !important;
+    overflow: visible !important;
+  }
+  #gantt_chart {
+    height: auto !important;
+  }
+}
+
+/* app/assets/stylesheets/projects.css */
+.google-visualization-gantt-label {
+  font-size: 124px !important;
+  font-family: Arial, sans-serif !important;
+  font-weight: bold !important;
+  color: #333 !important;
+}
+
+/* For bar labels */
+.google-visualization-gantt-barlabel {
+  font-size: 122px !important;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.3) !important;
+}
+
+
+
+
+</style>
+
+<style>
+/* Ensure chart container is visible */
+#gantt_chart {
+  min-height: 600px;
+  position: relative;
+}
+
+/* Google Charts specific overrides */
+.google-visualization-gantt-chart {
+  width: 100% !important;
+}
+
+/* Loading and error states */
+.chart-loading, .chart-error {
+  padding: 20px;
+  text-align: center;
+  background: #f8f9fa;
+  border-radius: 4px;
+}
+
+.chart-error {
+  color: #dc3545;
+  border: 1px solid rgba(220, 53, 69, 0.3);
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+
+<!-- app/views/projects/show.html.erb -->
+<h3>Project Gantt Chart </h3>
+
+<br>
+<br>
+<br>
+
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<div class="gantt-container">
+  <div id="gantt_chart" style="width: 100%; min-height: 600px;"></div>
+</div>
+
+
+
+<script>
+document.addEventListener('turbo:load', function() {
+  if (document.getElementById('gantt_chart')) {
+    google.charts.load('current', {
+      packages: ['gantt'],
+      callback: drawGanttChart
+    });
+  }
+});
+
+function drawGanttChart() {
+  try {
+    console.log('Initializing Gantt chart...');
+    
+    const data = new google.visualization.DataTable();
+    data.addColumn('string', 'Task ID');
+    data.addColumn('string', 'Task Name');
+    data.addColumn('date', 'Start Date');
+    data.addColumn('date', 'End Date');
+    data.addColumn('number', 'Duration');
+    data.addColumn('number', 'Percent Complete');
+    data.addColumn('string', 'Dependencies');
+
+    // Debug: Log all tasks being processed
+    <% @project_tasks.each_with_index do |task, index| %>
+      console.group('Task #<%= index %>');
+      console.log('Task ID:', '<%= task.task_no %>');
+      console.log('Description:', '<%= j(task.task_description) %>');
+      
+      const startDate = new Date('<%= task.planned_start_date %>');
+      const endDate = new Date('<%= task.planned_end_date %>');
+      
+      console.log('Start Date:', '<%= task.planned_start_date %>', 'Parsed:', startDate);
+      console.log('End Date:', '<%= task.planned_end_date %>', 'Parsed:', endDate);
+      
+      if (isNaN(startDate.getTime())) {
+        console.error('⚠️ INVALID START DATE');
+      }
+      if (isNaN(endDate.getTime())) {
+        console.error('⚠️ INVALID END DATE');
+      }
+      
+      console.log('Percentage:', <%= task.percentage_coverage.to_f || 0 %>);
+      console.log('Dependencies:', '<%= task.p_tsk_01 %>');
+      console.groupEnd();
+      
+      data.addRow([
+        '<%= task.task_no %>',
+        '<%= j(task.task_description) %>',
+        startDate,
+        endDate,
+        null,
+        <%= task.percentage_coverage.to_f || 0 %>,
+        '<%= task.p_tsk_01 %>'
+      ]);
+    <% end %>
+
+    console.log('Data table prepared with', data.getNumberOfRows(), 'rows');
+    console.table(data.getDataTable().toJSON()); // View the complete data structure
+
+    // Basic options with fallbacks
+    const options = {
+      height: <%= @chart_height || 600 %>,
+      width: '100%',
+      gantt: {
+        trackHeight: 40,
+        barHeight: 20,
+        labelStyle: {
+          fontSize: 14,
+          color: '#333'
+        },
+        barLabelStyle: {
+          fontSize: 12,
+          color: '#fff'
+        }
+      }
+    };
+
+    const chart = new google.visualization.Gantt(document.getElementById('gantt_chart'));
+    chart.draw(data, options);
+    console.log('Chart rendered successfully');
+
+  } catch (error) {
+    console.error('Chart rendering failed:', error);
+    document.getElementById('gantt_chart').innerHTML = `
+      <div class="alert alert-danger">
+        <h4>Chart Rendering Error</h4>
+        <p>${error.message}</p>
+        <p>Check console for detailed error logs</p>
+      </div>
+    `;
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+<br>
+<div class="gantt-container">
+  <div class="chart-debug">
+    <h4>Data Summary</h4>
+    <p>Total Tasks: <%= @project_tasks.count %></p>
+    <p>First Task Start: <%= @project_tasks.first&.planned_start_date %></p>
+    <p>Last Task End: <%= @project_tasks.last&.planned_end_date %></p>
+  </div>
+  
+  <div id="gantt_chart" style="width: 100%; min-height: 600px; border: 2px dashed #ccc;">
+    <!-- Chart will render here -->
+  </div>
+  
+ 
+
+<br>
+
+<h4> Progress Bar </h4>
+<br>
+<div class="progress-container">
+  <div class="progress-bar" style="width: <%= @project.percent_completed %>%">
+    <%= number_to_percentage(@project.percent_completed, precision: 0) %>
+  </div>
+</div>
+
+<br>
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+
+
+

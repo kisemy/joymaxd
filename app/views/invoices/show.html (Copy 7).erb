@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Invoice</title>
+  <style>
+    /* General styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    /* Container for the invoice */
+    .invoice-container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    /* Header styles */
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      color: #007bff;
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .header p {
+      color: #666;
+      margin: 5px 0;
+    }
+
+    /* Company and customer details */
+    .details {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+    .details .company, .details .customer {
+      flex: 1;
+    }
+
+    .details h2 {
+      font-size: 18px;
+      color: #007bff;
+      margin-bottom: 10px;
+    }
+
+    .details p {
+      margin: 5px 0;
+      color: #555;
+    }
+
+    /* Table styles */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 30px;
+    }
+
+    table th, table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    table th {
+      background-color: #007bff;
+      color: white;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    table tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    /* Total section */
+    .total {
+      text-align: right;
+      margin-bottom: 30px;
+    }
+
+    .total p {
+      font-size: 18px;
+      color: #007bff;
+      margin: 5px 0;
+    }
+
+    /* Footer styles */
+    .footer {
+      text-align: center;
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #ddd;
+      color: #666;
+    }
+
+    .footer a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Print button styles */
+    .print-button {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .print-button button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .print-button button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Hide the button when printing */
+    @media print {
+      .print-button {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="invoice-container">
+    <!-- Header -->
+    <div class="header">
+      <h1>Invoice #<%= @invoice.id %></h1>
+      <p>Generated on: <%= Time.current.strftime("%B %d, %Y") %></p>
+    </div>
+
+    <!-- Company and Customer Details -->
+    <div class="details">
+      <div class="company">
+        <h2>From:</h2>
+        <p>Your Company Name</p>
+        <p>123 Business Street</p>
+        <p>City, State, ZIP</p>
+        <p>Email: info@brighterp.com</p>
+        <p>Phone: (123) 456-7890</p>
+      </div>
+      <div class="customer">
+        <h2>Bill To:</h2>
+        <p><%= @invoice.customer_name %></p>
+        <p><%= @invoice.address %></p>
+      
+      </div>
+    </div>
+
+    <!-- Invoice Details Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Quantity</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+    
+          <% @invoice.invoice_lines.each do |line| %>
+        <tr>
+          <td><%= line.description %></td>
+          <td><%= line.quantity %></td>
+          <td><%= line.unit_price %></td>
+          <td><%= line.amount %></td>
+          
+        </tr>  
+          
+          
+          
+          
+        <% end %>
+      </tbody>
+    </table>
+
+    <!-- Total Section -->
+    <div class="total">
+      <p><strong>Subtotal: </strong></p>
+      <p><strong>Tax: 
+      <p><strong>Grand Total: </strong></p>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>Thank you for your business! | <a href="https://www.brighterp.com">Visit Our Website</a></p>
+    </div>
+
+    <!-- Print to PDF Button -->
+    <div class="print-button">
+      <button onclick="printInvoice()">Print to PDF</button>
+    </div>
+  </div>
+
+  <!-- JavaScript to handle printing -->
+  <script>
+    function printInvoice() {
+      window.print(); // Trigger the browser's print functionality
+    }
+  </script>
+</body>
+</html>

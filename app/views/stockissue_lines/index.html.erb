@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Stockissue Lines</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Product description</th>
+      <th>Issued quantity</th>
+      <th>Unit cost</th>
+      <th>Amount</th>
+      <th>Issued</th>
+      <th>Stock balance</th>
+      <th>Expiry date</th>
+      <th>Batch no</th>
+      <th>Expired</th>
+      <th>Batch quantity</th>
+      <th>Client code</th>
+      <th>Latest expiry</th>
+      <th>Client name</th>
+      <th>Stockout header</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stockissue_lines.each do |stockissue_line| %>
+      <tr>
+        <td><%= stockissue_line.code %></td>
+        <td><%= stockissue_line.product_description %></td>
+        <td><%= stockissue_line.issued_quantity %></td>
+        <td><%= stockissue_line.unit_cost %></td>
+        <td><%= stockissue_line.amount %></td>
+        <td><%= stockissue_line.issued %></td>
+        <td><%= stockissue_line.stock_balance %></td>
+        <td><%= stockissue_line.expiry_date %></td>
+        <td><%= stockissue_line.batch_no %></td>
+        <td><%= stockissue_line.expired %></td>
+        <td><%= stockissue_line.batch_quantity %></td>
+        <td><%= stockissue_line.client_code %></td>
+        <td><%= stockissue_line.latest_expiry %></td>
+        <td><%= stockissue_line.client_name %></td>
+        <td><%= stockissue_line.stockout_header_id %></td>
+        <td><%= link_to 'Show', stockissue_line %></td>
+        <td><%= link_to 'Edit', edit_stockissue_line_path(stockissue_line) %></td>
+        <td><%= link_to 'Destroy', stockissue_line, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Stockissue Line', new_stockissue_line_path %>

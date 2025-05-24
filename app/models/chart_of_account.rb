@@ -66,8 +66,7 @@ class ChartOfAccount < ApplicationRecord
   
  
  
- 
- 
+
  
  
 end

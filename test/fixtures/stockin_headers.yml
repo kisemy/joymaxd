@@ -1,0 +1,51 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stk_no: 1
+  invoice_no: MyString
+  received_date: 2025-03-28
+  supplier_code: MyString
+  supplier_name: MyText
+  supplier_address: MyText
+  supplier_email: MyText
+  telephone: MyString
+  donor: MyString
+  donor_name: MyText
+  project_code: MyString
+  project_name: MyText
+  warehouse_location_code: MyString
+  warehouse_location_name: MyText
+  source_code: MyText
+  source_name: MyText
+  source_address: MyText
+  source_email: MyText
+  source_telephone: MyText
+  source_type: MyText
+  PO_no: MyText
+  received_by: MyText
+  received: false
+
+two:
+  stk_no: 1
+  invoice_no: MyString
+  received_date: 2025-03-28
+  supplier_code: MyString
+  supplier_name: MyText
+  supplier_address: MyText
+  supplier_email: MyText
+  telephone: MyString
+  donor: MyString
+  donor_name: MyText
+  project_code: MyString
+  project_name: MyText
+  warehouse_location_code: MyString
+  warehouse_location_name: MyText
+  source_code: MyText
+  source_name: MyText
+  source_address: MyText
+  source_email: MyText
+  source_telephone: MyText
+  source_type: MyText
+  PO_no: MyText
+  received_by: MyText
+  received: false

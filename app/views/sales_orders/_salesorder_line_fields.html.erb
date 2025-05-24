@@ -1,0 +1,27 @@
+<div class="nested-fields">
+  <%= f.label :charge_type %>
+  <%= f.text_field :charge_type %>
+
+  <%= f.label :item_no %>
+  <%= f.text_field :item_no %>
+
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+
+  <%= f.label :quantity %>
+  <%= f.number_field :quantity %>
+
+  <%= f.label :unit_of_measure %>
+  <%= f.text_field :unit_of_measure %>
+
+  <%= f.label :unit_price %>
+  <%= f.number_field :unit_price %>
+
+  <%= f.label :amount %>
+  <%= f.number_field :amount %>
+
+  <%= f.label :order_no %>
+  <%= f.text_field :order_no %>
+
+  <%= link_to_remove_association "Remove Line", f %>
+</div>

@@ -33,5 +33,15 @@ module ApplicationHelper
         truth || asset_exists?('stylesheets', "#{stylesheet}.css#{extension}")
       end
     end
+    
+    
+     def google_maps_api_script_tag
+    javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{Rails.application.credentials.google_maps_api_key}&callback=initProjectMap", 
+                         async: true, 
+                         defer: true,
+                         "data-turbolinks-eval" => "false"
+  end
+    
+    
 
 end

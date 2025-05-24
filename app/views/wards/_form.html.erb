@@ -1,0 +1,166 @@
+
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+            
+    <style>
+.styled-textarea {
+  width: 1000px;   /* Adjust width */
+  
+  resize: none;   /* Optional: Disable resizing */
+}
+/* Add this to make the card smaller */
+.smaller-card {
+  max-width: 1300px;  /* Adjust this value as needed */
+  margin: 0 auto;    /* Centers the card */
+}
+
+</style>    
+
+
+<%= form_with(model: ward, local: true) do |form| %>
+  <% if ward.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ward.errors.count, "error") %> prohibited this ward from being saved:</h2>
+
+      <ul>
+        <% ward.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="card smaller-card">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs" id="formTabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab">Basic Info</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+    <div class="card-body tab-content" id="formTabsContent">
+      <!-- Basic Tab -->
+      <div class="tab-pane fade show active" id="basic" role="tabpanel">
+
+  <div class="field">
+    <%= form.label :ward_code %><br>
+    <%= form.text_field :ward_code, class: 'styled-textarea'  %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :ward_name %><br>
+    <%= form.text_area :ward_name, class: 'styled-textarea'  %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :ward_admin_pno %><br>
+    <%= form.text_field :ward_admin_pno, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :ward_admin_name %><br>
+    <%= form.text_area :ward_admin_name, class: 'styled-textarea'  %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :ward_admin_telephone %><br>
+    <%= form.text_field :ward_admin_telephone, class: 'styled-textarea'  %>
+  </div>
+<br>
+  <div class="field">
+    <%= form.label :ward_admin_email %><br>
+    <%= form.text_area :ward_admin_email, class: 'styled-textarea'  %>
+  </div>
+<br>
+
+
+  <div class="field">
+   <%= form.label :sub_county_name %><br>
+  <%= form.select :sub_county_name, 
+      @sub_counties.map { |d| [d.sub_county_name, d.sub_county_name, { 'data-code' => d.sub_county_code }] }, 
+      { include_blank: true }, 
+      { class: 'styled-textarea sub_county-select' } %>
+</div>
+  
+   <div class="field">
+    <%= form.label :sub_county_code %><br>
+    <%= form.text_field :sub_county_code, class: 'styled-textarea sub_county-code-field' %>
+  </div>
+  
+  
+  
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const sub_countySelect = document.querySelector('.sub_county-select');
+  const codeField = document.querySelector('.sub_county-code-field');
+  
+  if (sub_countySelect && codeField) {
+    sub_countySelect.addEventListener('change', function() {
+      const selectedOption = this.options[this.selectedIndex];
+      const sub_countyCode = selectedOption.getAttribute('data-code');
+      codeField.value = sub_countyCode || '';
+    });
+  }
+});
+
+</script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+  
+  </div>
+  </div>
+<% end %>
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+

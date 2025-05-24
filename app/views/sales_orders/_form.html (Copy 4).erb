@@ -1,0 +1,66 @@
+<%= form_with model: @sales_order, local: true do |form| %>
+  <div>
+    <%= form.label :order_no %>
+    <%= form.text_field :order_no %>
+  </div>
+
+  <div>
+    <%= form.label :customer_no %>
+    <%= form.text_field :customer_no %>
+  </div>
+
+  <div>
+    <%= form.label :customer_name %>
+    <%= form.text_field :customer_name %>
+  </div>
+
+  <div>
+    <%= form.label :contactno %>
+    <%= form.text_field :contactno %>
+  </div>
+
+  <div>
+    <%= form.label :contact_name %>
+    <%= form.text_field :contact_name %>
+  </div>
+
+  <div>
+    <%= form.label :address %>
+    <%= form.text_field :address %>
+  </div>
+
+  <div>
+    <%= form.label :city %>
+    <%= form.text_field :city %>
+  </div>
+
+  <div>
+    <%= form.label :order_date %>
+    <%= form.date_field :order_date %>
+  </div>
+
+  <div>
+    <%= form.label :sales_person_code %>
+    <%= form.text_field :sales_person_code %>
+  </div>
+
+  <div>
+    <%= form.label :sales_person_name %>
+    <%= form.text_field :sales_person_name %>
+  </div>
+ <h3>Sales Order Lines</h3>
+  <div id="salesorder-lines">
+    <%= form.fields_for :salesorder_lines do |line_fields| %>
+      <%= render 'salesorder_line_fields', f: line_fields %>
+    <% end %>
+  </div>
+
+  <div>
+    <%= link_to_add_association 'Add Line', form, :salesorder_lines, partial: 'salesorder_line_fields' %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+  
+<% end %>

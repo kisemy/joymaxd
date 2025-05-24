@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @store_requestline.code %>
+</p>
+
+<p>
+  <strong>Product description:</strong>
+  <%= @store_requestline.product_description %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @store_requestline.quantity %>
+</p>
+
+<p>
+  <strong>Unit cost:</strong>
+  <%= @store_requestline.unit_cost %>
+</p>
+
+<p>
+  <strong>Amount:</strong>
+  <%= @store_requestline.amount %>
+</p>
+
+<p>
+  <strong>Received:</strong>
+  <%= @store_requestline.received %>
+</p>
+
+<p>
+  <strong>Expiry date:</strong>
+  <%= @store_requestline.expiry_date %>
+</p>
+
+<p>
+  <strong>Batch no:</strong>
+  <%= @store_requestline.batch_no %>
+</p>
+
+<p>
+  <strong>Stock balance:</strong>
+  <%= @store_requestline.stock_balance %>
+</p>
+
+<p>
+  <strong>Destination code:</strong>
+  <%= @store_requestline.destination_code %>
+</p>
+
+<p>
+  <strong>Destination name:</strong>
+  <%= @store_requestline.destination_name %>
+</p>
+
+<p>
+  <strong>Store request:</strong>
+  <%= @store_requestline.store_request_id %>
+</p>
+
+<%= link_to 'Edit', edit_store_requestline_path(@store_requestline) %> |
+<%= link_to 'Back', store_requestlines_path %>

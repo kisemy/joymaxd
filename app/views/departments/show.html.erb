@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Department code:</strong>
+  <%= @department.department_code %>
+</p>
+
+<p>
+  <strong>Department name:</strong>
+  <%= @department.department_name %>
+</p>
+
+<p>
+  <strong>Current cec p no:</strong>
+  <%= @department.current_CEC_p_no %>
+</p>
+
+<p>
+  <strong>Current cec name:</strong>
+  <%= @department.current_CEC_name %>
+</p>
+
+<p>
+  <strong>Current cec telephone:</strong>
+  <%= @department.current_CEC_telephone %>
+</p>
+
+<p>
+  <strong>Current cec email:</strong>
+  <%= @department.current_CEC_email %>
+</p>
+
+<p>
+  <strong>General dept email:</strong>
+  <%= @department.general_dept_email %>
+</p>
+
+<%= link_to 'Edit', edit_department_path(@department) %> |
+<%= link_to 'Back', departments_path %>

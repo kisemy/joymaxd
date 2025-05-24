@@ -29,6 +29,7 @@
 <table>
   <thead>
     <tr>
+    <th>Item No</th>
       <th>Description</th>
       <th>Units of measure</th>
       <th>Unit cost</th>
@@ -43,6 +44,7 @@
   <tbody>
     <% @items.each do |item| %>
       <tr>
+         <td><%= item.id %></td>
         <td><%= item.description %></td>
         <td><%= item.units_of_measure %></td>
         <td><%= item.unit_cost %></td>

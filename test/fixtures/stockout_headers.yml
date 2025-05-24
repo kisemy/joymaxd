@@ -1,0 +1,35 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stko: 
+  request_no: MyString
+  client_code: MyString
+  client_name: MyText
+  address: MyText
+  email: MyText
+  telephone: MyText
+  client_category: MyText
+  status: MyString
+  warehouse_code: MyString
+  warehouse_name: MyText
+  request_date: 2025-04-01
+  release_date: 2025-04-01
+  requested_by: MyString
+  issued: false
+
+two:
+  stko: 
+  request_no: MyString
+  client_code: MyString
+  client_name: MyText
+  address: MyText
+  email: MyText
+  telephone: MyText
+  client_category: MyText
+  status: MyString
+  warehouse_code: MyString
+  warehouse_name: MyText
+  request_date: 2025-04-01
+  release_date: 2025-04-01
+  requested_by: MyString
+  issued: false

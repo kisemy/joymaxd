@@ -1,0 +1,27 @@
+<%= form_with(model: financial_year, local: true) do |form| %>
+  <% if financial_year.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(financial_year.errors.count, "error") %> prohibited this financial_year from being saved:</h2>
+
+      <ul>
+        <% financial_year.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :code %>
+    <%= form.text_field :code %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

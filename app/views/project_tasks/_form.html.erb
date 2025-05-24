@@ -1,0 +1,150 @@
+
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+            
+    <style>
+.styled-textarea {
+  width: 1000px;   /* Adjust width */
+  
+  resize: none;   /* Optional: Disable resizing */
+}
+/* Add this to make the card smaller */
+.smaller-card {
+  max-width: 1300px;  /* Adjust this value as needed */
+  margin: 0 auto;    /* Centers the card */
+}
+
+</style>    
+
+
+
+
+
+
+<%= form_with(model: project_task, local: true) do |form| %>
+  <% if project_task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(project_task.errors.count, "error") %> prohibited this project_task from being saved:</h2>
+
+      <ul>
+        <% project_task.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+ <div class="card smaller-card">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs" id="formTabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab">Basic Info</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+    <div class="card-body tab-content" id="formTabsContent">
+      <!-- Basic Tab -->
+      <div class="tab-pane fade show active" id="basic" role="tabpanel">  
+  
+  
+  <div class="field">
+    <%= form.label :project_no %><br>
+    <%= form.text_field :project_code, class: 'styled-textarea' %>
+  </div>
+  
+  
+
+  <div class="field">
+    <%= form.label :task_no %><br>
+    <%= form.text_field :task_no, class: 'styled-textarea' %>
+  </div>
+
+  
+
+
+  <div class="field">
+    <%= form.label :task_description %><br>
+    <%= form.text_area :task_description , class: 'styled-textarea'%>
+  </div>
+
+  
+
+  <div class="field">
+    <%= form.label :planned_start_date %><br>
+    <%= form.date_select :planned_start_date, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :planned_end_date %><br>
+    <%= form.date_select :planned_end_date, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :actual_start_date %><br>
+    <%= form.date_select :actual_start_date, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :actual_end_date %><br>
+    <%= form.date_select :actual_end_date, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :planned_task_duration %><br>
+    <%= form.number_field :planned_task_duration, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :actual_task_duration %><br>
+    <%= form.number_field :actual_task_duration, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :percentage_coverage_planned %><br>
+    <%= form.text_field :percentage_coverage_planned, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :percentage_coverage %><br>
+    <%= form.text_field :percentage_coverage, class: 'styled-textarea' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :parallel %>
+    <%= form.check_box :parallel, class: 'styled-textarea' %>
+  </div>
+  
+   <div class="field">
+    <%= form.label :completed %>
+  <%= form.check_box :completed %>
+    </div>
+  
+  
+  
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+  
+ </div>
+ </div>
+  
+<% end %>
+</div>
+</div>

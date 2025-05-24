@@ -32,8 +32,73 @@
 // require Chart.js
 // require invoice_lines.js
 
+// require jquery
+// require datatables.net
+// require dataTables.bootstrap4 // if using Bootstrap
 
 
+//= require jquery
+//= require datatables.net
+//= require datatables.net-bs4
+
+
+//= require_tree .
+
+
+
+
+
+
+$(document).on('turbolinks:load', function() {
+  $('.datatable').DataTable({
+    responsive: true,
+    dom: 'Bfrtip',
+    buttons: [
+      'copy', 'csv', 'excel', 'pdf', 'print'
+    ],
+    pageLength: 25,
+    lengthMenu: [[10, 25, 50, 100, -1], [10, 25, 50, 100, "All"]],
+    columnDefs: [
+      { 
+        orderable: false, 
+        targets: -3 // Disables sorting for last 3 columns (actions)
+      }
+    ]
+  });
+});
+
+
+
+
+
+
+// app/javascript/packs/application.js
+import 'datatables.net-bs4'
+import $ from 'jquery';
+
+document.addEventListener("turbolinks:load", () => {
+  $('.datatable').DataTable();
+});
+
+import 'datatables.net'
+import 'datatables.net-dt/css/dataTables.dataTables.css'
+import $ from 'jquery'
+
+document.addEventListener('turbolinks:load', function() {
+  $('.datatable').DataTable()
+})
+
+
+
+
+
+
+
+
+
+
+// app/javascript/packs/application.js
+import { Gantt } from "frappe-gantt";
 
 
 
@@ -110,6 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
 
 
 

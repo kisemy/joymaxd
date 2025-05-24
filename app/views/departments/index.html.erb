@@ -1,0 +1,65 @@
+
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+            <!--<%= yield %>-->
+
+
+
+
+
+<p id="notice"><%= notice %></p>
+
+<h1>Departments</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Department code</th>
+      <th>Department name</th>
+      <th>Current CEC P.No</th>
+      <th>Current CEC Name</th>
+      <th>Current CEC Telephone</th>
+      <th>Current CEC email</th>
+      <th>General DEPT email</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @departments.each do |department| %>
+      <tr>
+        <td><%= department.department_code %></td>
+        <td><%= department.department_name %></td>
+        <td><%= department.current_CEC_p_no %></td>
+        <td><%= department.current_CEC_name %></td>
+        <td><%= department.current_CEC_telephone %></td>
+        <td><%= department.current_CEC_email %></td>
+        <td><%= department.general_dept_email %></td>
+        <td><%= link_to 'Show', department %></td>
+        <td><%= link_to 'Edit', edit_department_path(department) %></td>
+        <td><%= link_to 'Destroy', department, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Department', new_department_path %>
+
+</div>
+</div>

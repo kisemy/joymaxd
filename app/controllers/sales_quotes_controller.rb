@@ -86,6 +86,12 @@ class SalesQuotesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def sales_quote_params
-      params.require(:sales_quote).permit(:QTN_no, :customer_no, :customer_name, :contactno, :contact_name, :address, :city, :quote_date, :sales_person_code, :sales_person_name)
+      params.require(:sales_quote).permit(:QTN_no, :customer_no, :customer_name, :contactno, :contact_name, :address, :city, :quote_date, :sales_person_code, :sales_person_name, salesquotes_lines_attributes: [:charge_type, :item_no, :description, :quantity, :unit_of_measure, :unit_price, :amount, :QTN_no, :_destroy])
     end
+    
+  
+    
+    
+    
+    
 end

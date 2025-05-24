@@ -1,0 +1,233 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+<!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+    <!-- Navigation -->
+    <%= render 'layouts/navigation' %>
+
+    <!-- Page wraper -->
+    <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+        <!-- Page wrapper -->
+        <%= render 'layouts/topnavbar' %>
+
+        <!-- Main view  -->
+        <!--<%= yield %>-->
+
+
+
+
+
+
+
+<!-- app/views/projects/show.html.erb -->
+
+
+<div class="project-container">
+  <div class="project-header">
+    <h2><%= @project.project_name %>
+    <p class="project-meta">
+      <strong>Project Number:<%= @project.project_no %></strong><br>
+   
+    </p></h2>
+  </div>
+  
+   <div class="project-content">
+    <!-- Project Details -->
+    <div class="project-details card mb-4">
+      <div class="card-body">
+        <h5> Overal Progress</h5>
+<br>
+<div class="progress-container">
+  <div class="progress-bar" style="width: <%= @project.percent_completed %>%">
+    <%= number_to_percentage(@project.percent_completed, precision: 0) %>
+  </div>
+</div>
+          
+        </div>
+      </div>
+  
+  
+  
+  
+
+  <div class="project-content">
+    <!-- Project Details -->
+    <div class="project-details card mb-4">
+      <div class="card-body">
+        <h5 class="card-title">Project Details</h5>
+        <p><%= @project_name %></p>
+        <div class="row">
+          <div class="col-md-6">
+            <p><strong>Start Date:</strong> <%= @project.start_date.strftime("%B %d, %Y") if @project.start_date %></p>
+            <p><strong>End Date:</strong> <%= @project.end_date.strftime("%B %d, %Y") if @project.end_date %></p>
+            <p><strong>Total Tasks:</strong>  <%= @project_tasks.count %></p>
+          </div>
+          
+        </div>
+      </div>
+      
+     
+      
+      
+      
+      
+    </div>
+
+    <!-- Gantt Chart Section -->
+   
+    <div class="gantt-section card mb-4">
+      <div class="card-header">
+        <h5 class="card-title">Project Timeline</h5>
+      </div>
+      <div class="card-body">
+        <% if @project_tasks.any? %>
+          <div id="gantt-container"></div>
+        <% else %>
+          <div class="alert alert-info">No tasks found for this project.</div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- Tasks List (Optional) -->
+    <div class="tasks-list card">
+      <div class="card-header">
+        <h5 class="card-title">Project Tasks</h5>
+      </div>
+      <div class="card-body">
+        <% if @project_tasks.any? %>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Task #</th>
+                <th>Description</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Progress</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @project_tasks.each do |task| %>
+                <tr>
+                  <td><%= task.task_no %></td>
+                  <td><%= task.task_description %></td>
+                  <td><%= task.planned_start_date.strftime("%b %d, %Y") if task.planned_start_date %></td>
+                  <td><%= task.planned_end_date.strftime("%b %d, %Y") if task.planned_end_date %></td>
+                   <td>
+                    <div class="progress">
+                      <div class="progress-bar" role="progressbar" style="width: <%= task.percentage_coverage %>%" 
+                           aria-valuenow="<%= task.percentage_coverage %>" aria-valuemin="0" aria-valuemax="100">
+                        <%= task.percentage_coverage %>%
+                      </div>
+                    </div>
+                  </td>
+                  
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          <p class="text-muted">No tasks have been added to this project yet.</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Gantt Chart Implementation -->
+<% if @project_tasks.any? %>
+  <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/frappe-gantt@0.6.1/dist/frappe-gantt.min.js" %>
+  <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/frappe-gantt@0.6.1/dist/frappe-gantt.css" %>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Prepare tasks data
+    const tasks = [
+      <% @project_tasks.each do |task| %>
+        {
+          id: '<%= task.task_no %>',
+          name: '<%= j(task.task_description) %>',
+          start: '<%= task.planned_start_date.strftime("%Y-%m-%d") if task.planned_start_date %>',
+          end: '<%= task.planned_end_date.strftime("%Y-%m-%d") if task.planned_end_date %>',
+          progress: <%= task.percentage_coverage || 0 %>,
+          dependencies: '',
+          custom_class: ''
+        },
+      <% end %>
+    ].filter(task => task.start && task.end); // Only include tasks with valid dates
+
+    // Initialize Gantt chart if we have valid tasks
+    if (tasks.length > 0) {
+      const gantt = new Gantt("#gantt-container", tasks, {
+        header_height: 50,
+        column_width: 1130,
+        step: 24,
+        view_modes: ['Day', 'Week', 'Month'],
+        bar_height: 40,
+        bar_corner_radius: 3,
+        arrow_curve: 5,
+        padding: 18,
+        view_mode: 'Month',
+        date_format: 'YYYY-MM-DD',
+        custom_popup_html: function(task) {
+          return `
+            <div class="details-container">
+              <h5>${task.name}</h5>
+              <p>Task ID: ${task.id}</p>
+              <p>From ${task.start} to ${task.end}</p>
+              <p>Progress: ${task.percentage_coverage}%</p>
+            </div>
+          `;
+        }
+      });
+    } else {
+      document.querySelector('#gantt-container').innerHTML = 
+        '<div class="alert alert-warning">No tasks with valid dates available for Gantt chart</div>';
+    }
+  });
+  </script>
+
+  <style>
+    #gantt-container {
+      width: 100%;
+      height: 600px;
+      margin: 20px 0;
+      overflow-x: auto;
+    }
+    .gantt .bar-progress {
+      fill: #4CAF50;
+    }
+    .gantt .bar-wrapper:hover .bar {
+      fill: #3a9b3f;
+    }
+    .gantt .bar.completed {
+      fill: #8BC34A;
+    }
+    .gantt .bar.delayed {
+      fill: #F44336;
+    }
+  </style>
+<% end %>
+
+
+  
+ 
+
+<br>
+
+
+
+
+
+
+
+
+
+
+</div>
+</div>
+
+
+

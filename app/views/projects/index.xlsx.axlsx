@@ -1,0 +1,59 @@
+wb = xlsx_package.workbook
+
+# Add a worksheet with filtered parameters info
+wb.add_worksheet(name: "Filtered Projects") do |sheet|
+  # Add header with filter information
+  sheet.add_row ["Filtered Projects Export - #{Time.now.strftime('%Y-%m-%d %H:%M')}"]
+  sheet.add_row ["Applied Filters:"]
+  
+  # Display active filters
+  if params[:general_search].present?
+    sheet.add_row ["- General Search: #{params[:general_search]}"]
+  end
+  if params[:project_no].present?
+    sheet.add_row ["- Project No: #{params[:project_no]}"]
+  end
+  # Add other filters...
+  
+  sheet.add_row [] # empty row
+  
+  # Add column headers
+  headers = [
+    "Project No", "Project Name", "Financial Year", "Brief Description",
+    "Department", "Department Code", "Programme Name", "Programme Code",
+    "Budgeted", "Actual", "Longitude", "Latitude", "Start Date",
+    "End Date", "Project Status", "Sub County Code", "Sub County",
+    "Ward", "Village"
+  ]
+  sheet.add_row headers, style: sheet.styles.add_style(b: true, bg_color: "DDDDDD")
+  
+  # Add data rows
+  @projects.each do |project|
+    sheet.add_row [
+      project.project_no,
+      project.project_name,
+      project.financial_year,
+      project.brief_description,
+      project.department,
+      project.department_code,
+      project.programme_name,
+      project.programme_code,
+      project.budgeted,
+      project.actual,
+      project.longitude,
+      project.latitude,
+      project.start_date,
+      project.end_date,
+      project.project_status,
+      project.sub_county_code,
+      project.sub_county,
+      project.ward,
+      project.village
+    ]
+  end
+  
+  # Auto-size columns
+  sheet.column_widths *([15] * headers.size)
+end
+
+

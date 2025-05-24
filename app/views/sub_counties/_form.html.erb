@@ -1,0 +1,88 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+            
+   <style>
+.styled-textarea {
+  width: 1000px;   /* Adjust width */
+  
+  resize: none;   /* Optional: Disable resizing */
+}
+/* Add this to make the card smaller */
+.smaller-card {
+  max-width: 1300px;  /* Adjust this value as needed */
+  margin: 0 auto;    /* Centers the card */
+}
+
+</style>         
+            
+
+<%= form_with(model: sub_county, local: true) do |form| %>
+  <% if sub_county.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(sub_county.errors.count, "error") %> prohibited this sub_county from being saved:</h2>
+
+      <ul>
+        <% sub_county.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+   <div class="card smaller-card">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs" id="formTabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="basic-tab" data-toggle="tab" href="#basic" role="tab">Basic Info</a>
+        </li>
+        
+      </ul>
+    </div>
+    
+    <div class="card-body tab-content" id="formTabsContent">
+      <!-- Basic Tab -->
+      <div class="tab-pane fade show active" id="basic" role="tabpanel">
+
+  <div class="field">
+    <%= form.label :sub_county_code %><br>
+    <%= form.text_field :sub_county_code, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sub_county_name %><br>
+    <%= form.text_area :sub_county_name, class: 'styled-textarea'  %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+  
+  </div>
+  </div>
+<% end %>
+
+</div>
+</div>
+
+
+
+
+
+ 
+
+
+
+

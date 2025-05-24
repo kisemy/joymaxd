@@ -1,0 +1,85 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A4 Size Container</title>
+  <style>
+    /* A4 size dimensions */
+    .a4-container {
+      width: 210mm; /* or 8.27in */
+      height: 297mm; /* or 11.69in */
+      margin: 0 auto; /* Center the container */
+      padding: 20mm; /* Optional: Add padding */
+      box-sizing: border-box; /* Include padding in the dimensions */
+      background-color: white; /* Background color */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
+      border: 1px solid #ccc; /* Optional: Add border */
+    }
+
+    /* Optional: Add print-specific styles */
+    @media print {
+      .a4-container {
+        box-shadow: none;
+        border: none;
+        margin: 0;
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="a4-container">
+    <!-- Your content goes here -->
+    <h1>This is an A4-sized container</h1>
+  <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Invoice</title>
+
+</head>
+
+
+
+
+<body>
+  <h1>Invoice</h1>
+  <p><strong>Invoice Number:</strong> <%= @invoice.id %></p>
+  <p><strong>Date:</strong> <%= @invoice.date %></p>
+  <p><strong>Customer:</strong> <%= @invoice.customer_name %></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @invoice.invoice_lines.each do |line| %>
+        <tr>
+          <td><%= line.description %></td>
+          <td><%= line.quantity %></td>
+          <td><%= line.unit_price %></td>
+          <td><%= line.amount %></td>
+          
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  
+</body>
+</html>
+  </div>
+</body>
+</html>

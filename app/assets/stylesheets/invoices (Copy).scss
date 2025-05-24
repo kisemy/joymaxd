@@ -1,0 +1,93 @@
+// Place all the styles related to the invoices controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+/* A4 dimensions */
+.a4-container {
+  width: 210mm;
+  height: 297mm;
+  margin: 0 auto;
+  padding: 20mm;
+  box-sizing: border-box;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ccc;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo {
+  max-width: 150px;
+  margin-bottom: 10px;
+}
+
+/* Invoice Details */
+.invoice-details {
+  margin-bottom: 20px;
+}
+
+/* Row Layout */
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.column {
+  width: 48%;
+}
+
+/* Items Table */
+.items-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.items-table th, .items-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.items-table th {
+  background-color: #f4f4f4;
+}
+
+.items-table tfoot {
+  font-weight: bold;
+}
+
+.total-label {
+  text-align: right;
+}
+
+.total-amount {
+  text-align: right;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: 20px;
+  font-style: italic;
+}
+
+/* Print Styles */
+@media print {
+  .a4-container {
+    box-shadow: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+  }
+}

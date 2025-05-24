@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ward code:</strong>
+  <%= @ward.ward_code %>
+</p>
+
+<p>
+  <strong>Ward name:</strong>
+  <%= @ward.ward_name %>
+</p>
+
+<p>
+  <strong>Ward admin pno:</strong>
+  <%= @ward.ward_admin_pno %>
+</p>
+
+<p>
+  <strong>Ward admin name:</strong>
+  <%= @ward.ward_admin_name %>
+</p>
+
+<p>
+  <strong>Ward admin telephone:</strong>
+  <%= @ward.ward_admin_telephone %>
+</p>
+
+<p>
+  <strong>Ward admin email:</strong>
+  <%= @ward.ward_admin_email %>
+</p>
+
+<p>
+  <strong>Sub county code:</strong>
+  <%= @ward.sub_county_code %>
+</p>
+
+<p>
+  <strong>Sub county name:</strong>
+  <%= @ward.sub_county_name %>
+</p>
+
+<%= link_to 'Edit', edit_ward_path(@ward) %> |
+<%= link_to 'Back', wards_path %>

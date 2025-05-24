@@ -1,0 +1,406 @@
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+<!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+    <!-- Navigation -->
+    <%= render 'layouts/navigation' %>
+
+    <!-- Page wraper -->
+    <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+        <!-- Page wrapper -->
+        <%= render 'layouts/topnavbar' %>
+
+        <!-- Main view  -->
+        <!--<%= yield %>-->
+
+
+
+
+
+<style>
+
+chart-container {
+  margin: 20px 0;
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+#gantt_chart {
+  font-family: Arial, sans-serif;
+}
+
+/* app/assets/stylesheets/projects.css */
+.gantt-container {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.chart-tooltip {
+  padding: 10px;
+  min-width: 200px;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.chart-tooltip h4 {
+  margin: 0 0 8px 0;
+  color: #333;
+  font-size: 16px;
+}
+
+.chart-tooltip p {
+  margin: 5px 0;
+  font-size: 13px;
+  color: #666;
+}
+
+.google-visualization-tooltip {
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+  border-radius: 4px !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .gantt-container {
+    padding: 10px;
+  }
+  
+  #gantt_chart {
+    height: 600px !important; /* Fixed height for mobile */
+  }
+}
+
+
+.gantt-container1 {
+  width: 100%;
+  overflow-x: auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+#gantt_chart {
+  width: 100%;
+  min-width: <%= [@project_tasks.count * 100, 1000].max %>px; /* Ensure minimum width */
+}
+
+@media print {
+  .gantt-container {
+    width: 100% !important;
+    overflow: visible !important;
+  }
+  #gantt_chart {
+    height: auto !important;
+  }
+}
+
+/* app/assets/stylesheets/projects.css */
+.google-visualization-gantt-label {
+  font-size: 124px !important;
+  font-family: Arial, sans-serif !important;
+  font-weight: bold !important;
+  color: #333 !important;
+}
+
+/* For bar labels */
+.google-visualization-gantt-barlabel {
+  font-size: 122px !important;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.3) !important;
+}
+
+</style>
+
+<script>
+const options = {
+  width: '100%', // Use full container width
+  height: <%= @chart_height %>,
+  chartArea: {
+    width: '90%', // Leave some margin for labels
+    height: '80%'
+  },
+  gantt: {
+    barHeight: 24, // Slightly taller bars
+    trackHeight: 36, // More space between tracks
+    // Remove fixed padding to allow expansion
+    viewport: {
+      visible: {
+        units: 'months', // Adjust based on your time scale
+
+    count: <%= @time_span_months %>
+
+        
+       
+        
+      }
+    }
+  }
+};
+
+
+options.gantt.barStyle = {
+  fill: function(task) {
+    return getStatusColor(task.getValue(5), task.getValue(8));
+  },
+  stroke: 'none',
+  rx: 3, // Rounded corners
+  ry: 3
+};
+
+options.gantt.barLabelStyle = {
+  color: '#fff',
+  fontSize: '11px',
+  bold: true
+};
+
+
+
+
+const options = {
+  // ... other options ...
+  gantt: {
+    labelStyle: {
+      fontSize: 14,  // Increased from default 11
+      fontName: 'Arial',
+      color: '#333',
+      bold: true
+    },
+    barLabelStyle: {
+      fontSize: 12,  // Text inside bars
+      color: '#fff',
+      bold: true
+    }
+  }
+};
+
+options.chartArea = {
+  left: 250,  // Increased from typical 150-200
+  width: '855%',
+  height: '85%'
+};
+
+</script>
+
+<script>
+function drawGanttChart() {
+  const container = document.getElementById('gantt_chart');
+  const containerWidth = container.offsetWidth;
+  
+  const data = new google.visualization.DataTable();
+  // ... your data setup ...
+
+  const options = {
+    width: containerWidth,
+    height: <%= @chart_height %>,
+    chartArea: {
+      left: 280,  // More space for larger labels
+      width: '85%',
+      height: '85%'
+    },
+    gantt: {
+      labelStyle: {
+        fontSize: 14,
+        fontName: 'Arial',
+        color: '#333',
+        bold: true
+      },
+      barLabelStyle: {
+        fontSize: 12,
+        color: '#fff',
+        bold: true
+      },
+      barHeight: 28,  // Slightly taller bars
+      trackHeight: 40  // More vertical space
+    }
+  };
+
+  const chart = new google.visualization.Gantt(container);
+  chart.draw(data, options);
+  
+  // Handle window resize
+  window.addEventListener('resize', function() {
+    options.width = container.offsetWidth;
+    options.gantt.labelStyle.fontSize = calculateFontSize(container.offsetWidth);
+    chart.draw(data, options);
+  });
+}
+</script>
+
+<style>
+  /* Ensure labels are visible and properly sized */
+  .google-visualization-gantt-label {
+    font-size: 14px !important;
+    font-weight: bold !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Better contrast for bar labels */
+  .google-visualization-gantt-barlabel {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.7) !important;
+  }
+</style>
+
+
+
+<style>
+  .progress-container {
+    width: 100%;
+    background-color: #1c3ad4;
+    border-radius: 4px;
+    margin: 10px 0;
+  }
+  .progress-bar {
+    height: 20px;
+    background-color: #4CAF50;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 20px;
+    color: white;
+  }
+  
+  /* Make sure progress bars are visible */
+.progress {
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  overflow: visible !important;
+}
+
+.progress-bar {
+  transition: width 0.6s ease;
+  min-width: 20px; /* Ensures text is visible even at low percentages */
+  white-space: nowrap;
+}
+  
+  
+</style>
+
+
+
+
+
+
+
+<br>
+<br>
+<br>
+
+
+
+
+
+<!-- app/views/projects/show.html.erb -->
+<h3>Project Gantt Chart </h3>
+
+<br>
+<br>
+<br>
+<div class="gantt-container">
+  <div id="gantt_chart" style="width: 100%; min-height: 600px;"></div>
+</div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize the chart only if the container exists
+  if (document.getElementById('gantt_chart')) {
+    initializeGanttChart();
+  }
+});
+
+function initializeGanttChart() {
+  google.charts.load('current', {
+    packages: ['gantt'],
+    callback: drawGanttChart
+  });
+}
+
+function drawGanttChart() {
+  const data = new google.visualization.DataTable();
+  data.addColumn('string', 'Task ID');
+  data.addColumn('string', 'Task Name');
+  data.addColumn('date', 'Start Date');
+  data.addColumn('date', 'End Date');
+  data.addColumn('number', 'Duration');
+  data.addColumn('number', 'Percent Complete');
+  data.addColumn('string', 'Dependencies');
+
+  // Add your actual task data
+  <% @project_tasks.each do |task| %>
+    data.addRow([
+      '<%= task.task_no %>',
+      '<%= j(task.task_description) %>',
+      new Date('<%= task.planned_start_date %>'),
+      new Date('<%= task.planned_end_date %>'),
+      null,
+      <%= task.percentage_coverage.to_f || 0 %>,
+      '<%= task.p_tsk_01 %>'
+    ]);
+  <% end %>
+
+  const options = {
+    height: <%= @chart_height %>,
+    gantt: {
+      trackHeight: 50,
+      criticalPathEnabled: false,
+      arrow: {
+        angle: 60,
+        width: 2,
+        color: '#ccc'
+      }
+    }
+  };
+
+  const chart = new google.visualization.Gantt(document.getElementById('gantt_chart'));
+  
+  // Handle window resizing
+  window.addEventListener('resize', function() {
+    chart.draw(data, options);
+  });
+  
+  chart.draw(data, options);
+}
+</script>
+
+
+<br>
+<br>
+
+<h4> Progress Bar </h4>
+<br>
+<div class="progress-container">
+  <div class="progress-bar" style="width: <%= @project.percent_completed %>%">
+    <%= number_to_percentage(@project.percent_completed, precision: 0) %>
+  </div>
+</div>
+
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+
+

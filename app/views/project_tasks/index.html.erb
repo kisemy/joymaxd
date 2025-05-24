@@ -1,0 +1,78 @@
+
+<!-- Skin configuration box -->
+<!-- <%= render 'layouts/skinconfig' %> -->
+
+    <!-- Wrapper-->
+<div id="wrapper" class="<%= params[:controller] %>.<%= params[:action] %>">
+
+        <!-- Navigation -->
+        <%= render 'layouts/navigation' %>
+
+        <!-- Page wraper -->
+        <div id="page-wrapper" class="gray-bg <%= @extra_class %>">
+
+            <!-- Page wrapper -->
+            <%= render 'layouts/topnavbar' %>
+
+            <!-- Main view  -->
+            <!--<%= yield %>-->
+
+
+
+
+<p id="notice"><%= notice %></p>
+
+<h1>Project Tasks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task no</th>
+      <th>Auto no</th>
+      <th>P tsk 01</th>
+      <th>Task description</th>
+      <th>Project No</th>
+      <th>Planned start date</th>
+      <th>Planned end date</th>
+      <th>Actual start date</th>
+      <th>Actual end date</th>
+      <th>Planned task duration</th>
+      <th>Actual task duration</th>
+      <th>Percentage coverage planned</th>
+      <th>Percentage coverage</th>
+      <th>Parallel</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @project_tasks.each do |project_task| %>
+      <tr>
+        <td><%= project_task.task_no %></td>
+        <td><%= project_task.auto_no %></td>
+        <td><%= project_task.p_tsk_01 %></td>
+        <td><%= project_task.task_description %></td>
+        <td><%= project_task.project_no %></td>
+        <td><%= project_task.planned_start_date %></td>
+        <td><%= project_task.planned_end_date %></td>
+        <td><%= project_task.actual_start_date %></td>
+        <td><%= project_task.actual_end_date %></td>
+        <td><%= project_task.planned_task_duration %></td>
+        <td><%= project_task.actual_task_duration %></td>
+        <td><%= project_task.percentage_coverage_planned %></td>
+        <td><%= project_task.percentage_coverage %></td>
+        <td><%= project_task.parallel %></td>
+        <td><%= link_to 'Show', project_task %></td>
+        <td><%= link_to 'Edit', edit_project_task_path(project_task) %></td>
+        <td><%= link_to 'Destroy', project_task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Project Task', new_project_task_path %>
+
+</div>
+</div>

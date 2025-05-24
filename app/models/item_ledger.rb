@@ -1,0 +1,2 @@
+class ItemLedger < ApplicationRecord
+end

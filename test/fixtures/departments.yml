@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  department_code: MyString
+  department_name: MyText
+  current_CEC_p_no: MyString
+  current_CEC_name: MyText
+  current_CEC_telephone: MyString
+  current_CEC_email: MyText
+  general_dept_email: MyText
+
+two:
+  department_code: MyString
+  department_name: MyText
+  current_CEC_p_no: MyString
+  current_CEC_name: MyText
+  current_CEC_telephone: MyString
+  current_CEC_email: MyText
+  general_dept_email: MyText

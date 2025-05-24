@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Section code:</strong>
+  <%= @section.section_code %>
+</p>
+
+<p>
+  <strong>Section name:</strong>
+  <%= @section.section_name %>
+</p>
+
+<p>
+  <strong>Current co name:</strong>
+  <%= @section.current_co_name %>
+</p>
+
+<p>
+  <strong>Current co telephone:</strong>
+  <%= @section.current_co_telephone %>
+</p>
+
+<p>
+  <strong>Current co email:</strong>
+  <%= @section.current_co_email %>
+</p>
+
+<p>
+  <strong>General section email:</strong>
+  <%= @section.general_section_email %>
+</p>
+
+<p>
+  <strong>Department code:</strong>
+  <%= @section.department_code %>
+</p>
+
+<p>
+  <strong>Department name:</strong>
+  <%= @section.department_name %>
+</p>
+
+<p>
+  <strong>Complete projects:</strong>
+  <%= @section.complete_projects %>
+</p>
+
+<p>
+  <strong>Projects in progress:</strong>
+  <%= @section.projects_in_progress %>
+</p>
+
+<%= link_to 'Edit', edit_section_path(@section) %> |
+<%= link_to 'Back', sections_path %>
